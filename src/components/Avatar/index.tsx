@@ -1,171 +1,139 @@
 // Avatar Component
 
 import { cn } from "@/utils";
-import { cva, VariantProps } from "class-variance-authority";
+import { VariantProps } from "class-variance-authority";
 import React, { ComponentProps } from "react";
+import {
+  avatarFallbackStyle,
+  avatarImageStyle,
+  avatarStyles,
+} from "./index.style";
 
 // Avatar
-const AvatarStyles = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "flex justify-center items-center",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant styles
-      },
-      size: {
-        //size
-        sm: "w-12 h-12",
-        md: "w-14 h-14",
-        lg: "w-16 h-16",
-      },
-    },
-    compoundVariants: [
-      // compound variants
-    ],
-    defaultVariants: {
-      // default variants
-    },
-  }
-);
-
 type CustomAvatarProps = {
   children?: React.ReactNode;
   isLoading?: boolean;
   size?: "sm" | "md" | "lg";
   src?: string;
+  alt?: string;
 };
 
-type AvatarProps = CustomAvatarProps & VariantProps<typeof AvatarStyles>;
+type AvatarProps = CustomAvatarProps & VariantProps<typeof avatarStyles>;
 
-export const Avatar = ({
+export const Avatar: React.FC<AvatarProps> = ({
   children,
   isLoading,
   size,
   src,
+  alt,
   ...props
-}: AvatarProps) => {
+}) => {
   if (src && children) {
     console.error("Please provide either 'src' or 'children', not both.");
     return null;
   }
 
+  if (isLoading) {
+    return <AvatarFallback size={size} />;
+  }
+
+  if (src && !isLoading && !checkUrlOrNot(src)) {
+    return (
+      <div
+        className={cn(
+          avatarStyles({ size }),
+          `bg-silverSteel rounded-full text-${size} font-bold`
+        )}
+      >
+        {getInitials(src)}
+      </div>
+    );
+  }
+
+  if (src && checkUrlOrNot(src) && !isLoading) {
+    return (
+      <AvatarImage
+        src={src}
+        size={size}
+        alt={alt}
+        className={cn(avatarImageStyle({ size }))}
+      />
+    );
+  }
+
   return (
-    <div
-      className={cn(
-        AvatarStyles({ size }),
-        `${src && !checkUrlOrNot(src) && !isLoading ? `bg-silverSteel rounded-full text-${size} font-bold ` : src && checkUrlOrNot(src) && isLoading ? "animate-pulse" : ""}`
-      )}
-      {...props}
-    >
-      {isLoading ? (
-        <Avatar.fallback size={size} />
-      ) : src && checkUrlOrNot(src) ? (
-        <Avatar.Image src={src} size={size} {...props} />
-      ) : src && !checkUrlOrNot(src) ? (
-        <>{src && getInitials(src)}</>
-      ) : (
-        children
-      )}
+    <div className={cn(avatarStyles({ size }))} {...props}>
+      {children}
     </div>
   );
 };
 
-// Avatar.Image
-const AvatarImageStyle = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "rounded-full",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant styles
-      },
-      size: {
-        //size
-        sm: "w-12 h-12",
-        md: "w-14 h-14",
-        lg: "w-16 h-16",
-      },
-    },
-    compoundVariants: [
-      // compound variants
-    ],
-    defaultVariants: {
-      // default variants
-    },
-  }
-);
-
+// Avatar Image
 type CustomAvatarImageProps = {
-  src?: string;
+  src: string;
   size?: "sm" | "md" | "lg";
+  alt?: string;
 };
 
 type AvatarImageProps = ComponentProps<"img"> &
   CustomAvatarImageProps &
-  VariantProps<typeof AvatarImageStyle>;
+  VariantProps<typeof avatarImageStyle>;
 
-Avatar.Image = ({ src, size, ...props }: AvatarImageProps) => {
+export const AvatarImage: React.FC<AvatarImageProps> = ({
+  src,
+  size = "md",
+  alt,
+  ...props
+}: AvatarImageProps) => {
   return (
-    <img src={src} className={cn(AvatarImageStyle({ size }))} {...props} />
+    <img
+      src={src}
+      alt={alt}
+      className={cn(avatarImageStyle({ size }))}
+      {...props}
+    />
   );
 };
 
-// Avatar.Fallback
-const AvatarFallbackStyle = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "rounded-full",
-    "bg-silverSteel",
-    "animate-pulse",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant styles
-      },
-      size: {
-        //size
-        sm: "w-12 h-12",
-        md: "w-14 h-14",
-        lg: "w-16 h-16",
-      },
-    },
-    compoundVariants: [
-      // compound variants
-    ],
-    defaultVariants: {
-      // default variants
-    },
-  }
-);
-
+// Avatar Fallback
 type CustomeAvatarFallbackProps = {
   size?: "sm" | "md" | "lg";
 };
 
 type AvatarFallbackProps = CustomeAvatarFallbackProps &
-  VariantProps<typeof AvatarFallbackStyle>;
+  VariantProps<typeof avatarFallbackStyle>;
 
-Avatar.fallback = ({ size, ...props }: AvatarFallbackProps) => {
-  return <div className={cn(AvatarFallbackStyle({ size }))} {...props}></div>;
+export const AvatarFallback: React.FC<AvatarFallbackProps> = ({
+  size,
+  ...props
+}: AvatarFallbackProps) => {
+  return <div className={cn(avatarFallbackStyle({ size }))} {...props}></div>;
 };
 
 // Function use in Avatar component
 
 // Check if the input string is a valid URL
 function checkUrlOrNot(src: string) {
-  return /^(http|https):\/\/[^ "]+$/.test(src);
+  let userStatus = false;
+  try {
+    const checkUrl = new URL(src);
+    if (checkUrl.protocol) {
+      userStatus = true;
+    }
+  } catch (error) {
+    userStatus = false;
+  }
+  // // Regular expression to match file paths (basic)
+  const pathPattern =
+    /^(?:[a-zA-Z]:)?(\/[^\/:*?"<>|\r\n]+)+\.(jpeg|jpg|gif|png|bmp|svg|webp|tiff|tif)$/i;
+
+  // // Regular expression to match names (basic)
+  const namePattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
+
+  // Check if the input matches either pattern
+  if (userStatus || pathPattern.test(src))
+    return userStatus || pathPattern.test(src);
+  if (namePattern.test(src)) return false;
 }
 // Extract initials from a full name
 function getInitials(fullName: string): string {

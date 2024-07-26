@@ -1,13 +1,17 @@
 // Avatar component story
 
 import { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from ".";
+import { Avatar, AvatarImage } from ".";
+import myImage from "../../../public/assets/test.jpg";
 
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",
+  },
+  args: {
+    alt: "image2",
   },
   argTypes: {
     isLoading: {
@@ -34,13 +38,20 @@ export const Profile: Story = {
 
 export const ProfileWithChildren: Story = {
   args: {
-    size: "sm",
+    size: "lg",
     children: (
-      <Avatar.Image
+      <AvatarImage
         src="https://mui.com/static/images/avatar/1.jpg"
-        size={"sm"}
+        size={"lg"}
       />
     ),
+  },
+};
+
+export const ProfileWithPath: Story = {
+  args: {
+    size: "md",
+    src: myImage,
   },
 };
 

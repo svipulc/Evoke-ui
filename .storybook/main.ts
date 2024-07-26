@@ -1,6 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  staticDirs: ["../public"],
   viteFinal: async (config) => {
     config.plugins?.push(
       /** @see https://github.com/aleclarson/vite-tsconfig-paths */
