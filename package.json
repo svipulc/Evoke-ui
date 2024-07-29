@@ -14,6 +14,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@semantic-release/changelog": "^6.0.3",
     "@storybook/addon-a11y": "^8.2.6",
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
