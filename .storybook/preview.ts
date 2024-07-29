@@ -3,6 +3,9 @@ import "../src/index.css";
 
 const preview: Preview = {
   parameters: {
+    darkMode: {
+      stylePreview: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

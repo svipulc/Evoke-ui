@@ -16,16 +16,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Solid: Story = {
   args: {
-    variant: "primary",
-    children: "Button",
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    variant: "secondary",
+    variant: "solid",
     children: "Button",
   },
 };
@@ -34,6 +27,7 @@ export const Outline: Story = {
   args: {
     variant: "outline",
     children: "Button",
+    // colorScheme: "primary",
   },
 };
 
@@ -41,20 +35,20 @@ export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Button",
+    // colorScheme: "primary",
   },
 };
 
 export const Link: Story = {
   args: {
     variant: "link",
-    children: "Button",
+    children: <a href="https://github.com">Click Here</a>,
     asChild: true,
   },
 };
 
 export const Icon: Story = {
   args: {
-    variant: "secondary",
     children: <FaSearch />,
     size: "icon",
   },
@@ -62,7 +56,7 @@ export const Icon: Story = {
 
 export const SearchButton: Story = {
   args: {
-    variant: "primary",
+    variant: "solid",
     children: (
       <>
         <FaSearch />
