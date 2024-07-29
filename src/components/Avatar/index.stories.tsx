@@ -1,8 +1,8 @@
 // Avatar component story
 
 import { Meta, StoryObj } from "@storybook/react";
-import { Avatar, AvatarImage } from ".";
-import myImage from "../../../public/assets/test.jpg";
+import { Avatar, AvatarFallback, AvatarImage } from ".";
+import testImg from "../../../public/assets/test.jpg";
 
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
@@ -10,13 +10,8 @@ const meta: Meta<typeof Avatar> = {
   parameters: {
     layout: "centered",
   },
-  args: {
-    alt: "image2",
-  },
+  args: {},
   argTypes: {
-    isLoading: {
-      control: { type: "boolean" },
-    },
     size: {
       options: ["sm", "md", "lg"],
       control: { type: "select" },
@@ -31,33 +26,42 @@ type Story = StoryObj<typeof meta>;
 
 export const Profile: Story = {
   args: {
-    size: "sm",
-    src: "https://mui.com/static/images/avatar/2.jpg",
-  },
-};
-
-export const ProfileWithChildren: Story = {
-  args: {
     size: "lg",
     children: (
       <AvatarImage
-        src="https://mui.com/static/images/avatar/1.jpg"
+        src="https://mui.com/static/images/avatar/2.jpg"
         size={"lg"}
+        alt="Vishal Patel"
+        className="border-secondary border-4"
       />
     ),
   },
 };
 
-export const ProfileWithPath: Story = {
+export const ProfileWithoutSource: Story = {
   args: {
-    size: "md",
-    src: myImage,
+    size: "lg",
+    children: (
+      <AvatarImage
+        src=""
+        size={"sm"}
+        alt=""
+        fallback={<AvatarFallback size={"sm"} alt="Alternative Text" />}
+      />
+    ),
   },
 };
 
-export const ProfileWithName: Story = {
+export const ProfileWithFallback: Story = {
+  args: {
+    size: "lg",
+    children: <AvatarFallback size={"sm"} alt="Custom Fallback" />,
+  },
+};
+
+export const ProfileUsingPath: Story = {
   args: {
     size: "sm",
-    src: "Kashyap Patel",
+    children: <AvatarImage src={testImg} size={"sm"} />,
   },
 };

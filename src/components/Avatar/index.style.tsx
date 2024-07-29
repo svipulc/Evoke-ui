@@ -1,11 +1,15 @@
+// Avatar component style
+
 import { cva } from "class-variance-authority";
 
+// Avatar
 export const avatarStyles = cva(
   [
     // css style
     "w-full",
     "h-full",
     "flex justify-center items-center",
+    ,
   ],
   {
     variants: {
@@ -28,6 +32,8 @@ export const avatarStyles = cva(
     },
   }
 );
+
+// Avatar Image
 export const avatarImageStyle = cva(
   [
     // css style
@@ -53,9 +59,12 @@ export const avatarImageStyle = cva(
     ],
     defaultVariants: {
       // default variants
+      size: "md",
     },
   }
 );
+
+// Avatar Fallback
 export const avatarFallbackStyle = cva(
   [
     // css style
@@ -63,7 +72,7 @@ export const avatarFallbackStyle = cva(
     "h-full",
     "rounded-full",
     "bg-silverSteel",
-    "animate-pulse",
+    "flex justify-center items-center",
   ],
   {
     variants: {
@@ -82,6 +91,7 @@ export const avatarFallbackStyle = cva(
     ],
     defaultVariants: {
       // default variants
+      size: "md",
     },
   }
 );
