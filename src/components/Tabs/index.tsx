@@ -2,19 +2,25 @@
 
 import { cn } from "@/utils";
 import { VariantProps } from "class-variance-authority";
-import { ComponentProps, useState } from "react";
+import { ComponentProps, MouseEvent, useState } from "react";
 import { TabsContext, useTabs } from "./TabsContext";
-import { tabsContentStyles, tabsStyles } from "./index.styles";
+import {
+  tabsContentStyles,
+  tabsIndicatorStyles,
+  tabsListStyles,
+  tabsStyles,
+  tabsTriggerStyles,
+} from "./index.styles";
 
 // Tabs
 
-type CustomeTabsProps = {
+type CustomTabsProps = {
   children?: React.ReactNode;
   defaultValue: string;
 };
 
 type TabsProps = ComponentProps<"div"> &
-  CustomeTabsProps &
+  CustomTabsProps &
   VariantProps<typeof tabsStyles>;
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -27,7 +33,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className={cn(tabsStyles(), className, "tabs")} {...props}>
+      <div className={cn(tabsStyles(), className)} {...props}>
         {children}
       </div>
     </TabsContext.Provider>
@@ -36,7 +42,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
 // TabsList
 
-type TabListProps = ComponentProps<"div">;
+type TabListProps = ComponentProps<"div"> & VariantProps<typeof tabsListStyles>;
 
 export const TabsList: React.FC<TabListProps> = ({
   children,
@@ -44,7 +50,7 @@ export const TabsList: React.FC<TabListProps> = ({
   ...props
 }) => {
   return (
-    <div className={cn("tabs-list flex gap-4", className)} {...props}>
+    <div className={cn(tabsListStyles(), className)} {...props}>
       {children}
     </div>
   );
@@ -52,41 +58,48 @@ export const TabsList: React.FC<TabListProps> = ({
 
 // TabTrigger
 
-type TabTriggerProps = ComponentProps<"button"> & {
+type CustomTabsTriggerProps = {
   value: string;
 };
+
+type TabTriggerProps = ComponentProps<"button"> &
+  CustomTabsTriggerProps &
+  VariantProps<typeof tabsTriggerStyles>;
 
 export const TabsTrigger: React.FC<TabTriggerProps> = ({
   children,
   value,
   className,
+  onClick,
   ...props
 }) => {
   const { activeTab, setActiveTab } = useTabs();
   const isActive = activeTab === value;
-  const handleClick = () => {
-    console.log(value);
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setActiveTab?.(value);
+    if (onClick) {
+      onClick(e);
+    }
   };
   return (
     <button
       onClick={handleClick}
-      className={cn(
-        `tab-trigger p-2 hover:bg-silverSteel/10 text-md ${isActive ? "text-primary dark:text-white border-b-secondary border-b-4 " : "dark:text-silverSteel "}`,
-        className
-      )}
+      className={cn(tabsTriggerStyles({ active: isActive }), className)}
       {...props}
     >
       {children}
+      {isActive && <span className={cn(tabsIndicatorStyles())}></span>}
     </button>
   );
 };
 
 // TabContent
 
-type TabContentProps = ComponentProps<"div"> & {
+type CustomTabsContentProps = {
   value: string;
 };
+
+type TabContentProps = ComponentProps<"div"> & CustomTabsContentProps;
 
 export const TabsContent: React.FC<TabContentProps> = ({
   children,
@@ -98,10 +111,7 @@ export const TabsContent: React.FC<TabContentProps> = ({
   return (
     <>
       {activeTab === value && (
-        <div
-          className={cn("tabs-content", tabsContentStyles(), className)}
-          {...props}
-        >
+        <div className={cn(tabsContentStyles(), className)} {...props}>
           {children}
         </div>
       )}
