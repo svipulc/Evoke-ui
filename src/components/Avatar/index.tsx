@@ -2,7 +2,7 @@
 
 import { cn } from "@/utils";
 import { VariantProps } from "class-variance-authority";
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, useEffect, useState } from "react";
 import {
   avatarFallbackStyle,
   avatarImageStyle,
@@ -37,7 +37,6 @@ export const Avatar: React.FC<AvatarProps> = ({
 
 type CustomAvatarImageProps = {
   src: string;
-  size?: "sm" | "md" | "lg";
   alt?: string;
   fallback?: React.ReactNode;
 };
@@ -48,20 +47,42 @@ type AvatarImageProps = ComponentProps<"img"> &
 
 export const AvatarImage: React.FC<AvatarImageProps> = ({
   src,
-  size = "md",
   alt = "Alternative Text",
   fallback,
   className,
   ...props
 }) => {
-  if (!src || src === "") {
-    return <AvatarFallback size={size} alt={alt} fallback={fallback} />;
+  const [isValidImage, setIsValidImage] = useState(false);
+
+  useEffect(() => {
+    console.log("AvatarImage useEffect");
+    let isMounted = true;
+    const validateSrc = async () => {
+      if (src && src.trim() !== "") {
+        const isValid = await validateImage(src);
+        if (isMounted) {
+          setIsValidImage(isValid);
+        }
+      } else {
+        setIsValidImage(false);
+      }
+    };
+
+    validateSrc();
+    return () => {
+      isMounted = false;
+    };
+  }, [src]);
+
+  if (!isValidImage) {
+    return <AvatarFallback alt={alt} fallback={fallback} />;
   }
+
   return (
     <img
       src={src}
       alt={alt}
-      className={cn(avatarImageStyle({ size }), className)}
+      className={cn(avatarImageStyle({}), className)}
       {...props}
     />
   );
@@ -70,7 +91,6 @@ export const AvatarImage: React.FC<AvatarImageProps> = ({
 // Avatar Fallback
 
 type CustomAvatarFallbackProps = {
-  size?: "sm" | "md" | "lg";
   alt?: string;
   fallback?: React.ReactNode;
 };
@@ -79,21 +99,21 @@ type AvatarFallbackProps = ComponentProps<"div"> &
   CustomAvatarFallbackProps &
   VariantProps<typeof avatarFallbackStyle>;
 
-export const AvatarFallback: React.FC<AvatarFallbackProps> = ({
-  size,
-  alt,
-  fallback,
-  className,
-  ...props
-}) => {
-  return (
-    <div className={cn(avatarFallbackStyle({ size }), className)} {...props}>
-      {fallback && fallback}
-      {alt && !fallback && getInitials(alt)}
-      {!alt && !fallback && "?"}
-    </div>
-  );
-};
+export const AvatarFallback: React.FC<AvatarFallbackProps> = React.memo(
+  ({ alt, fallback, className, ...props }) => {
+    const content = React.useMemo(() => {
+      if (fallback) return fallback;
+      if (alt) return getInitials(alt);
+      return "?";
+    }, [fallback, alt]);
+
+    return (
+      <div className={cn(avatarFallbackStyle({}), className)} {...props}>
+        {content}
+      </div>
+    );
+  }
+);
 
 // Function use in Avatar component
 
@@ -106,5 +126,44 @@ function getInitials(fullName: string): string {
     return `${firstInitial}${lastInitial}`; // Return initials for first and last name
   } else {
     return firstInitial; // Return only the first letter for a single name
+  }
+}
+
+// Validate image source
+async function validateImage(source: string): Promise<boolean> {
+  if (!source) return false;
+
+  const isUrl = (url: string): boolean => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const validUrl = (url: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
+  };
+
+  const isImagePath = (path: string): boolean => {
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
+    return imageExtensions.some((ext) => path.toLowerCase().endsWith(ext));
+  };
+
+  if (isUrl(source)) {
+    try {
+      return await validUrl(source);
+    } catch (error) {
+      console.error("Error validating image URL:", error);
+      return false;
+    }
+  } else {
+    return isImagePath(source);
   }
 }

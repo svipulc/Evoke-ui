@@ -30,9 +30,8 @@ export const Profile: Story = {
     children: (
       <AvatarImage
         src="https://mui.com/static/images/avatar/2.jpg"
-        size={"lg"}
         alt="Vishal Patel"
-        className="border-secondary border-4"
+        className="ring-4 ring-secondary"
       />
     ),
   },
@@ -43,10 +42,9 @@ export const ProfileWithoutSource: Story = {
     size: "lg",
     children: (
       <AvatarImage
-        src=""
-        size={"sm"}
+        src="   "
         alt=""
-        fallback={<AvatarFallback size={"sm"} alt="Alternative Text" />}
+        fallback={<AvatarFallback alt="Alternative Text" />}
       />
     ),
   },
@@ -55,13 +53,29 @@ export const ProfileWithoutSource: Story = {
 export const ProfileWithFallback: Story = {
   args: {
     size: "lg",
-    children: <AvatarFallback size={"sm"} alt="Custom Fallback" />,
+    children: <AvatarFallback alt="Custom Fallback" />,
   },
 };
 
 export const ProfileUsingPath: Story = {
   args: {
     size: "sm",
-    children: <AvatarImage src={testImg} size={"sm"} />,
+    children: <AvatarImage src={testImg} />,
+  },
+};
+
+export const ProfileWithNoAltNoFallback: Story = {
+  args: {
+    size: "lg",
+    children: <AvatarImage src="" alt="" />,
+  },
+};
+
+export const ProfileWithInvalidUrl: Story = {
+  args: {
+    size: "lg",
+    children: (
+      <AvatarImage src="https://www.google.com/2.jpg" alt="Test Image" />
+    ),
   },
 };
