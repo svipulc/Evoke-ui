@@ -27,7 +27,6 @@ export const Outline: Story = {
   args: {
     variant: "outline",
     children: "Button",
-    // colorScheme: "primary",
   },
 };
 
@@ -35,7 +34,6 @@ export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Button",
-    // colorScheme: "primary",
   },
 };
 
@@ -44,6 +42,21 @@ export const Link: Story = {
     variant: "link",
     children: <a href="https://github.com">Click Here</a>,
     asChild: true,
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    children: "Delete Account",
+  },
+};
+
+export const Disable: Story = {
+  args: {
+    variant: "solid",
+    children: "Disabled",
+    disabled: true,
   },
 };
 
