@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from ".";
+import { FaSearch } from "react-icons/fa";
+import { BsPersonFillAdd } from "react-icons/bs";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -32,5 +34,61 @@ export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Button",
+  },
+};
+
+export const Link: Story = {
+  args: {
+    variant: "link",
+    children: <a href="https://github.com">Click Here</a>,
+    asChild: true,
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    variant: "destructive",
+    children: "Delete Account",
+  },
+};
+
+export const Disable: Story = {
+  args: {
+    variant: "solid",
+    children: "Disabled",
+    disabled: true,
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    children: <FaSearch />,
+    size: "icon",
+  },
+};
+
+export const SearchButton: Story = {
+  args: {
+    variant: "solid",
+    children: (
+      <>
+        <FaSearch />
+        <span>Search</span>
+      </>
+    ),
+    size: "md",
+  },
+};
+
+export const AddFriendButton: Story = {
+  args: {
+    variant: "outline",
+    children: (
+      <>
+        <BsPersonFillAdd className="h-5 w-5" />
+        <span>Add Friend</span>
+      </>
+    ),
+    size: "md",
   },
 };
