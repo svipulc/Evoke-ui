@@ -11,7 +11,9 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_815e158efad9c48",
-    "commit": "cz"
+    "commit": "cz",
+    "prepare": "husky",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -25,12 +27,14 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "semantic-release": "^24.0.0",
+    "storybook-dark-mode": "^4.0.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss": "^3.4.5",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-a11y": "^8.2.6",
     "@storybook/addon-essentials": "^8.2.4",
     "@storybook/addon-interactions": "^8.2.4",
     "@storybook/addon-links": "^8.2.4",
@@ -47,9 +51,15 @@
     "@vitejs/plugin-react-swc": "^3.7.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "^0.8.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.3",
     "storybook": "^8.2.4",
     "storybook-dark-mode": "^4.0.2",
     "typescript": "^5.2.2",
@@ -59,5 +69,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "prettier --write"
+    ]
   }
 }
