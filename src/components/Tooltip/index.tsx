@@ -4,22 +4,28 @@ import { VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { tooltipParentStyle, tooltipStyle } from "./index.style";
 
-type TooltipProps = ComponentProps<"div"> &
+export type TooltipProps = ComponentProps<"div"> &
   VariantProps<typeof tooltipParentStyle> & {
     text?: string;
     children: ReactNode;
-    showTooltip?: boolean;
-    position?: "top" | "bottom" | "left" | "right";
-    backgroudColor: string;
-    textColor: string;
+    position?:
+      | "top"
+      | "bottom"
+      | "left"
+      | "right"
+      | "topStart"
+      | "topEnd"
+      | "bottomStart"
+      | "bottomEnd"
+      | "leftStart"
+      | "leftEnd"
+      | "rightStart"
+      | "rightEnd";
   };
 
 const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
-  showTooltip = true,
-  backgroudColor,
-  textColor,
-  text,
+  content,
   className,
   children,
   ...props
@@ -31,15 +37,12 @@ const Tooltip: React.FC<TooltipProps> = ({
         <span
           className={cn(
             tooltipStyle({
-              showTooltip: showTooltip ? "show" : "hide",
               position,
               className,
-            }),
-            backgroudColor,
-            textColor
+            })
           )}
         >
-          {text}
+          {content}
         </span>
       </div>
     </>
