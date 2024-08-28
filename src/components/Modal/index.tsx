@@ -1,23 +1,46 @@
 import { cn } from "@/utils";
 import { ModalOverlayStyles } from "./index.style";
-import {
-  ModalProps,
-  ModalBodyProps,
-  ModalHeaderProps,
-  ModalContentProps,
-  ModalFooterProps,
-} from "./modal.types";
 import { ModalBackgroundStyles } from "./index.style";
 import { createContext, useContext } from "react";
+import { IoMdClose } from "react-icons/io";
+import { Button } from "../Button";
 
-interface ModalContextProps {
+import { ComponentProps } from "react";
+
+export type ModalProps = ComponentProps<"div"> & {
+  isOpen: boolean;
+  onClose: () => void;
+  closeOnOutsideClick?: boolean;
+};
+
+export type ModalTriggerProps = ComponentProps<"div"> & {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+export type ModalBodyProps = ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+export type ModalHeaderProps = ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+export type ModalContentProps = ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+export type ModalFooterProps = ComponentProps<"div"> & {
+  children: React.ReactNode;
+};
+
+export interface ModalContextProps {
   onClose: () => void;
 }
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined);
 
 const Modal: React.FC<ModalProps> & {
-  Body: React.FC<ModalBodyProps>;
   Header: React.FC<ModalHeaderProps>;
   Content: React.FC<ModalContentProps>;
   Footer: React.FC<ModalFooterProps>;
@@ -37,6 +60,9 @@ const Modal: React.FC<ModalProps> & {
           className
         )}
         onClick={handleOverlayClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal"
       >
         <div
           className={cn(
@@ -44,43 +70,54 @@ const Modal: React.FC<ModalProps> & {
             isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
           )}
         >
-          {children}
+          <div className={cn(ModalBackgroundStyles(), className)}>
+            <div>{children}</div>
+          </div>
         </div>
       </div>
     </ModalContext.Provider>
   );
 };
 
-const Body: React.FC<ModalBodyProps> = ({ className, children }) => {
+const Header: React.FC<ModalHeaderProps> = ({ children, className }) => {
   const context = useContext(ModalContext);
   if (!context) {
     throw new Error("ModalHeader must be used within a Modal");
   }
   return (
-    <div className={cn(ModalBackgroundStyles(), className)}>
-      <div className="p-4">
-        <button onClick={context.onClose} className="text-gray-400 hover:text-gray-600 float-end">
-          &times;
-        </button>
-      </div>
-      <div>{children}</div>
+    <div
+      className={cn("m-6 flex justify-between items-center", className)}
+      aria-labelledby="modal-header"
+    >
+      {children}
+      <Button
+        variant={"ghost"}
+        size={"icon"}
+        onClick={context.onClose}
+        className="text-gray-400 hover:text-gray-600 w-fit"
+      >
+        <IoMdClose />
+      </Button>
     </div>
   );
 };
 
-const Header: React.FC<ModalHeaderProps> = ({ children }) => {
-  return <div className="p-4 ">{children}</div>;
+const Content: React.FC<ModalContentProps> = ({ children, className }) => {
+  return (
+    <div className={cn("m-6", className)} aria-labelledby="modal-content">
+      {children}
+    </div>
+  );
 };
 
-const Content: React.FC<ModalContentProps> = ({ children }) => {
-  return <div className="p-4">{children}</div>;
+const Footer: React.FC<ModalFooterProps> = ({ children, className }) => {
+  return (
+    <div className={cn("m-6", className)} aria-labelledby="modal-footer">
+      {children}
+    </div>
+  );
 };
 
-const Footer: React.FC<ModalFooterProps> = ({ children }) => {
-  return <div className="p-4">{children}</div>;
-};
-
-Modal.Body = Body;
 Modal.Header = Header;
 Modal.Content = Content;
 Modal.Footer = Footer;

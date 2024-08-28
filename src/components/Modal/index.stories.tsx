@@ -30,20 +30,21 @@ export const DefaultModal: Story = {
 
         {/* Modal */}
         <Modal isOpen={isOpen} onClose={closeModal}>
-          <Modal.Body>
-            <Modal.Header>
-              <h2 className="text-xl font-semibold dark:text-white text-gray-600">Modal Title</h2>
-            </Modal.Header>
+          <Modal.Header>
+            <h2 className="text-xl font-semibold dark:text-white text-gray-600">Delete User?</h2>
+          </Modal.Header>
 
-            <Modal.Content>
-              <p className="dark:text-white text-gray-600">This is the body of the modal.</p>
-            </Modal.Content>
-            <Modal.Footer>
-              <Button onClick={closeModal} className="w-1/3 justify-center">
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal.Body>
+          <Modal.Content>
+            <p className="dark:text-white text-gray-600">Are You sure to delete the user?</p>
+          </Modal.Content>
+          <Modal.Footer className="flex justify-between">
+            <Button onClick={closeModal} className="w-1/3 justify-center" variant={"ghost"}>
+              Cancel
+            </Button>
+            <Button onClick={closeModal} className="w-1/3 justify-center" variant={"destructive"}>
+              Delete
+            </Button>
+          </Modal.Footer>
         </Modal>
       </>
     );
@@ -64,20 +65,21 @@ export const clickousideModal: Story = {
 
         {/* Modal */}
         <Modal isOpen={isOpen} onClose={closeModal} closeOnOutsideClick={false}>
-          <Modal.Body>
-            <Modal.Header>
-              <h2 className="text-xl font-semibold dark:text-white text-gray-600">Modal Title</h2>
-            </Modal.Header>
+          <Modal.Header>
+            <h2 className="text-xl font-semibold dark:text-white text-gray-600">Delete User?</h2>
+          </Modal.Header>
 
-            <Modal.Content>
-              <p className="dark:text-white text-gray-600">This is the body of the modal.</p>
-            </Modal.Content>
-            <Modal.Footer>
-              <Button onClick={closeModal} className="w-1/3 justify-center">
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal.Body>
+          <Modal.Content>
+            <p className="dark:text-white text-gray-600">Are You sure to delete the user?</p>
+          </Modal.Content>
+          <Modal.Footer className="flex justify-between">
+            <Button onClick={closeModal} className="w-1/3 justify-center" variant={"ghost"}>
+              Cancel
+            </Button>
+            <Button onClick={closeModal} className="w-1/3 justify-center" variant={"destructive"}>
+              Delete
+            </Button>
+          </Modal.Footer>
         </Modal>
       </>
     );
