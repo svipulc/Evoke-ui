@@ -2,7 +2,7 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { resolve } from "path";
-import { peerDepandencies } from "./package.json";
+import { peerDependencies } from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,7 +22,7 @@ export default defineConfig({
       fileName: format => `${format}/index.js`,
     },
     rollupOptions: {
-      external: [...Object.keys(peerDepandencies)],
+      external: [...Object.keys(peerDependencies)],
       output: {
         globals: {
           react: "React",

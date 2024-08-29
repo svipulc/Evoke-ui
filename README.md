@@ -11,9 +11,9 @@ Evoke UI is a modern, flexible, and highly customizable component library built 
 - **Responsive Design**: Components are designed to work seamlessly across different screen sizes.
 - **Accessible**: Built with accessibility in mind to ensure your app is usable by everyone.
 - **Lightweight**: Optimized for performance with minimal footprint.
-- **Dark Mode**: Also support dark mode
+- **Dark Mode**: Also supports dark mode
 
-### Insatallation
+### Installation
 
 To install Evoke UI, you can use npm or yarn:
 

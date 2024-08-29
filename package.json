@@ -83,7 +83,7 @@
       "prettier --write"
     ]
   },
-  "peerDepandencies": {
+  "peerDependencies": {
     "class-variance-authority": "^0.7.0",
     "react": "^18.3.1"
   },
