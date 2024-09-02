@@ -2,25 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* scrollbar-container */
-.scrollbar-container {
-  border: solid 3px transparent;
-  scrollbar-gutter: stable both-edges; /* prevent layout shift while vertical scrolling */
-}
+@layer utilities {
+  /* scrollbar-container */
+  .scrollbar-container {
+    border: solid 3px transparent;
+    scrollbar-gutter: stable both-edges;
+    /* prevent layout shift while vertical scrolling */
+  }
 
-/* scrollbar */
-.scrollbar-container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+  /* scrollbar */
+  .scrollbar-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
 
-/* scrollbar-track */
-.scrollbar-container::-webkit-scrollbar-track {
-  background: transparent;
-}
+  /* scrollbar-track */
+  .scrollbar-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-/* scrollbar-thumb */
-.scrollbar-container::-webkit-scrollbar-thumb {
-  background: #d3d3d3;
-  border-radius: 5px;
+  /* scrollbar-thumb */
+  .scrollbar-container::-webkit-scrollbar-thumb {
+    background: #d3d3d3;
+    border-radius: 5px;
+  }
 }
