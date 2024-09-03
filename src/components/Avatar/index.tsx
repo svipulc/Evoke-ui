@@ -3,11 +3,7 @@
 import { cn } from "@/utils";
 import { VariantProps } from "class-variance-authority";
 import React, { ComponentProps, useEffect, useState } from "react";
-import {
-  avatarFallbackStyle,
-  avatarImageStyle,
-  avatarStyles,
-} from "./index.style";
+import { avatarFallbackStyle, avatarImageStyle, avatarStyles } from "./index.style";
 
 // Avatar
 
@@ -16,22 +12,16 @@ type CustomAvatarProps = {
   size?: "sm" | "md" | "lg";
 };
 
-type AvatarProps = ComponentProps<"div"> &
-  CustomAvatarProps &
-  VariantProps<typeof avatarStyles>;
+type AvatarProps = ComponentProps<"div"> & CustomAvatarProps & VariantProps<typeof avatarStyles>;
 
-export const Avatar: React.FC<AvatarProps> = ({
-  children,
-  size,
-  className,
-  ...props
-}) => {
+export const Avatar: React.FC<AvatarProps> = ({ children, size, className, ...props }) => {
   return (
     <div className={cn(avatarStyles({ size }), className)} {...props}>
       {children}
     </div>
   );
 };
+Avatar.displayName = "Avatar";
 
 // Avatar Image
 
@@ -78,15 +68,9 @@ export const AvatarImage: React.FC<AvatarImageProps> = ({
     return <AvatarFallback alt={alt} fallback={fallback} />;
   }
 
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className={cn(avatarImageStyle({}), className)}
-      {...props}
-    />
-  );
+  return <img src={src} alt={alt} className={cn(avatarImageStyle({}), className)} {...props} />;
 };
+AvatarImage.displayName = "AvatarImage";
 
 // Avatar Fallback
 
@@ -114,19 +98,25 @@ export const AvatarFallback: React.FC<AvatarFallbackProps> = React.memo(
     );
   }
 );
-
+AvatarFallback.displayName = "AvatarFallback";
 // Function use in Avatar component
 
 // Extract initials from a full name
 function getInitials(fullName: string): string {
-  const nameParts = fullName.trim().split(/\s+/);
-  const firstInitial = nameParts[0][0].toUpperCase();
-  if (nameParts.length > 1) {
-    const lastInitial = nameParts[nameParts.length - 1][0].toUpperCase();
-    return `${firstInitial}${lastInitial}`; // Return initials for first and last name
-  } else {
-    return firstInitial; // Return only the first letter for a single name
+  // Trim and split the fullName into parts
+  const nameParts: string[] = fullName.trim().split(/\s+/);
+
+  // Handle the case when no valid name parts are provided
+  if (nameParts.length === 0) {
+    return "";
   }
+
+  // Extract initials for the first and last names
+  const firstInitial = nameParts[0]?.charAt(0)?.toUpperCase() || "";
+  const lastInitial =
+    nameParts.length > 1 ? nameParts[nameParts.length - 1]?.charAt(0)?.toUpperCase() || "" : "";
+
+  return `${firstInitial}${lastInitial}`;
 }
 
 // Validate image source
@@ -143,7 +133,7 @@ async function validateImage(source: string): Promise<boolean> {
   };
 
   const validUrl = (url: string): Promise<boolean> => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const img = new Image();
       img.onload = () => resolve(true);
       img.onerror = () => resolve(false);
@@ -153,7 +143,7 @@ async function validateImage(source: string): Promise<boolean> {
 
   const isImagePath = (path: string): boolean => {
     const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
-    return imageExtensions.some((ext) => path.toLowerCase().endsWith(ext));
+    return imageExtensions.some(ext => path.toLowerCase().endsWith(ext));
   };
 
   if (isUrl(source)) {

@@ -9,13 +9,9 @@ export const avatarStyles = cva(
     "w-full",
     "h-full",
     "flex justify-center items-center",
-    ,
   ],
   {
     variants: {
-      variant: {
-        // variant styles
-      },
       size: {
         //size
         sm: "w-12 h-12 text-sm",
@@ -23,9 +19,6 @@ export const avatarStyles = cva(
         lg: "w-16 h-16 text-lg",
       },
     },
-    compoundVariants: [
-      // compound variants
-    ],
     defaultVariants: {
       // default variants
       size: "md",
@@ -34,51 +27,20 @@ export const avatarStyles = cva(
 );
 
 // Avatar Image
-export const avatarImageStyle = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "rounded-full",
-    "object-cover",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant styles
-      },
-      // size:
-    },
-    compoundVariants: [
-      // compound variants
-    ],
-    defaultVariants: {
-      // default variants
-    },
-  }
-);
+export const avatarImageStyle = cva([
+  // css style
+  "w-full",
+  "h-full",
+  "rounded-full",
+  "object-cover",
+]);
 
 // Avatar Fallback
-export const avatarFallbackStyle = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "rounded-full",
-    "bg-silverSteel",
-    "flex justify-center items-center",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant styles
-      },
-    },
-    compoundVariants: [
-      // compound variants
-    ],
-    defaultVariants: {
-      // default variants
-    },
-  }
-);
+export const avatarFallbackStyle = cva([
+  // css style
+  "w-full",
+  "h-full",
+  "rounded-full",
+  "bg-silverSteel",
+  "flex justify-center items-center",
+]);
