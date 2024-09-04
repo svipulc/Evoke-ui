@@ -1,37 +1,26 @@
 import { cn } from "@/utils";
-import { ModalOverlayStyles } from "./index.style";
-import { ModalBackgroundStyles } from "./index.style";
+import { ModalBodyStyles, ModalOverlayStyles } from "./index.style";
 import { createContext, useContext } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "../Button";
 
 import { ComponentProps } from "react";
 
-export type ModalProps = ComponentProps<"div"> & {
+export type ModalDivProps = ComponentProps<"div">;
+
+export type ModalProps = ModalDivProps & {
   isOpen: boolean;
   onClose: () => void;
   closeOnOutsideClick?: boolean;
 };
 
-export type ModalTriggerProps = ComponentProps<"div"> & {
+export type ModalTriggerProps = ModalDivProps & {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export type ModalBodyProps = ComponentProps<"div"> & {
-  children: React.ReactNode;
-};
-
-export type ModalHeaderProps = ComponentProps<"div"> & {
-  children: React.ReactNode;
-};
-
-export type ModalContentProps = ComponentProps<"div"> & {
-  children: React.ReactNode;
-};
-
-export type ModalFooterProps = ComponentProps<"div"> & {
-  children: React.ReactNode;
+export type ModalHeaderProps = ModalDivProps & {
+  showCross?: boolean;
 };
 
 export interface ModalContextProps {
@@ -40,10 +29,10 @@ export interface ModalContextProps {
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined);
 
-const Modal: React.FC<ModalProps> & {
+export const Modal: React.FC<ModalProps> & {
   Header: React.FC<ModalHeaderProps>;
-  Content: React.FC<ModalContentProps>;
-  Footer: React.FC<ModalFooterProps>;
+  Content: React.FC<ModalDivProps>;
+  Footer: React.FC<ModalDivProps>;
 } = ({ isOpen, onClose, children, className, closeOnOutsideClick = true }) => {
   const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (closeOnOutsideClick && event.target === event.currentTarget) {
@@ -56,8 +45,7 @@ const Modal: React.FC<ModalProps> & {
       <div
         className={cn(
           ModalOverlayStyles(),
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
-          className
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={handleOverlayClick}
         role="dialog"
@@ -66,20 +54,19 @@ const Modal: React.FC<ModalProps> & {
       >
         <div
           className={cn(
-            ModalBackgroundStyles(),
-            isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+            ModalBodyStyles(),
+            isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+            className
           )}
         >
-          <div className={cn(ModalBackgroundStyles(), className)}>
-            <div>{children}</div>
-          </div>
+          {children}
         </div>
       </div>
     </ModalContext.Provider>
   );
 };
 
-const Header: React.FC<ModalHeaderProps> = ({ children, className }) => {
+const Header: React.FC<ModalHeaderProps> = ({ children, className, showCross = true }) => {
   const context = useContext(ModalContext);
   if (!context) {
     throw new Error("ModalHeader must be used within a Modal");
@@ -90,19 +77,21 @@ const Header: React.FC<ModalHeaderProps> = ({ children, className }) => {
       aria-labelledby="modal-header"
     >
       {children}
-      <Button
-        variant={"ghost"}
-        size={"icon"}
-        onClick={context.onClose}
-        className="text-gray-400 hover:text-gray-600 w-fit"
-      >
-        <IoMdClose />
-      </Button>
+      {showCross && (
+        <Button
+          variant={"ghost"}
+          size={"icon"}
+          onClick={context.onClose}
+          className="text-gray-400 hover:text-gray-600 w-fit"
+        >
+          <IoMdClose />
+        </Button>
+      )}
     </div>
   );
 };
 
-const Content: React.FC<ModalContentProps> = ({ children, className }) => {
+const Content: React.FC<ModalDivProps> = ({ children, className }) => {
   return (
     <div className={cn("m-6", className)} aria-labelledby="modal-content">
       {children}
@@ -110,7 +99,7 @@ const Content: React.FC<ModalContentProps> = ({ children, className }) => {
   );
 };
 
-const Footer: React.FC<ModalFooterProps> = ({ children, className }) => {
+const Footer: React.FC<ModalDivProps> = ({ children, className }) => {
   return (
     <div className={cn("m-6", className)} aria-labelledby="modal-footer">
       {children}
@@ -121,5 +110,3 @@ const Footer: React.FC<ModalFooterProps> = ({ children, className }) => {
 Modal.Header = Header;
 Modal.Content = Content;
 Modal.Footer = Footer;
-
-export default Modal;
