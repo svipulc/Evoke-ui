@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/svipulc/Evoke-ui/compare/v1.1.0...v1.2.0) (2024-09-04)
+
+### Features
+
+- sm-55 - create card component ([a3ccb63](https://github.com/svipulc/Evoke-ui/commit/a3ccb63a44097b28a40ebf97e9cf085d7ffe016d))
+- sm-55 - create card component ([a1cf8b2](https://github.com/svipulc/Evoke-ui/commit/a1cf8b2fbee3ecdf45211ae8789ded4cec04afdd))
+
 # 1.1.0 (2024-08-01)
 
 ### Features
