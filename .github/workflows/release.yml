@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          repository: https://github.com/svipulc/Evoke-ui.git
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
