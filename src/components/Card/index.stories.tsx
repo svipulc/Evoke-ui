@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoChatbubbleEllipsesOutline, IoChatbubbleEllipsesSharp, IoHeart } from "react-icons/io5";
-import Card from ".";
+import { Card } from ".";
 import { Button } from "../Button";
 
 const meta: Meta<typeof Card> = {
