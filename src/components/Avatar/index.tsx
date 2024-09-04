@@ -7,12 +7,7 @@ import { avatarFallbackStyle, avatarImageStyle, avatarStyles } from "./index.sty
 
 // Avatar
 
-type CustomAvatarProps = {
-  children?: React.ReactNode;
-  size?: "sm" | "md" | "lg";
-};
-
-type AvatarProps = ComponentProps<"div"> & CustomAvatarProps & VariantProps<typeof avatarStyles>;
+export type AvatarProps = ComponentProps<"div"> & VariantProps<typeof avatarStyles>;
 
 export const Avatar: React.FC<AvatarProps> = ({ children, size, className, ...props }) => {
   return (
@@ -31,7 +26,7 @@ type CustomAvatarImageProps = {
   fallback?: React.ReactNode;
 };
 
-type AvatarImageProps = ComponentProps<"img"> &
+export type AvatarImageProps = ComponentProps<"img"> &
   CustomAvatarImageProps &
   VariantProps<typeof avatarImageStyle>;
 
@@ -79,7 +74,7 @@ type CustomAvatarFallbackProps = {
   fallback?: React.ReactNode;
 };
 
-type AvatarFallbackProps = ComponentProps<"div"> &
+export type AvatarFallbackProps = ComponentProps<"div"> &
   CustomAvatarFallbackProps &
   VariantProps<typeof avatarFallbackStyle>;
 
