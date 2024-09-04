@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/svipulc/Evoke-ui/compare/v1.2.0...v1.2.1) (2024-09-04)
+
+### Bug Fixes
+
+- sm-69 fix import problem in card component ([bdbe41d](https://github.com/svipulc/Evoke-ui/commit/bdbe41d96f087bc464b4e4f8809405e154fbbbcb))
+
 # [1.2.0](https://github.com/svipulc/Evoke-ui/compare/v1.1.0...v1.2.0) (2024-09-04)
 
 ### Features
