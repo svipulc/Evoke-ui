@@ -1,6 +1,6 @@
 import React from "react";
 
-const CenterDecorator = (Story: React.FC) => (
+export const CenterDecorator = (Story: React.FC) => (
   <div
     style={{
       display: "flex",
@@ -12,5 +12,3 @@ const CenterDecorator = (Story: React.FC) => (
     <Story />
   </div>
 );
-
-export default CenterDecorator;

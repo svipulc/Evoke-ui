@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { Toast } from ".";
-import CenterDecorator from "./CenterDecorator";
+import { CenterDecorator } from "./CenterDecorator";
 
 const meta: Meta<typeof Toast> = {
   title: "Components/Toast",
