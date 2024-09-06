@@ -1,11 +1,16 @@
 {
-  "name": "evoke-ui",
-  "private": true,
+  "name": "@social-media/evoke-ui",
   "version": "1.0.0",
   "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build && npm run build-tailwind",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -13,7 +18,8 @@
     "chromatic": "npx chromatic --project-token=chpt_815e158efad9c48",
     "commit": "cz",
     "prepare": "husky",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build-tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/styles.css --minify"
   },
   "dependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -34,6 +40,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
+    "@semantic-release/npm": "^12.0.1",
     "@storybook/addon-a11y": "^8.2.6",
     "@storybook/addon-essentials": "^8.2.4",
     "@storybook/addon-interactions": "^8.2.4",
@@ -62,7 +69,8 @@
     "prettier": "^3.3.3",
     "storybook": "^8.2.4",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.0.3"
   },
   "config": {
     "commitizen": {
@@ -74,5 +82,17 @@
       "npm run lint",
       "prettier --write"
     ]
-  }
+  },
+  "peerDependencies": {
+    "class-variance-authority": "^0.7.0",
+    "react": "^18.3.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svipulc/Evoke-ui"
+  },
+  "license": "MIT"
 }
