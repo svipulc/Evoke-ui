@@ -21,5 +21,23 @@ export const toastStyle = cva(
       type: "info",
       position: "topRight",
     },
+    compoundVariants: [
+      {
+        position: "topRight",
+        class: "sm:top-2 sm:right-2 sm:w-80 w-64",
+      },
+      {
+        position: "topLeft",
+        class: "sm:top-2 sm:left-2 sm:w-80 w-64",
+      },
+      {
+        position: "bottomRight",
+        class: "sm:bottom-2 sm:right-2 sm:w-80 w-64",
+      },
+      {
+        position: "bottomLeft",
+        class: "sm:bottom-2 sm:left-2 sm:w-80 w-64",
+      },
+    ],
   }
 );
