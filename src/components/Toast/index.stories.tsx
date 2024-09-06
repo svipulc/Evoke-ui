@@ -82,6 +82,7 @@ export const ErrorToast: Story = {
     type: "error",
     title: "Error!",
     message: "An error occurred.",
+    autoClose: true,
   },
   decorators: [CenterDecorator],
   render: args => {
@@ -111,6 +112,7 @@ export const WarningToast: Story = {
     type: "warning",
     title: "Warning!",
     message: "Please be cautious.",
+    autoClose: true,
   },
   decorators: [CenterDecorator],
   render: args => {
@@ -140,6 +142,7 @@ export const InfoToast: Story = {
     type: "info",
     title: "Information!",
     message: "This is an informational message.",
+    autoClose: true,
   },
   decorators: [CenterDecorator],
   render: args => {
