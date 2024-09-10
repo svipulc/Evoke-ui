@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/svipulc/Evoke-ui/compare/v1.2.1...v1.3.0) (2024-09-10)
+
+### Features
+
+- sm-51 - create scroll-area component ([e23bf9c](https://github.com/svipulc/Evoke-ui/commit/e23bf9cf6f1ac677d8f36b3742639dfb9bd87bf9))
+
 ## [1.2.1](https://github.com/svipulc/Evoke-ui/compare/v1.2.0...v1.2.1) (2024-09-04)
 
 ### Bug Fixes
