@@ -5,14 +5,13 @@ export const cardStyle = cva([
   "flex flex-col justify-center",
   "w-full",
   "rounded-lg border",
-  "bg-white ",
+  "bg-white dark:bg-primary dark:text-white dark:border-none",
 ]);
 
 export const cardHeaderStyle = cva([
   // css
   "w-full",
   "p-6",
-  "rounded-md",
 ]);
 
 export const cardContentStyle = cva([
@@ -26,5 +25,4 @@ export const cardFooterStyle = cva([
   // css
   "w-full",
   "p-6 pt-0",
-  "rounded-md",
 ]);

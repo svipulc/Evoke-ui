@@ -20,7 +20,7 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultCard: Story = {
   args: {
-    className: "md:w-96 dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-96",
     children: (
       <>
         <Card.Header>
@@ -37,7 +37,7 @@ export const DefaultCard: Story = {
 
 export const HeaderOnly: Story = {
   render: args => (
-    <Card {...args} className="dark:bg-primary dark:text-white dark:border-none">
+    <Card {...args}>
       <Card.Header>This card only has a header</Card.Header>
     </Card>
   ),
@@ -45,7 +45,7 @@ export const HeaderOnly: Story = {
 
 export const ContentOnly: Story = {
   render: args => (
-    <Card {...args} className="dark:bg-primary dark:text-white dark:border-none">
+    <Card {...args}>
       <Card.Content>This card only has content</Card.Content>
     </Card>
   ),
@@ -53,7 +53,7 @@ export const ContentOnly: Story = {
 
 export const FooterOnly: Story = {
   render: args => (
-    <Card {...args} className="dark:bg-primary dark:text-white dark:border-none">
+    <Card {...args}>
       <Card.Footer>This card only has a footer</Card.Footer>
     </Card>
   ),
@@ -61,7 +61,7 @@ export const FooterOnly: Story = {
 
 export const CardPost: Story = {
   args: {
-    className: "md:w-96 dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-96",
     children: (
       <>
         <Card.Header className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export const CardPost: Story = {
 
 export const RegisterCard: Story = {
   args: {
-    className: "md:w-96 dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-96",
     children: (
       <>
         <Card.Header>
@@ -160,7 +160,7 @@ export const RegisterCard: Story = {
 
 export const LoginCard: Story = {
   args: {
-    className: "md:w-96 dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-96",
     children: (
       <>
         <Card.Header>
@@ -204,7 +204,7 @@ export const LoginCard: Story = {
 
 export const ModelCard: Story = {
   args: {
-    className: "md:w-[35rem] dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-[35rem]",
     children: (
       <>
         <Card.Header>
@@ -269,7 +269,7 @@ export const ModelCard: Story = {
 
 export const FriendsCard: Story = {
   args: {
-    className: "md:w-96 h-24 dark:bg-primary dark:text-white dark:border-none",
+    className: "md:w-96 h-24",
     children: (
       <>
         <Card.Content className="flex pt-4 items-center justify-between gap-4">
