@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/svipulc/Evoke-ui/compare/v1.4.0...v1.5.0) (2024-09-19)
+
+### Features
+
+- sm-21 - Create avatar component ([#2](https://github.com/svipulc/Evoke-ui/issues/2)) ([fcc9cd8](https://github.com/svipulc/Evoke-ui/commit/fcc9cd8b52cd27d8a151a429b99c229890081878))
+
 # [1.4.0](https://github.com/svipulc/Evoke-ui/compare/v1.3.0...v1.4.0) (2024-09-18)
 
 ### Features
