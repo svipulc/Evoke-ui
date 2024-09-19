@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/svipulc/Evoke-ui/compare/v1.6.0...v1.7.0) (2024-09-19)
+
+### Features
+
+- SM-57 - create modal component ([#10](https://github.com/svipulc/Evoke-ui/issues/10)) ([0d237c7](https://github.com/svipulc/Evoke-ui/commit/0d237c71c00cb70af318f577e05491b86fe5eb99))
+
 # [1.6.0](https://github.com/svipulc/Evoke-ui/compare/v1.5.0...v1.6.0) (2024-09-19)
 
 ### Features
