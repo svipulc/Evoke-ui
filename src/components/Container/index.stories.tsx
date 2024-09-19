@@ -9,7 +9,13 @@ const meta: Meta<typeof Container> = {
   title: "Components/Container",
   component: Container,
   parameters: {
-    // layout: "centered",
+    layout: "fullscreen",
+  },
+  argTypes: {
+    maxWidth: {
+      options: ["full", "sm", "md", "lg", "xl", "2xl", "auto"],
+      control: { type: "select" },
+    },
   },
   tags: ["autodocs"],
 };
@@ -19,43 +25,35 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const NavContainer: Story = {
-  render: () => {
+  render: ({ ...args }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-      <Container>
-        <nav className="bg-gray-800 p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <div className="text-white text-lg">Brand</div>
+      <Container {...args}>
+        <nav className="bg-primary/10 p-4 dark:bg-primary dark:text-secondary text-primary">
+          <div className="flex justify-between items-center">
+            <div className=" text-lg">Brand</div>
 
             {/* Hamburger Icon */}
             <div className="md:hidden">
               {isOpen ? (
-                <FaTimes
-                  className="text-white cursor-pointer"
-                  size={24}
-                  onClick={() => setIsOpen(false)}
-                />
+                <FaTimes className=" cursor-pointer" size={24} onClick={() => setIsOpen(false)} />
               ) : (
-                <FaBars
-                  className="text-white cursor-pointer"
-                  size={24}
-                  onClick={() => setIsOpen(true)}
-                />
+                <FaBars className=" cursor-pointer" size={24} onClick={() => setIsOpen(true)} />
               )}
             </div>
 
             {/* Navigation Links */}
             <ul className={`flex-col md:flex-row md:flex ${isOpen ? "flex" : "hidden"} md:flex`}>
-              <li className="text-white p-2">
+              <li className=" p-2">
                 <a href="#home">Home</a>
               </li>
-              <li className="text-white p-2">
+              <li className=" p-2">
                 <a href="#about">About</a>
               </li>
-              <li className="text-white p-2">
+              <li className=" p-2">
                 <a href="#services">Services</a>
               </li>
-              <li className="text-white p-2">
+              <li className=" p-2">
                 <a href="#contact">Contact</a>
               </li>
             </ul>
@@ -67,7 +65,7 @@ export const NavContainer: Story = {
 };
 
 export const LoginContainer: Story = {
-  render: args => (
+  render: ({ ...args }) => (
     <Container {...args} className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-md dark:bg-primary dark:text-white dark:border-none">
         <Card.Header>

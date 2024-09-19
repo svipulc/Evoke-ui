@@ -5,9 +5,14 @@ import { containerStyle } from "./index.style";
 
 export type ContainerProps = ComponentProps<"div"> & VariantProps<typeof containerStyle>;
 
-export const Container: React.FC<ContainerProps> = ({ children, className, ...props }) => {
+export const Container: React.FC<ContainerProps> = ({
+  children,
+  maxWidth,
+  className,
+  ...props
+}) => {
   return (
-    <div className={cn(containerStyle(), className)} {...props}>
+    <div className={cn(containerStyle({ maxWidth }), className)} {...props}>
       {children}
     </div>
   );
