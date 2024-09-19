@@ -1,3 +1,9 @@
+# [1.6.0](https://github.com/svipulc/Evoke-ui/compare/v1.5.0...v1.6.0) (2024-09-19)
+
+### Features
+
+- sm-56 - create skeleton component ([#9](https://github.com/svipulc/Evoke-ui/issues/9)) ([edeaf62](https://github.com/svipulc/Evoke-ui/commit/edeaf62caf9384083216a5e32567b0395df779fc))
+
 # [1.5.0](https://github.com/svipulc/Evoke-ui/compare/v1.4.0...v1.5.0) (2024-09-19)
 
 ### Features
