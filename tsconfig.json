@@ -1,11 +1,54 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "jsx": "react-jsx" /* Specify what JSX code is generated. */,
+    /* Modules */
+    "module": "ESNext" /* Specify what module code is generated. */,
+    "moduleResolution": "Bundler" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    /* JavaScript Support */
+    "allowJs": false /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
+    "maxNodeModuleJsDepth": 1 /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */,
+    /* Emit */
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "emitDeclarationOnly": true /* Only output d.ts files and not JavaScript files. */,
+    "sourceMap": true /* Create source map files for emitted JavaScript files. */,
+    "outDir": "dist" /* Specify an output folder for all emitted files. */,
+    "declarationDir": "types" /* Specify the output directory for generated declaration files. */,
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */,
+    "noUnusedLocals": true /* Enable error reporting when local variables aren't read. */,
+    "noUnusedParameters": true /* Raise an error when a function parameter isn't read. */,
+    "noFallthroughCasesInSwitch": true /* Enable error reporting for fallthrough cases in switch statements. */,
+    "allowUnreachableCode": false /* Disable error reporting for unreachable code. */,
+    /* Completeness */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "resolveJsonModule": true /* Allow importing JSON files as modules, enabling easier data management. */,
+    "useDefineForClassFields": true /* Use the `define` semantics for class fields, aligning with the latest JavaScript standards. */,
+    "allowImportingTsExtensions": true /* Allow importing TypeScript files with their extensions, providing more flexibility in imports. */,
+    "isolatedModules": true /* Ensure that each file can be safely transpiled independently, useful for projects using Babel or similar tools. */,
+    /* Type Roots */
+    "typeRoots": [
+      "node_modules/@types" /* Specify where TypeScript should look for type definitions, typically in the @types folder. */
+    ],
+    /* Base URL and Path Mapping */
+    "baseUrl": "." /* Set the base directory to resolve non-relative module names. */,
+    "paths": {
+      "@/*": [
+        "src/*" /* Create a path alias for the 'src' directory, allowing for cleaner import statements. */
+      ]
     }
+  },
+  "include": [
+    "src" /* Specify the files or directories to include in the compilation, typically your source files. */
+  ],
+  "exclude": [
+    "node_modules" /* Exclude the 'node_modules' directory to prevent unnecessary type checking. */,
+    "dist" /* Exclude the 'dist' directory where compiled files are output. */,
+    "**/*.stories.tsx" /* Exclude Storybook stories from type checking, as they are usually for development purposes. */
   ]
 }
