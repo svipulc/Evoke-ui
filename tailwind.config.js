@@ -9,6 +9,7 @@ export default {
         secondary: "#AACCFF",
         lavender: "#E6E6FA",
         silverSteel: "#A7A9AA",
+        modalColor: "#0F0E21",
       },
     },
   },
