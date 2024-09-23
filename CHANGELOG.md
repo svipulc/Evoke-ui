@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/svipulc/Evoke-ui/compare/v1.7.0...v1.7.1) (2024-09-23)
+
+### Bug Fixes
+
+- create tooltip component ([#12](https://github.com/svipulc/Evoke-ui/issues/12)) ([4b82fbf](https://github.com/svipulc/Evoke-ui/commit/4b82fbf00c1877c008ec342a6cb5b451ac3a3a98))
+
 # [1.7.0](https://github.com/svipulc/Evoke-ui/compare/v1.6.0...v1.7.0) (2024-09-19)
 
 ### Features
