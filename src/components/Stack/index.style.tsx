@@ -3,16 +3,16 @@ import { cva } from "class-variance-authority";
 export const stackStyle = cva(["flex", "w-full", "p-2"], {
   variants: {
     direction: {
-      row: ["flex-row", "sm:flex-col", "md:flex-row"],
-      column: ["flex-col", "sm:flex-row", "md:flex-col"],
-      "row-reverse": ["flex-row-reverse", "sm:flex-col-reverse", "md:flex-row-reverse"],
-      "column-reverse": ["flex-col-reverse", "sm:flex-row-reverse", "md:flex-col-reverse"],
+      row: "flex-row",
+      column: "flex-col",
+      "row-reverse": "flex-row-reverse",
+      "column-reverse": "flex-col-reverse",
     },
     spacing: {
       none: "gap-0",
-      small: ["gap-1", "sm:gap-2", "md:gap-3"],
-      medium: ["gap-2", "sm:gap-4", "md:gap-6"],
-      large: ["gap-3", "sm:gap-6", "md:gap-8"],
+      small: "gap-2",
+      medium: "gap-4",
+      large: "gap-6",
     },
     align: {
       start: "items-start",

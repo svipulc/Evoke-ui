@@ -13,7 +13,7 @@ const meta: Meta<typeof Stack> = {
       control: { type: "select" },
     },
     spacing: {
-      options: ["small", "medium", "large"],
+      options: ["small", "medium", "large", "none"],
       control: { type: "select" },
     },
     align: {
