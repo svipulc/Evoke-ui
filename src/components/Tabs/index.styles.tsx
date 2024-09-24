@@ -1,56 +1,41 @@
 // Tabs component styles
-
 import { cva } from "class-variance-authority";
 
 // Tabs
-export const tabsStyles = cva(
-  [
-    // css style
-    "tabs",
-    "w-full",
-    "h-full",
-    "p-2",
-  ],
-  {
-    variants: {
-      variant: {
-        // variant style
-      },
-      size: {
-        // size
-      },
+export const tabsStyles = cva(["tabs", "w-full", "h-full", "p-2", "rounded-md"], {
+  variants: {
+    border: {
+      true: "border border-gray-200 dark:border-gray-600",
+      false: "border-none",
     },
-    compoundVariants: [
-      // compound variant style
-    ],
-    defaultVariants: {
-      // default variant style
+    direction: {
+      horizontal: "flex-col",
+      vertical: "flex flex-row gap-2",
     },
-  }
-);
+  },
+  defaultVariants: {
+    border: false,
+    direction: "horizontal",
+  },
+});
 
 // Tabs List
 export const tabsListStyles = cva(
-  [
-    // css style
-    "tabs-list",
-    "w-full",
-    "inline-flex gap-4",
-  ],
+  ["tabs-list", "relative", "w-full", "h-full", "selection-none", "overflow-hidden"],
   {
     variants: {
-      variant: {
-        // variant style
+      isFitted: {
+        true: "",
+        false: "sm:w-auto",
       },
-      size: {
-        // size
+      direction: {
+        horizontal: "flex flex-row flex-nowrap mb-2 py-2 gap-x-2  hover:overflow-x-auto",
+        vertical: "flex flex-col min-w-fit sm:mr-4 px-2  hover:overflow-y-auto",
       },
     },
-    compoundVariants: [
-      // compound variant style
-    ],
     defaultVariants: {
-      // default variant style
+      isFitted: false,
+      direction: "horizontal",
     },
   }
 );
@@ -58,83 +43,77 @@ export const tabsListStyles = cva(
 // Tabs Trigger
 export const tabsTriggerStyles = cva(
   [
-    // css style
     "tabs-trigger",
     "p-2",
     "text-md",
-    "relative",
+    "text-nowrap",
+    "rounded-md",
+    "transition-colors duration-200",
+    "hover:bg-primary/10",
+    "hover:dark:bg-secondary/50",
   ],
   {
     variants: {
       active: {
         true: "dark:text-white text-primary",
-        false: "text-gray-500 dark:text-silverSteel",
+        false: "text-gray-500 dark:text-silverSteel hover:text-gray-700 dark:hover:text-gray-300",
       },
-      size: {
-        // size
+      disabled: {
+        true: "opacity-50 cursor-not-allowed",
+        false: "",
+      },
+      isFitted: {
+        true: "flex-1 text-center",
+        false: "",
+      },
+      direction: {
+        horizontal: "first:ms-2 last:mr-2",
+        vertical: "mb-2 first:mt-2 last:mb-0",
       },
     },
-    compoundVariants: [
-      // compound variant style
-    ],
     defaultVariants: {
-      // default variant style
+      active: false,
+      disabled: false,
+      isFitted: false,
+      direction: "horizontal",
     },
   }
 );
 
 // Tabs Content
 export const tabsContentStyles = cva(
-  [
-    // css style
-    "tabs-content",
-    "w-full",
-    "h-full",
-    "p-2",
-    "dark:text-white",
-    "min-h-10",
-  ],
+  ["tabs-content", "w-full", "h-full", "p-1", "dark:text-white"],
   {
     variants: {
-      variant: {
-        // variant style
-      },
-      size: {
-        // size
+      direction: {
+        horizontal: "",
+        vertical: "mt-2 overflow-auto",
       },
     },
-    compoundVariants: [
-      // compound variant style
-    ],
     defaultVariants: {
-      // default variant style
+      direction: "horizontal",
     },
   }
 );
 
 // Tabs indicator
-
 export const tabsIndicatorStyles = cva(
   [
-    // css style
     "absolute",
-    "bottom-0 left-0 right-0 h-1",
     "bg-primary dark:bg-secondary",
+    "rounded-full",
+    "transition-all duration-300 ease-in-out",
+    "h-[2px]",
   ],
   {
     variants: {
-      variant: {
-        // variant style
-      },
-      size: {
-        // size
+      direction: {
+        horizontal: "bottom-0 mb-[2px] w-0",
+        vertical: "right-0 w-[2px] mr-[2px]",
       },
     },
-    compoundVariants: [
-      // compound variant style
-    ],
     defaultVariants: {
-      // default variant style
+      direction: "horizontal",
     },
   }
 );
