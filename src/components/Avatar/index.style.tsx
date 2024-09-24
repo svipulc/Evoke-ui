@@ -1,0 +1,46 @@
+// Avatar component style
+
+import { cva } from "class-variance-authority";
+
+// Avatar
+export const avatarStyles = cva(
+  [
+    // css style
+    "w-full",
+    "h-full",
+    "flex justify-center items-center",
+  ],
+  {
+    variants: {
+      size: {
+        //size
+        sm: "w-12 h-12 text-sm",
+        md: "w-14 h-14 text-md",
+        lg: "w-16 h-16 text-lg",
+      },
+    },
+    defaultVariants: {
+      // default variants
+      size: "md",
+    },
+  }
+);
+
+// Avatar Image
+export const avatarImageStyle = cva([
+  // css style
+  "w-full",
+  "h-full",
+  "rounded-full",
+  "object-cover",
+]);
+
+// Avatar Fallback
+export const avatarFallbackStyle = cva([
+  // css style
+  "w-full",
+  "h-full",
+  "rounded-full",
+  "bg-silverSteel",
+  "flex justify-center items-center",
+]);

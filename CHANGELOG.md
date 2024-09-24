@@ -1,3 +1,52 @@
+## [1.7.1](https://github.com/svipulc/Evoke-ui/compare/v1.7.0...v1.7.1) (2024-09-23)
+
+### Bug Fixes
+
+- create tooltip component ([#12](https://github.com/svipulc/Evoke-ui/issues/12)) ([4b82fbf](https://github.com/svipulc/Evoke-ui/commit/4b82fbf00c1877c008ec342a6cb5b451ac3a3a98))
+
+# [1.7.0](https://github.com/svipulc/Evoke-ui/compare/v1.6.0...v1.7.0) (2024-09-19)
+
+### Features
+
+- SM-57 - create modal component ([#10](https://github.com/svipulc/Evoke-ui/issues/10)) ([0d237c7](https://github.com/svipulc/Evoke-ui/commit/0d237c71c00cb70af318f577e05491b86fe5eb99))
+
+# [1.6.0](https://github.com/svipulc/Evoke-ui/compare/v1.5.0...v1.6.0) (2024-09-19)
+
+### Features
+
+- sm-56 - create skeleton component ([#9](https://github.com/svipulc/Evoke-ui/issues/9)) ([edeaf62](https://github.com/svipulc/Evoke-ui/commit/edeaf62caf9384083216a5e32567b0395df779fc))
+
+# [1.5.0](https://github.com/svipulc/Evoke-ui/compare/v1.4.0...v1.5.0) (2024-09-19)
+
+### Features
+
+- sm-21 - Create avatar component ([#2](https://github.com/svipulc/Evoke-ui/issues/2)) ([fcc9cd8](https://github.com/svipulc/Evoke-ui/commit/fcc9cd8b52cd27d8a151a429b99c229890081878))
+
+# [1.4.0](https://github.com/svipulc/Evoke-ui/compare/v1.3.0...v1.4.0) (2024-09-18)
+
+### Features
+
+- sm-20 - create input component ([cd2946f](https://github.com/svipulc/Evoke-ui/commit/cd2946f132c40fbf1f98da284fded1ca9dcc57b6))
+
+# [1.3.0](https://github.com/svipulc/Evoke-ui/compare/v1.2.1...v1.3.0) (2024-09-10)
+
+### Features
+
+- sm-51 - create scroll-area component ([e23bf9c](https://github.com/svipulc/Evoke-ui/commit/e23bf9cf6f1ac677d8f36b3742639dfb9bd87bf9))
+
+## [1.2.1](https://github.com/svipulc/Evoke-ui/compare/v1.2.0...v1.2.1) (2024-09-04)
+
+### Bug Fixes
+
+- sm-69 fix import problem in card component ([bdbe41d](https://github.com/svipulc/Evoke-ui/commit/bdbe41d96f087bc464b4e4f8809405e154fbbbcb))
+
+# [1.2.0](https://github.com/svipulc/Evoke-ui/compare/v1.1.0...v1.2.0) (2024-09-04)
+
+### Features
+
+- sm-55 - create card component ([a3ccb63](https://github.com/svipulc/Evoke-ui/commit/a3ccb63a44097b28a40ebf97e9cf085d7ffe016d))
+- sm-55 - create card component ([a1cf8b2](https://github.com/svipulc/Evoke-ui/commit/a1cf8b2fbee3ecdf45211ae8789ded4cec04afdd))
+
 # 1.1.0 (2024-08-01)
 
 ### Features
