@@ -1,5 +1,6 @@
 export * from "./Avatar";
 export * from "./Button";
+export * from "./Tabs";
 export * from "./Tooltip";
 export * from "./Skeleton";
 export * from "./Input";
