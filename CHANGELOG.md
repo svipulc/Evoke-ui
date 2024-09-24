@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/svipulc/Evoke-ui/compare/v1.7.1...v1.8.0) (2024-09-24)
+
+### Features
+
+- sm-22 - create tabs component ([#4](https://github.com/svipulc/Evoke-ui/issues/4)) ([6f41498](https://github.com/svipulc/Evoke-ui/commit/6f4149844947cafa3657b97ecdcbcd23d5ed03bf))
+
 ## [1.7.1](https://github.com/svipulc/Evoke-ui/compare/v1.7.0...v1.7.1) (2024-09-23)
 
 ### Bug Fixes
