@@ -22,6 +22,7 @@
     "build-tailwind": "npx tailwindcss -i ./src/index.css -o ./dist/styles.css --minify"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-a11y": "^8.2.6",

@@ -7,3 +7,4 @@ export * from "./Input";
 export * from "./ScrollArea";
 export * from "./Card";
 export * from "./Modal";
+export * from "./Progress";

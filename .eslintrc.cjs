@@ -19,9 +19,10 @@ module.exports = {
     },
   },
   rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    "react/no-unknown-property": [
+      "error",
+      { ignore: ["css"] }, // allow the css prop
     ],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
