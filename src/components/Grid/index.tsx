@@ -1,26 +1,29 @@
-import { cn, ResponsiveValue, resolveResponsiveProps } from "@/utils";
-import { ComponentProps, createContext, useContext } from "react";
-import { gridItemStyles, gridStyles } from "./index.style";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import React, { ComponentProps, createContext, useContext, useMemo } from "react";
+import { gridItemResponsiveStyle, gridResponsiveStyle } from "./index.style";
+import { GridColumnCount, GridRowCount, ResponsiveValue } from "@/theme";
+import { SpacingOptions } from "@/theme";
 
 /**
  * Props for the Grid component.
  */
 export type GridProps = ComponentProps<"div"> & {
-  columns?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  rows?: ResponsiveValue<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  spacing?: ResponsiveValue<"none" | "small" | "medium" | "large">;
-  rowSpacing?: ResponsiveValue<"none" | "small" | "medium" | "large">;
-  columnSpacing?: ResponsiveValue<"none" | "small" | "medium" | "large">;
+  columns?: ResponsiveValue<GridColumnCount>;
+  rows?: ResponsiveValue<GridRowCount>;
+  spacing?: ResponsiveValue<SpacingOptions>;
+  rowSpacing?: ResponsiveValue<SpacingOptions>;
+  columnSpacing?: ResponsiveValue<SpacingOptions>;
 };
 
 /**
  * Props for the GridItem component.
  */
 export type GridItemProps = ComponentProps<"div"> & {
-  columnSpan?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  rowSpan?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12>;
-  columnOffset?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13>;
-  rowOffset?: ResponsiveValue<0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13>;
+  columnSpan?: ResponsiveValue<GridColumnCount>;
+  rowSpan?: ResponsiveValue<GridRowCount>;
+  columnOffset?: ResponsiveValue<GridColumnCount | 13>;
+  rowOffset?: ResponsiveValue<GridRowCount | 13>;
 };
 
 /**
@@ -31,37 +34,23 @@ const GridContext = createContext<boolean | null>(null);
 /**
  * Grid component for creating responsive grid layouts.
  */
-export const Grid: React.FC<GridProps> & GridItemProps = ({
-  children,
-  columns = 0,
-  rows = 0,
-  spacing = "small",
-  rowSpacing = "none",
-  columnSpacing = "none",
-  className,
-  ...props
-}) => {
-  const responsiveColumns = resolveResponsiveProps(gridStyles, columns, "columns");
-  const responsiveRows = resolveResponsiveProps(gridStyles, rows, "rows");
-  const responsiveSpacing = resolveResponsiveProps(gridStyles, spacing, "spacing");
-  const responsiveRowSpacing = resolveResponsiveProps(gridStyles, rowSpacing, "rowSpacing");
-  const responsiveColumnSpacing = resolveResponsiveProps(
-    gridStyles,
-    columnSpacing,
-    "columnSpacing"
+export const Grid: React.FC<GridProps> & {
+  GridItem: React.FC<GridItemProps>;
+} = ({ children, columns, rows, spacing, rowSpacing, columnSpacing, className, ...props }) => {
+  // Use useMemo to avoid recalculating styles on each render unless props change
+  const responsiveStyle = useMemo(
+    () => gridResponsiveStyle({ columns, rows, spacing, rowSpacing, columnSpacing }),
+    [columns, rows, spacing, rowSpacing, columnSpacing]
   );
 
   return (
     <GridContext.Provider value={true}>
       <div
-        className={cn(
-          responsiveColumns,
-          responsiveRows,
-          responsiveSpacing,
-          responsiveRowSpacing,
-          responsiveColumnSpacing,
-          className
-        )}
+        css={css`
+          display: grid;
+          ${responsiveStyle};
+        `}
+        className={className}
         {...props}
       >
         {children}
@@ -69,47 +58,46 @@ export const Grid: React.FC<GridProps> & GridItemProps = ({
     </GridContext.Provider>
   );
 };
+
 /**
  * GridItem component for creating responsive grid items
  */
-export const GridItem: React.FC<GridItemProps> = ({
+const GridItem: React.FC<GridItemProps> = ({
   children,
-  columnSpan = 0,
-  rowSpan = 0,
-  columnOffset = 0,
-  rowOffset = 0,
+  columnSpan,
+  rowSpan,
+  columnOffset,
+  rowOffset,
   className,
   ...props
 }) => {
   // Check if the component is used inside Grid
   const isInsideGrid = useContext(GridContext);
 
+  // Use useMemo to avoid recalculating styles on each render unless props change
+  const responsiveItemStyle = useMemo(
+    () => gridItemResponsiveStyle({ columnSpan, rowSpan, columnOffset, rowOffset }),
+    [columnSpan, rowSpan, columnOffset, rowOffset]
+  );
+
+  // If not inside Grid, log an error and return null
   if (!isInsideGrid) {
     console.error("GridItem must be used within a Grid component.");
     return null; // or throw an error depending on your preference
   }
 
-  const responsiveColumnSpan = resolveResponsiveProps(gridItemStyles, columnSpan, "columnSpan");
-  const responsiveRowSpan = resolveResponsiveProps(gridItemStyles, rowSpan, "rowSpan");
-  const responsiveColumnOffset = resolveResponsiveProps(
-    gridItemStyles,
-    columnOffset,
-    "columnOffset"
-  );
-  const responsiveRowOffset = resolveResponsiveProps(gridItemStyles, rowOffset, "rowOffset");
-
   return (
     <div
-      className={cn(
-        responsiveColumnSpan,
-        responsiveRowSpan,
-        responsiveColumnOffset,
-        responsiveRowOffset,
-        className
-      )}
+      css={css`
+        ${responsiveItemStyle};
+      `}
+      className={className}
       {...props}
     >
       {children}
     </div>
   );
 };
+
+// Assign GridItem to Grid component
+Grid.GridItem = GridItem;
