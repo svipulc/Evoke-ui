@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { ComponentProps, createContext, useContext, useMemo } from "react";
+import React, { ComponentProps, useContext, useMemo } from "react";
 import { gridItemResponsiveStyle, gridResponsiveStyle } from "./index.style";
 import { GridColumnCount, GridRowCount, ResponsiveValue } from "@/theme";
 import { SpacingOptions } from "@/theme";
+import { GridContext, GridContextProvider } from "@/context/Grid";
 
 /**
  * Props for the Grid component.
@@ -27,11 +28,6 @@ export type GridItemProps = ComponentProps<"div"> & {
 };
 
 /**
- * Context to ensure GridItem is used inside Grid
- */
-const GridContext = createContext<boolean | null>(null);
-
-/**
  * Grid component for creating responsive grid layouts.
  */
 export const Grid: React.FC<GridProps> & {
@@ -44,7 +40,7 @@ export const Grid: React.FC<GridProps> & {
   );
 
   return (
-    <GridContext.Provider value={true}>
+    <GridContextProvider>
       <div
         css={css`
           display: grid;
@@ -55,7 +51,7 @@ export const Grid: React.FC<GridProps> & {
       >
         {children}
       </div>
-    </GridContext.Provider>
+    </GridContextProvider>
   );
 };
 
