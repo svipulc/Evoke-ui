@@ -1,6 +1,7 @@
+import { CardContext, CardContextProvider } from "@/context/Card";
 import { cn } from "@/utils";
 import { VariantProps } from "class-variance-authority";
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, useContext } from "react";
 import { cardContentStyle, cardFooterStyle, cardHeaderStyle, cardStyle } from "./index.style";
 
 // Card Component
@@ -12,9 +13,11 @@ export const Card: React.FC<CardProps> & {
   Footer: React.FC<CardFooterProps>;
 } = ({ children, className, ...props }) => {
   return (
-    <div {...props} className={cn(cardStyle(), className)}>
-      {children}
-    </div>
+    <CardContextProvider>
+      <div {...props} className={cn(cardStyle(), className)}>
+        {children}
+      </div>
+    </CardContextProvider>
   );
 };
 
@@ -22,6 +25,12 @@ export const Card: React.FC<CardProps> & {
 export type CardHeaderProps = ComponentProps<"div"> & VariantProps<typeof cardHeaderStyle>;
 
 const CardHeader: React.FC<CardHeaderProps> = ({ children, className, ...props }) => {
+  const isInsideCard = useContext(CardContext);
+
+  if (!isInsideCard) {
+    console.error("Card.Header must be used within a Card component.");
+    return null; // or throw an error depending on your preference
+  }
   return (
     <div {...props} className={cn(cardHeaderStyle(), className)}>
       {children}
@@ -33,6 +42,12 @@ const CardHeader: React.FC<CardHeaderProps> = ({ children, className, ...props }
 export type CardContentProps = ComponentProps<"div"> & VariantProps<typeof cardContentStyle>;
 
 const CardContent: React.FC<CardContentProps> = ({ children, className, ...props }) => {
+  const isInsideCard = useContext(CardContext);
+
+  if (!isInsideCard) {
+    console.error("Card.Content must be used within a Card component.");
+    return null; // or throw an error depending on your preference
+  }
   return (
     <div {...props} className={cn(cardContentStyle(), className)}>
       {children}
@@ -44,6 +59,12 @@ const CardContent: React.FC<CardContentProps> = ({ children, className, ...props
 export type CardFooterProps = ComponentProps<"div"> & VariantProps<typeof cardFooterStyle>;
 
 const CardFooter: React.FC<CardFooterProps> = ({ children, className, ...props }) => {
+  const isInsideCard = useContext(CardContext);
+
+  if (!isInsideCard) {
+    console.error("Card.Footer must be used within a Card component.");
+    return null; // or throw an error depending on your preference
+  }
   return (
     <div {...props} className={cn(cardFooterStyle(), className)}>
       {children}
