@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/svipulc/Evoke-ui/compare/v1.8.0...v1.9.0) (2024-09-27)
+
+### Features
+
+- sm-71 - create grid component ([#17](https://github.com/svipulc/Evoke-ui/issues/17)) ([3687834](https://github.com/svipulc/Evoke-ui/commit/3687834071e84a7123ee7a0692e79540ff194b2b))
+
 # [1.8.0](https://github.com/svipulc/Evoke-ui/compare/v1.7.1...v1.8.0) (2024-09-24)
 
 ### Features
