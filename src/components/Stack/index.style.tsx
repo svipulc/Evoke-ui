@@ -1,45 +1,44 @@
-import { cva } from "class-variance-authority";
+import { SpacingOptions, breakpoints, spacing } from "@/theme";
+import { css } from "@emotion/react";
+import { StackProps } from ".";
 
-export const stackStyle = cva(["flex", "w-full", "p-2"], {
-  variants: {
-    direction: {
-      row: "flex-row",
-      column: "flex-col",
-      "row-reverse": "flex-row-reverse",
-      "column-reverse": "flex-col-reverse",
-    },
-    spacing: {
-      none: "gap-0",
-      small: "gap-2",
-      medium: "gap-4",
-      large: "gap-6",
-    },
-    align: {
-      start: "items-start",
-      center: "items-center",
-      end: "items-end",
-      stretch: "items-stretch",
-      baseline: "items-baseline",
-    },
-    justify: {
-      start: "justify-start",
-      center: "justify-center",
-      end: "justify-end",
-      "space-between": "justify-between",
-      "space-around": "justify-around",
-      "space-evenly": "justify-evenly",
-    },
-    wrap: {
-      wrap: "flex-wrap",
-      nowrap: "flex-nowrap",
-      "wrap-reverse": "flex-wrap-reverse",
-    },
-  },
-  defaultVariants: {
-    direction: "column",
-    spacing: "medium",
-    align: "start",
-    justify: "start",
-    wrap: "wrap",
-  },
-});
+// Function to generate responsive stack styles
+export const stackResponsiveStyle = (
+  input: Pick<StackProps, "spacing" | "direction" | "align" | "justify" | "wrap">
+) => {
+  // Initialize an empty css object
+  let res = css``;
+
+  Object.entries(input).forEach(([field, value]) => {
+    if (value !== undefined) {
+      // Handle responsive object values
+      if (typeof value === "object") {
+        Object.entries(value).forEach(([breakpoint, val]) => {
+          const minWidth = breakpoints[breakpoint as keyof typeof breakpoints];
+          res = css`
+            ${res}
+            @media (min-width: ${minWidth}) {
+              ${field === "spacing" && `gap: ${spacing[val as SpacingOptions]};`}
+              ${field === "direction" && `flex-direction: ${val};`}
+              ${field === "align" && `align-items: ${val};`}
+              ${field === "justify" && `justify-content: ${val};`}
+              ${field === "wrap" && `flex-wrap: ${val};`}
+            }
+          `;
+        });
+      } else {
+        // Handle non-responsive values
+        res = css`
+          ${res}
+          ${field === "spacing" && `gap: ${spacing[value as SpacingOptions]};`}
+          ${field === "direction" && `flex-direction: ${value};`}
+          ${field === "align" && `align-items: ${value};`}
+          ${field === "justify" && `justify-content: ${value};`}
+          ${field === "wrap" && `flex-wrap: ${value};`}
+        `;
+      }
+    }
+  });
+
+  return res;
+};
