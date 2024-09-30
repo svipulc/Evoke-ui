@@ -1,3 +1,9 @@
+## [1.11.1](https://github.com/svipulc/Evoke-ui/compare/v1.11.0...v1.11.1) (2024-09-30)
+
+### Bug Fixes
+
+- sm-90 update folder structure and refactor tabs component ([#21](https://github.com/svipulc/Evoke-ui/issues/21)) ([7d2a7c5](https://github.com/svipulc/Evoke-ui/commit/7d2a7c50121299402777530bf9928a3205569e9f))
+
 # [1.11.0](https://github.com/svipulc/Evoke-ui/compare/v1.10.0...v1.11.0) (2024-09-30)
 
 ### Features
