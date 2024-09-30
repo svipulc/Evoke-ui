@@ -15,6 +15,16 @@ export type ResponsiveValue<T> = T | { [key in BreakPointOptions]?: T };
 export type GridColumnCount = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type GridRowCount = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
+export type Direction = "row" | "column";
+export type AlignType = "start" | "center" | "end" | "stretch";
+export type JustifyType = "start" | "center" | "end" | "between" | "around" | "evenly";
+export type WrapType = "nowrap" | "wrap" | "wrap-reverse";
+
+export const direction: Record<Direction, string> = {
+  row: "row",
+  column: "col",
+};
+
 export const spacing: Record<SpacingOptions, string> = {
   none: "0px",
   tiny: "0.25rem", // 4px

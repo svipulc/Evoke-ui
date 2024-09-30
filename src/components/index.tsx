@@ -6,5 +6,6 @@ export * from "./Input";
 export * from "./Modal";
 export * from "./ScrollArea";
 export * from "./Skeleton";
+export * from "./Stack";
 export * from "./Tabs";
 export * from "./Tooltip";
