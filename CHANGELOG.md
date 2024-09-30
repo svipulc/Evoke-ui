@@ -1,3 +1,31 @@
+# [1.10.0](https://github.com/svipulc/Evoke-ui/compare/v1.9.0...v1.10.0) (2024-09-30)
+
+### Bug Fixes
+
+- release issue for card component ([ad9576e](https://github.com/svipulc/Evoke-ui/commit/ad9576e4247cdaa4f54b3136dc185a6afb735cc8))
+
+### Features
+
+- sm-73 create container component ([#18](https://github.com/svipulc/Evoke-ui/issues/18)) ([08d834f](https://github.com/svipulc/Evoke-ui/commit/08d834fe986be1f5d05092940dcdf8f56e8a4d90))
+
+# [1.9.0](https://github.com/svipulc/Evoke-ui/compare/v1.8.0...v1.9.0) (2024-09-27)
+
+### Features
+
+- sm-71 - create grid component ([#17](https://github.com/svipulc/Evoke-ui/issues/17)) ([3687834](https://github.com/svipulc/Evoke-ui/commit/3687834071e84a7123ee7a0692e79540ff194b2b))
+
+# [1.8.0](https://github.com/svipulc/Evoke-ui/compare/v1.7.1...v1.8.0) (2024-09-24)
+
+### Features
+
+- sm-22 - create tabs component ([#4](https://github.com/svipulc/Evoke-ui/issues/4)) ([6f41498](https://github.com/svipulc/Evoke-ui/commit/6f4149844947cafa3657b97ecdcbcd23d5ed03bf))
+
+## [1.7.1](https://github.com/svipulc/Evoke-ui/compare/v1.7.0...v1.7.1) (2024-09-23)
+
+### Bug Fixes
+
+- create tooltip component ([#12](https://github.com/svipulc/Evoke-ui/issues/12)) ([4b82fbf](https://github.com/svipulc/Evoke-ui/commit/4b82fbf00c1877c008ec342a6cb5b451ac3a3a98))
+
 # [1.7.0](https://github.com/svipulc/Evoke-ui/compare/v1.6.0...v1.7.0) (2024-09-19)
 
 ### Features
