@@ -1,3 +1,13 @@
+# [1.10.0](https://github.com/svipulc/Evoke-ui/compare/v1.9.0...v1.10.0) (2024-09-30)
+
+### Bug Fixes
+
+- release issue for card component ([ad9576e](https://github.com/svipulc/Evoke-ui/commit/ad9576e4247cdaa4f54b3136dc185a6afb735cc8))
+
+### Features
+
+- sm-73 create container component ([#18](https://github.com/svipulc/Evoke-ui/issues/18)) ([08d834f](https://github.com/svipulc/Evoke-ui/commit/08d834fe986be1f5d05092940dcdf8f56e8a4d90))
+
 # [1.9.0](https://github.com/svipulc/Evoke-ui/compare/v1.8.0...v1.9.0) (2024-09-27)
 
 ### Features
