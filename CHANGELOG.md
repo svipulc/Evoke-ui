@@ -1,3 +1,9 @@
+# [1.11.0](https://github.com/svipulc/Evoke-ui/compare/v1.10.0...v1.11.0) (2024-09-30)
+
+### Features
+
+- sm-72 create stack component ([134f5d7](https://github.com/svipulc/Evoke-ui/commit/134f5d76ab294a617b763dfa90216eae90e09fc9))
+
 # [1.10.0](https://github.com/svipulc/Evoke-ui/compare/v1.9.0...v1.10.0) (2024-09-30)
 
 ### Bug Fixes
