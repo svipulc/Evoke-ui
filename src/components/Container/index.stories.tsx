@@ -6,7 +6,7 @@ import { Card } from "../Card";
 import { Container } from "./index";
 
 const meta: Meta<typeof Container> = {
-  title: "Components/Container",
+  title: "Layouts/Container",
   component: Container,
   parameters: {
     layout: "fullscreen",
