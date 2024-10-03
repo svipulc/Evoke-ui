@@ -8,14 +8,27 @@ import {
 } from "./index.style";
 import { VariantProps } from "class-variance-authority";
 
-export type DividerProps = ComponentProps<"div"> &
+type VerticalTextAlign = "top" | "center" | "bottom";
+type HorizontalTextAlign = "left" | "center" | "right";
+
+export type DividerBaseProps = ComponentProps<"div"> &
   VariantProps<typeof DividerStyles> &
   VariantProps<typeof DividerChildrenStyle> & {
-    children?: unknown;
-    Alignment?: "horizontal" | "vertical";
     variant?: "fullWidth" | "inset" | "middle";
-    textAlign?: "center" | "left" | "right";
+    children?: unknown;
   };
+
+export type HorizontalDividerProps = DividerBaseProps & {
+  Alignment: "horizontal";
+  textAlign?: HorizontalTextAlign;
+};
+
+export type VerticalDividerProps = DividerBaseProps & {
+  Alignment: "vertical";
+  textAlign?: VerticalTextAlign;
+};
+
+export type DividerProps = HorizontalDividerProps | VerticalDividerProps;
 
 export const Divider: React.FC<DividerProps> = ({
   children,

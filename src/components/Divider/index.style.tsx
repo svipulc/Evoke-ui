@@ -60,11 +60,11 @@ export const getTextAlignClass = (alignment: string, position: string): string =
     }
   } else if (alignment === "vertical") {
     switch (position) {
-      case "left":
+      case "top":
         return "top-4 left-[-1rem] top-vertical";
       case "center":
         return "top-1/2 left-[-1rem] transform -translate-y-1/2 center-vertical";
-      case "right":
+      case "bottom":
         return "bottom-4 left-[-1rem] bottom-vertical";
       default:
         return "";

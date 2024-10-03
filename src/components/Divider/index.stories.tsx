@@ -6,7 +6,7 @@ import { TiHome } from "react-icons/ti";
 import { BsChatSquareText } from "react-icons/bs";
 
 const meta: Meta<typeof Divider> = {
-  title: "Components/Divider",
+  title: "Layouts/Divider",
   component: Divider,
   argTypes: {
     variant: {
@@ -34,7 +34,7 @@ const meta: Meta<typeof Divider> = {
       control: {
         type: "select",
       },
-      options: ["left", "right", "center"],
+      options: ["left", "right", "top", "bottom", "center"],
       description: "Aligns text inside the divider",
     },
   },
@@ -43,16 +43,14 @@ const meta: Meta<typeof Divider> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Divider>;
 
 export const HorizontalDivider: Story = {
   args: {
     Alignment: "horizontal",
     variant: "fullWidth",
-  },
-
-  render: args => {
-    return <Divider {...args} />;
+    textAlign: "center",
+    children: "Horizontal Divider",
   },
 };
 
@@ -61,6 +59,8 @@ export const VerticalDivider: Story = {
     Alignment: "vertical",
     variant: "fullWidth",
     type: "dotted",
+    textAlign: "center",
+    children: "Vertical Divider",
   },
 
   render: args => {
@@ -130,26 +130,26 @@ export const TextDivider: Story = {
           Text
         </Divider>
         <div className="p-8">Text left below</div>
-        <Divider {...args} textAlign={"left"}>
+        <Divider {...args} Alignment="horizontal" textAlign={"left"}>
           Text
         </Divider>
         <div className="p-8">Text right below</div>
-        <Divider {...args} textAlign={"right"}>
+        <Divider {...args} Alignment="horizontal" textAlign={"right"}>
           Text
         </Divider>
         <div className="p-8">Last item</div>
       </div>
       <div className="border-[3px] h-[20vh] flex justify-between">
+        <div className="p-8">Text Top</div>
+        <Divider {...args} Alignment="vertical" textAlign={"top"}>
+          Text
+        </Divider>
         <div className="p-8">Text center</div>
         <Divider {...args} Alignment="vertical" textAlign={"center"}>
           Text
         </Divider>
-        <div className="p-8">Text left</div>
-        <Divider {...args} Alignment="vertical" textAlign={"left"}>
-          Text
-        </Divider>
-        <div className="p-8">Text right</div>
-        <Divider {...args} Alignment="vertical" textAlign={"right"}>
+        <div className="p-8">Text bottom</div>
+        <Divider {...args} Alignment="vertical" textAlign={"bottom"}>
           Text
         </Divider>
         <div className="p-8">Last item</div>
@@ -194,13 +194,13 @@ export const UsingDividerInCard: Story = {
           <Card.Header>
             <h4 className="text-2xl font-semibold">Card Title</h4>
           </Card.Header>
-          <Divider />
+          <Divider {...args} />
           <Card.Content>
             <p className="p-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.
             </p>
           </Card.Content>
-          <Divider />
+          <Divider {...args} />
           <Card.Footer>
             <p className="p-4">This is footer</p>
           </Card.Footer>
