@@ -33,7 +33,7 @@ export const avatarImageStyle = cva([
   "h-full",
   "rounded-full",
   "object-cover",
-  "ring-2 ring-offset-2 ring-light-secondary dark:ring-dark-secondary",
+  "ring-2 ring-light-secondary dark:ring-secondary",
 ]);
 
 // Avatar Fallback
