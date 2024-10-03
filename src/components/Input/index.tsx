@@ -28,10 +28,7 @@ export const Input = ({
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label
-          htmlFor={name}
-          className="text-sm text-gray-600 dark:text-gray-50/80"
-        >
+        <label htmlFor={name} className="text-sm text-light-silverSteel dark:text-silverSteel">
           {label}
           {required && <span className="text-red-500"> *</span>}
         </label>
@@ -48,15 +45,9 @@ export const Input = ({
             required={required}
           />
         </div>
-        {error && (
-          <span className="text-sm text-red-600 dark:text-red-400 ">
-            {errorMessage}
-          </span>
-        )}
+        {error && <span className="text-sm text-red-600 dark:text-red-400 ">{errorMessage}</span>}
         {helperText && !error && (
-          <span className="text-sm text-gray-500 dark:text-gray-50/60 ">
-            {helperText}
-          </span>
+          <span className="text-sm text-light-silverSteel dark:text-silverSteel">{helperText}</span>
         )}
       </div>
     </div>
