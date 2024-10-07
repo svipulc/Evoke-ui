@@ -1,3 +1,9 @@
+# [1.14.0](https://github.com/svipulc/Evoke-ui/compare/v1.13.0...v1.14.0) (2024-10-07)
+
+### Features
+
+- Merge multiple new components into main for component library ([#36](https://github.com/svipulc/Evoke-ui/issues/36)) ([9490fbc](https://github.com/svipulc/Evoke-ui/commit/9490fbc88d3483df3560f488c8c7df3f639bd0e1))
+
 # [1.13.0](https://github.com/svipulc/Evoke-ui/compare/v1.12.0...v1.13.0) (2024-10-07)
 
 ### Features
