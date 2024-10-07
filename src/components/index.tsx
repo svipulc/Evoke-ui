@@ -4,6 +4,7 @@ export * from "./Card";
 export * from "./Container";
 export * from "./Input";
 export * from "./Modal";
+export * from "./Divider";
 export * from "./ScrollArea";
 export * from "./Skeleton";
 export * from "./Stack";
