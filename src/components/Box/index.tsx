@@ -11,7 +11,6 @@ export type BoxProps<T extends ElementType = "div"> = ComponentProps<T> &
 
 export const Box = <T extends ElementType = "div">({
   as: Component = "div",
-  backgroundColor = "default",
   padding,
   border,
   borderRadius,
@@ -20,10 +19,7 @@ export const Box = <T extends ElementType = "div">({
   ...props
 }: BoxProps<T>) => {
   return (
-    <Component
-      className={cn(boxStyle({ backgroundColor, padding, border, borderRadius, boxShadow }))}
-      {...props}
-    >
+    <Component className={cn(boxStyle({ padding, border, borderRadius, boxShadow }))} {...props}>
       {children}
     </Component>
   );

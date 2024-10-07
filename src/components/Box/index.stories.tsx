@@ -5,9 +5,6 @@ import { Meta, StoryObj } from "@storybook/react";
 const meta: Meta<typeof Box> = {
   title: "Layouts/Box",
   component: Box as React.FC,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {
     as: {
@@ -16,13 +13,6 @@ const meta: Meta<typeof Box> = {
         type: "select",
       },
       defaultValue: "div",
-    },
-    backgroundColor: {
-      options: ["default", "primary", "secondary", "lavender", "silverSteel"],
-      control: {
-        type: "select",
-      },
-      defaultValue: "default",
     },
     padding: {
       options: ["none", "small", "medium", "large"],
@@ -66,7 +56,6 @@ type Story = StoryObj<typeof meta>;
 export const DefaultBox: Story = {
   args: {
     as: "header",
-    backgroundColor: "default",
     padding: "small",
     border: "thin",
     children: "This is the default Box component.",

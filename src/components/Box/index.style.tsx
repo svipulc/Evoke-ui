@@ -1,14 +1,7 @@
 import { cva } from "class-variance-authority";
 
-export const boxStyle = cva("flex justify-center", {
+export const boxStyle = cva("w-100", {
   variants: {
-    backgroundColor: {
-      default: "bg-transparent",
-      primary: "bg-primary",
-      secondary: "bg-secondary",
-      lavender: "bg-lavender",
-      silverSteel: "bg-silverSteel",
-    },
     padding: {
       none: "p-0",
       small: "p-4",
@@ -34,10 +27,9 @@ export const boxStyle = cva("flex justify-center", {
     },
   },
   defaultVariants: {
-    backgroundColor: "default",
     padding: "small",
-    border: "thin",
-    borderRadius: "small",
-    boxShadow: "small",
+    border: "none",
+    borderRadius: "none",
+    boxShadow: "none",
   },
 });
