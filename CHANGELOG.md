@@ -1,3 +1,15 @@
+# [1.12.0](https://github.com/svipulc/Evoke-ui/compare/v1.11.2...v1.12.0) (2024-10-07)
+
+### Features
+
+- sm-75 create divider component ([#20](https://github.com/svipulc/Evoke-ui/issues/20)) ([e200fca](https://github.com/svipulc/Evoke-ui/commit/e200fca3868009a9d58027f4b241979b2f66c4a6))
+
+## [1.11.2](https://github.com/svipulc/Evoke-ui/compare/v1.11.1...v1.11.2) (2024-10-07)
+
+### Bug Fixes
+
+- export grid component in index.ts ([20aa9c3](https://github.com/svipulc/Evoke-ui/commit/20aa9c391e2daf34d646fa3f1f547d7fdc3a4bf7))
+
 ## [1.11.1](https://github.com/svipulc/Evoke-ui/compare/v1.11.0...v1.11.1) (2024-09-30)
 
 ### Bug Fixes

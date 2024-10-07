@@ -12,6 +12,13 @@ export default {
     },
     extend: {
       colors: {
+        light: {
+          primary: "#FFFFFF",
+          secondary: "#3366CC",
+          lavender: "#D4BFFF",
+          silverSteel: "#6b7280",
+          modalColor: "#F4F4F9",
+        },
         primary: "#24293C",
         secondary: "#AACCFF",
         lavender: "#E6E6FA",

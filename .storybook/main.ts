@@ -18,7 +18,7 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ["../public"],
-  viteFinal: async (config) => {
+  viteFinal: async config => {
     config.plugins?.push(
       /** @see https://github.com/aleclarson/vite-tsconfig-paths */
       tsconfigPaths({

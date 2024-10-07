@@ -1,0 +1,35 @@
+import { Meta, Title, Subtitle, Description, Source } from "@storybook/blocks";
+
+<Meta title="Home/Installation" />
+<Title>
+  <img src="/Logo.svg" className="" alt="logo" width={300} />
+</Title>
+<span>
+  <b>Evoke UI</b> is a modern, flexible, and highly customizable component library built with
+  TypeScript and Vite. It is designed to help developers create beautiful, responsive, and
+  accessible user interfaces with minimal effort.
+</span>
+<Subtitle>Installation</Subtitle>
+
+<Source code={`npm install @social-media/evoke-ui react react-dom emotion `} />
+
+<Subtitle>Getting Started</Subtitle>
+
+<h3>Include styles</h3>
+<span>Import the styles to main.tsx file </span>
+<Source code={`import "@social-media/evoke-ui/dist/styles.css";`} />
+<h3>Import Component</h3>
+
+<Source code={
+    `import React from "react";
+import { Button } from "@social-media/evoke-ui";
+
+const App = () => (
+
+<div>
+  <Button variant="solid">Hello World</Button>
+</div>
+);
+
+export default App;`
+} />
