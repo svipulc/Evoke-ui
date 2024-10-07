@@ -16,7 +16,7 @@ const meta: Meta<typeof Divider> = {
       options: ["fullWidth", "inset", "middle"],
       description: "Controls the width and positioning of the divider",
     },
-    Alignment: {
+    alignment: {
       control: {
         type: "select",
       },
@@ -47,7 +47,6 @@ type Story = StoryObj<typeof Divider>;
 
 export const HorizontalDivider: Story = {
   args: {
-    Alignment: "horizontal",
     variant: "fullWidth",
     textAlign: "center",
     children: "Horizontal Divider",
@@ -56,7 +55,7 @@ export const HorizontalDivider: Story = {
 
 export const VerticalDivider: Story = {
   args: {
-    Alignment: "vertical",
+    alignment: "vertical",
     variant: "fullWidth",
     type: "dotted",
     textAlign: "center",
@@ -76,7 +75,7 @@ export const VerticalDivider: Story = {
 
 export const VerticalDividerExample: Story = {
   args: {
-    Alignment: "vertical",
+    alignment: "vertical",
     variant: "inset",
   },
   render: args => (
@@ -97,7 +96,7 @@ export const VerticalDividerExample: Story = {
 export const VariantDivider: Story = {
   args: {
     variant: "fullWidth",
-    Alignment: "horizontal",
+    alignment: "horizontal",
     type: "solid",
   },
   render: args => (
@@ -118,7 +117,7 @@ export const VariantDivider: Story = {
 export const TextDivider: Story = {
   args: {
     variant: "fullWidth",
-    Alignment: "horizontal",
+    alignment: "horizontal",
     type: "solid",
     textAlign: "center",
   },
@@ -130,26 +129,26 @@ export const TextDivider: Story = {
           Text
         </Divider>
         <div className="p-8">Text left below</div>
-        <Divider {...args} Alignment="horizontal" textAlign={"left"}>
+        <Divider {...args} alignment="horizontal" textAlign={"left"}>
           Text
         </Divider>
         <div className="p-8">Text right below</div>
-        <Divider {...args} Alignment="horizontal" textAlign={"right"}>
+        <Divider {...args} alignment="horizontal" textAlign={"right"}>
           Text
         </Divider>
         <div className="p-8">Last item</div>
       </div>
       <div className="border-[3px] h-[20vh] flex justify-between">
         <div className="p-8">Text Top</div>
-        <Divider {...args} Alignment="vertical" textAlign={"top"}>
+        <Divider {...args} alignment="vertical" textAlign={"top"}>
           Text
         </Divider>
         <div className="p-8">Text center</div>
-        <Divider {...args} Alignment="vertical" textAlign={"center"}>
+        <Divider {...args} alignment="vertical" textAlign={"center"}>
           Text
         </Divider>
         <div className="p-8">Text bottom</div>
-        <Divider {...args} Alignment="vertical" textAlign={"bottom"}>
+        <Divider {...args} alignment="vertical" textAlign={"bottom"}>
           Text
         </Divider>
         <div className="p-8">Last item</div>
@@ -161,7 +160,7 @@ export const TextDivider: Story = {
 export const TypeDivider: Story = {
   args: {
     variant: "middle",
-    Alignment: "horizontal",
+    alignment: "horizontal",
     type: "dotted",
     textAlign: "center",
   },
@@ -183,7 +182,7 @@ export const TypeDivider: Story = {
 export const UsingDividerInCard: Story = {
   args: {
     variant: "fullWidth",
-    Alignment: "horizontal",
+    alignment: "horizontal",
     type: "solid",
     textAlign: "center",
   },

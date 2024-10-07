@@ -1,31 +1,31 @@
 import { cn } from "@/utils";
 import { ComponentProps } from "react";
 import {
-  DividerChildrenStyle,
-  DividerStyles,
+  dividerChildrenStyle,
+  dividerStyles,
   getTextAlignClass,
   getVariantClass,
 } from "./index.style";
 import { VariantProps } from "class-variance-authority";
 
-type VerticalTextAlign = "top" | "center" | "bottom";
-type HorizontalTextAlign = "left" | "center" | "right";
+type verticalTextAlign = "top" | "center" | "bottom";
+type horizontalTextAlign = "left" | "center" | "right";
 
 export type DividerBaseProps = ComponentProps<"div"> &
-  VariantProps<typeof DividerStyles> &
-  VariantProps<typeof DividerChildrenStyle> & {
+  VariantProps<typeof dividerStyles> &
+  VariantProps<typeof dividerChildrenStyle> & {
     variant?: "fullWidth" | "inset" | "middle";
     children?: unknown;
   };
 
 export type HorizontalDividerProps = DividerBaseProps & {
-  Alignment: "horizontal";
-  textAlign?: HorizontalTextAlign;
+  alignment: "horizontal";
+  textAlign?: horizontalTextAlign;
 };
 
 export type VerticalDividerProps = DividerBaseProps & {
-  Alignment: "vertical";
-  textAlign?: VerticalTextAlign;
+  alignment: "vertical";
+  textAlign?: verticalTextAlign;
 };
 
 export type DividerProps = HorizontalDividerProps | VerticalDividerProps;
@@ -33,13 +33,13 @@ export type DividerProps = HorizontalDividerProps | VerticalDividerProps;
 export const Divider: React.FC<DividerProps> = ({
   children,
   className,
-  Alignment = "horizontal",
+  alignment = "horizontal",
   variant = "fullWidth",
   textAlign = "center",
   type,
 }) => {
   let border_postion = "";
-  if (Alignment === "horizontal") {
+  if (alignment === "horizontal") {
     border_postion = "border-t";
   } else {
     border_postion = "border-l";
@@ -48,13 +48,13 @@ export const Divider: React.FC<DividerProps> = ({
     <div
       className={cn(
         `${border_postion} bg-gray-300 inline-block`,
-        DividerStyles({ Alignment, type }),
-        getVariantClass(Alignment, variant),
+        dividerStyles({ alignment, type }),
+        getVariantClass(alignment, variant),
         className
       )}
     >
       {children && (
-        <span className={cn(DividerChildrenStyle(), getTextAlignClass(Alignment, textAlign))}>
+        <span className={cn(dividerChildrenStyle(), getTextAlignClass(alignment, textAlign))}>
           {children}
         </span>
       )}

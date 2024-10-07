@@ -1,8 +1,8 @@
 import { cva } from "class-variance-authority";
 
-export const DividerStyles = cva("relative flex", {
+export const dividerStyles = cva("relative flex", {
   variants: {
-    Alignment: {
+    alignment: {
       horizontal: "w-full max-h-[1px]",
       vertical: "flex-col h-full max-w-[1px]",
     },
@@ -14,14 +14,14 @@ export const DividerStyles = cva("relative flex", {
   },
 
   defaultVariants: {
-    Alignment: "horizontal",
+    alignment: "horizontal",
   },
 });
 
-export const DividerChildrenStyle = cva("absolute bg-white px-2 text-gray-500 legend-text");
+export const dividerChildrenStyle = cva("absolute bg-white px-2 text-gray-500 legend-text");
 
-export const getVariantClass = (Alignment: string, variant: string): string => {
-  if (Alignment === "horizontal") {
+export const getVariantClass = (alignment: string, variant: string): string => {
+  if (alignment === "horizontal") {
     switch (variant) {
       case "fullWidth":
         return "w-full";
