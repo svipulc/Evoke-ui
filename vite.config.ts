@@ -31,7 +31,7 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: process.env.NODE_ENV !== "production",
+    sourcemap: true,
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
