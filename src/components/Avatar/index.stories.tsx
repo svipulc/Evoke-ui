@@ -40,13 +40,7 @@ export const Profile: Story = {
 export const ProfileWithoutSource: Story = {
   args: {
     size: "lg",
-    children: (
-      <AvatarImage
-        src="   "
-        alt=""
-        fallback={<AvatarFallback alt="Alternative Text" />}
-      />
-    ),
+    children: <AvatarImage src="   " alt="" fallback={<AvatarFallback alt="Alternative Text" />} />,
   },
 };
 
@@ -74,8 +68,6 @@ export const ProfileWithNoAltNoFallback: Story = {
 export const ProfileWithInvalidUrl: Story = {
   args: {
     size: "lg",
-    children: (
-      <AvatarImage src="https://www.google.com/2.jpg" alt="Test Image" />
-    ),
+    children: <AvatarImage src="https://www.google.com/2.jpg" alt="Test Image" />,
   },
 };

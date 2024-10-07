@@ -17,12 +17,12 @@ export const buttonStyles = cva(
     variants: {
       variant: {
         solid:
-          "dark:bg-secondary dark:hover:bg-secondary/90 dark:active:ring-2 dark:active:ring-secondary/50 dark:text-primary bg-primary hover:bg-primary/90 active:ring-2 active:ring-primary/50 text-white",
+          " dark:bg-secondary dark:hover:bg-secondary/90 dark:active:ring-2 dark:active:ring-secondary/50 dark:text-primary bg-light-secondary hover:bg-light-secondary/90 active:ring-2 active:ring-primary/50 text-light-primary",
         outline:
-          "dark:border-secondary dark:text-secondary dark:hover:bg-secondary/10 dark:active:ring-2 dark:active:ring-secondary/50 border-primary bg-transparent hover:bg-primary/10 active:ring-2 active:ring-primary/50 border-2",
+          "dark:border-secondary dark:text-secondary dark:hover:bg-secondary/10 dark:active:ring-2 dark:active:ring-secondary/50 border-light-secondary bg-transparent hover:bg-light-secondary/10 active:ring-2 active:ring-light-secondary/50 border-2 text-light-secondary",
         ghost:
-          "dark:text-secondary dark:hover:bg-secondary/10 dark:active:ring-2 dark:active:ring-secondary/50 transition-colors duration-300 hover:bg-primary/10 active:ring-2 active:ring-primary/50",
-        link: "dark:text-secondary bg-transparent underline-offset-4 hover:underline cursor-pointer",
+          "dark:text-secondary dark:hover:bg-secondary/10 dark:active:ring-2 dark:active:ring-secondary/50 transition-colors duration-300 hover:bg-light-secondary/10 active:ring-2 active:ring-light-secondary/50 text-light-secondary",
+        link: "text-light-secondary dark:text-secondary bg-transparent underline-offset-4 hover:underline cursor-pointer",
         destructive: "bg-red-600 hover:bg-red-700/90 active:ring-2 active:ring-red-300 text-white",
       },
       size: {

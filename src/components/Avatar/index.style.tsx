@@ -33,6 +33,7 @@ export const avatarImageStyle = cva([
   "h-full",
   "rounded-full",
   "object-cover",
+  "ring-2 ring-light-secondary dark:ring-secondary",
 ]);
 
 // Avatar Fallback
@@ -41,6 +42,7 @@ export const avatarFallbackStyle = cva([
   "w-full",
   "h-full",
   "rounded-full",
-  "bg-silverSteel",
+  "bg-light-silverSteel dark:bg-silverSteel",
   "flex justify-center items-center",
+  "text-light-primary dark:text-primary",
 ]);

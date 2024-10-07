@@ -10,4 +10,4 @@ export * from "./Skeleton";
 export * from "./Stack";
 export * from "./Tabs";
 export * from "./Tooltip";
-export * from "./Divider";
+export * from "./Grid";
