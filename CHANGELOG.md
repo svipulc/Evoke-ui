@@ -1,3 +1,9 @@
+# [1.12.0](https://github.com/svipulc/Evoke-ui/compare/v1.11.2...v1.12.0) (2024-10-07)
+
+### Features
+
+- sm-75 create divider component ([#20](https://github.com/svipulc/Evoke-ui/issues/20)) ([e200fca](https://github.com/svipulc/Evoke-ui/commit/e200fca3868009a9d58027f4b241979b2f66c4a6))
+
 ## [1.11.2](https://github.com/svipulc/Evoke-ui/compare/v1.11.1...v1.11.2) (2024-10-07)
 
 ### Bug Fixes
