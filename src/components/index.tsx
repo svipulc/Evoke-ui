@@ -9,3 +9,4 @@ export * from "./Skeleton";
 export * from "./Stack";
 export * from "./Tabs";
 export * from "./Tooltip";
+export * from "./Grid";
