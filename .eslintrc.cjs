@@ -19,10 +19,8 @@ module.exports = {
     },
   },
   rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
+    "react/no-unknown-property": ["error", { ignore: ["css"] }],
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "prettier/prettier": "error",

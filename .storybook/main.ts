@@ -17,6 +17,7 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  staticDirs: ["../public"],
   viteFinal: async config => {
     config.plugins?.push(
       /** @see https://github.com/aleclarson/vite-tsconfig-paths */
