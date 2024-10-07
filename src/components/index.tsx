@@ -1,6 +1,7 @@
 export * from "./Avatar";
 export * from "./Button";
 export * from "./Card";
+export * from "./Box";
 export * from "./Container";
 export * from "./Input";
 export * from "./Modal";
