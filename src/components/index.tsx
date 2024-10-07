@@ -11,4 +11,3 @@ export * from "./Stack";
 export * from "./Tabs";
 export * from "./Tooltip";
 export * from "./Grid";
-export * from "./Divider";
