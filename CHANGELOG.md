@@ -1,3 +1,9 @@
+# [1.13.0](https://github.com/svipulc/Evoke-ui/compare/v1.12.0...v1.13.0) (2024-10-07)
+
+### Features
+
+- sm-74 create box component ([#32](https://github.com/svipulc/Evoke-ui/issues/32)) ([4f11e6f](https://github.com/svipulc/Evoke-ui/commit/4f11e6f09360299bf5d7de215f5c83b87bbbdeb9))
+
 # [1.12.0](https://github.com/svipulc/Evoke-ui/compare/v1.11.2...v1.12.0) (2024-10-07)
 
 ### Features
