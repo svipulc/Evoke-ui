@@ -23,7 +23,7 @@ export type TooltipProps = ComponentProps<"div"> &
       | "rightEnd";
   };
 
-const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
   content,
   className,
@@ -48,5 +48,3 @@ const Tooltip: React.FC<TooltipProps> = ({
     </>
   );
 };
-
-export default Tooltip;
