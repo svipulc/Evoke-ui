@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/svipulc/Evoke-ui/compare/v1.14.1...v1.14.2) (2024-11-07)
+
+### Bug Fixes
+
+- handling version ([#42](https://github.com/svipulc/Evoke-ui/issues/42)) ([0ef7c77](https://github.com/svipulc/Evoke-ui/commit/0ef7c776dc2defd34e7f7733a7f572ff1870017f))
+- modal issue and package version ([#41](https://github.com/svipulc/Evoke-ui/issues/41)) ([ea97b5c](https://github.com/svipulc/Evoke-ui/commit/ea97b5ce230ee942e1b117264a489ac7ce3e9df4)), closes [#39](https://github.com/svipulc/Evoke-ui/issues/39) [#39](https://github.com/svipulc/Evoke-ui/issues/39)
+
 ## [1.14.1](https://github.com/svipulc/Evoke-ui/compare/v1.14.0...v1.14.1) (2024-11-07)
 
 ### Bug Fixes
