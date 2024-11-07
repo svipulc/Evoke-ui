@@ -1,3 +1,10 @@
+## [1.14.3](https://github.com/svipulc/Evoke-ui/compare/v1.14.2...v1.14.3) (2024-11-07)
+
+### Bug Fixes
+
+- latest npm version of dev ([#44](https://github.com/svipulc/Evoke-ui/issues/44)) ([00e4ba9](https://github.com/svipulc/Evoke-ui/commit/00e4ba9cb8c2b50c33aaa2ecbbef8327d982e8a3))
+- new style of modal component ([2446fdf](https://github.com/svipulc/Evoke-ui/commit/2446fdf2d5c6e7f4bb379ce35009a44d3fbb8ac2))
+
 ## [1.14.2](https://github.com/svipulc/Evoke-ui/compare/v1.14.1...v1.14.2) (2024-11-07)
 
 ### Bug Fixes
