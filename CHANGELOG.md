@@ -1,3 +1,11 @@
+## [1.14.1](https://github.com/svipulc/Evoke-ui/compare/v1.14.0...v1.14.1) (2024-11-07)
+
+### Bug Fixes
+
+- modal issue fix ([c0bc56f](https://github.com/svipulc/Evoke-ui/commit/c0bc56f132e654daa79b0da168af6dc3a0eb2b5f))
+- modal overlay issue ([222c8f2](https://github.com/svipulc/Evoke-ui/commit/222c8f25c55a61333f0c61c4ad5b154a91927981))
+- modal overlay issue ([#39](https://github.com/svipulc/Evoke-ui/issues/39)) ([8f5c96b](https://github.com/svipulc/Evoke-ui/commit/8f5c96bca29d22b41376386e26349f49a8e827c6))
+
 # [1.14.0](https://github.com/svipulc/Evoke-ui/compare/v1.13.0...v1.14.0) (2024-10-07)
 
 ### Features
