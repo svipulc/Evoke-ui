@@ -5,9 +5,10 @@ import { ModalContextProvider } from "../../context/Modal/index";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "../Button";
 
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import { VariantProps } from "class-variance-authority";
 import { useModalContext } from "@/hooks";
+import { createPortal } from "react-dom";
 
 export type ModalDivProps = ComponentProps<"div">;
 
@@ -24,6 +25,19 @@ export type ModalProps = ModalDivProps &
 export type ModalTriggerProps = ModalDivProps & {
   isOpen: boolean;
   onClose: () => void;
+};
+
+export const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  return mounted
+    ? createPortal(children, document.getElementById("portal-root") || document.body)
+    : null;
 };
 
 export const Modal: React.FC<ModalProps> & {
@@ -53,6 +67,7 @@ export const Modal: React.FC<ModalProps> & {
       size={size}
       showCross={showCross}
     >
+      {/* <Portal> */}
       <div
         className={cn(
           ModalOverlayStyles(),
@@ -75,6 +90,7 @@ export const Modal: React.FC<ModalProps> & {
           {children}
         </div>
       </div>
+      {/* </Portal> */}
     </ModalContextProvider>
   );
 };

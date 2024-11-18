@@ -5,7 +5,7 @@ export const ModalOverlayStyles = cva([
 ]);
 
 export const ModalBodyStyles = cva(
-  "bg-white dark:bg-modalColor overflow-hidden rounded-md shadow-lg transition-all duration-300 ease-in-out flex flex-col",
+  "bg-white dark:bg-modalColor overflow-hidden rounded-md shadow-lg transition-transform duration-300 ease-in-out flex flex-col",
   {
     variants: {
       size: {
