@@ -67,30 +67,30 @@ export const Modal: React.FC<ModalProps> & {
       size={size}
       showCross={showCross}
     >
-      {/* <Portal> */}
-      <div
-        className={cn(
-          ModalOverlayStyles(),
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        )}
-        onClick={handleOverlayClick}
-        role="dialog"
-        aria-modal="true"
-        aria-label="modal"
-      >
+      <Portal>
         <div
           className={cn(
-            ModalBodyStyles({ size }),
-            isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
-            className
+            ModalOverlayStyles(),
+            isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
           )}
+          onClick={handleOverlayClick}
           role="dialog"
-          aria-label="modal-body"
+          aria-modal="true"
+          aria-label="modal"
         >
-          {children}
+          <div
+            className={cn(
+              ModalBodyStyles({ size }),
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+              className
+            )}
+            role="dialog"
+            aria-label="modal-body"
+          >
+            {children}
+          </div>
         </div>
-      </div>
-      {/* </Portal> */}
+      </Portal>
     </ModalContextProvider>
   );
 };
