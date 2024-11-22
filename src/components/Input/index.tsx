@@ -1,11 +1,12 @@
-import { cn } from "@/utils";
+import { ComponentProps } from "react";
 import { VariantProps } from "class-variance-authority";
-import { ComponentProps, useState } from "react";
+
+import { cn } from "@/utils";
 import { iconStyle, inputStyle, inputWrapperStyle } from "./index.style";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type InputProps = ComponentProps<"input"> &
-  VariantProps<typeof inputStyle> & {
+  VariantProps<typeof inputStyle> &
+  VariantProps<typeof iconStyle> & {
     name: string;
     type: string;
     label?: string;
@@ -13,10 +14,14 @@ type InputProps = ComponentProps<"input"> &
     error?: boolean;
     errorMessage?: string;
     required?: boolean;
+    icon?: React.ReactNode;
   };
 
+const renderIcon = (icon: React.ReactNode, position: "left" | "right") => {
+  return icon ? <span className={cn(iconStyle({ iconPosition: position }))}>{icon}</span> : null;
+};
+
 export const Input = ({
-  children,
   name,
   type,
   label,
@@ -24,17 +29,10 @@ export const Input = ({
   error = false,
   errorMessage = "Invalid input",
   required = false,
+  iconPosition = "right",
+  icon,
   ...props
 }: InputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const isPasswordField = type === "password";
-  const inputType = isPasswordField && showPassword ? "text" : type;
-
   return (
     <div className="flex flex-col gap-2">
       {label && (
@@ -45,24 +43,16 @@ export const Input = ({
       )}
       <div className="flex flex-col gap-1 relative">
         <div className={cn(inputWrapperStyle())}>
-          {children && <span className={cn(iconStyle())}>{children}</span>}
+          {iconPosition === "left" && renderIcon(icon, iconPosition)}
           <input
             id={name}
             name={name}
-            type={inputType}
+            type={type}
             {...props}
             className={cn(inputStyle({ type, error }))}
             required={required}
           />
-          {type === "password" && (
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-light-silverSteel hover:text-light-secondary dark:text-silverSteel dark:hover:text-secondary"
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
-          )}
+          {iconPosition === "right" && renderIcon(icon, iconPosition)}
         </div>
         {error && <span className="text-sm text-red-600 dark:text-red-400 ">{errorMessage}</span>}
         {helperText && !error && (

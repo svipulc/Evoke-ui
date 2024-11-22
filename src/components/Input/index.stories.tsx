@@ -1,6 +1,9 @@
+import React from "react";
+import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
+
 import { Input } from ".";
-import { FaSearch } from "react-icons/fa";
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -65,7 +68,8 @@ export const WithIcon: Story = {
   args: {
     type: "text",
     placeholder: "Search...",
-    children: <FaSearch />,
+    icon: <FaSearch />,
+    iconPosition: "left",
   },
 };
 
@@ -73,5 +77,35 @@ export const FileInput: Story = {
   args: {
     type: "file",
     placeholder: "Upload file",
+  },
+};
+
+export const passwordInput: Story = {
+  args: {
+    required: true,
+  },
+
+  render: args => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+    };
+
+    return (
+      <Input
+        name="password"
+        placeholder={"enter your password"}
+        type={showPassword ? "text" : "password"}
+        icon={
+          showPassword ? (
+            <FaEyeSlash onClick={togglePasswordVisibility} />
+          ) : (
+            <FaEye onClick={togglePasswordVisibility} />
+          )
+        }
+        iconPosition={args.iconPosition}
+      />
+    );
   },
 };
