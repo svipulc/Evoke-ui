@@ -50,5 +50,6 @@
     "node_modules" /* Exclude the 'node_modules' directory to prevent unnecessary type checking. */,
     "dist" /* Exclude the 'dist' directory where compiled files are output. */,
     "**/*.stories.tsx" /* Exclude Storybook stories from type checking, as they are usually for development purposes. */
-  ]
+  ],
+  "jsxImportSource": "@emotion/react"
 }

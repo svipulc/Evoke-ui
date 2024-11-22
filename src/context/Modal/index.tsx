@@ -2,8 +2,8 @@ import React, { ComponentProps, createContext } from "react";
 
 export type ModalContextProps = ComponentProps<"div"> & {
   scrollBehaviour?: boolean;
-  showCross?: boolean;
-  size?: "sm" | "md" | "lg" | "full";
+  showCloseButton?: boolean;
+  size: "sm" | "md" | "lg" | "full";
   onClose: () => void;
 };
 
@@ -14,10 +14,10 @@ export const ModalContextProvider: React.FC<ModalContextProps> = ({
   onClose,
   scrollBehaviour,
   size,
-  showCross,
+  showCloseButton,
 }) => {
   return (
-    <ModalContext.Provider value={{ onClose, scrollBehaviour, size, showCross }}>
+    <ModalContext.Provider value={{ onClose, scrollBehaviour, size, showCloseButton }}>
       {children}
     </ModalContext.Provider>
   );
