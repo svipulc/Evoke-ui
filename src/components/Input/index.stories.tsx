@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
-import { Meta, StoryObj } from "@storybook/react";
 import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
+import { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
 
 import { Input } from ".";
 
