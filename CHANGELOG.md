@@ -1,3 +1,27 @@
+## [1.16.1](https://github.com/svipulc/Evoke-ui/compare/v1.16.0...v1.16.1) (2024-11-26)
+
+### Bug Fixes
+
+- latest npm version of dev ([#44](https://github.com/svipulc/Evoke-ui/issues/44)) ([00e4ba9](https://github.com/svipulc/Evoke-ui/commit/00e4ba9cb8c2b50c33aaa2ecbbef8327d982e8a3))
+- new style of modal component ([2446fdf](https://github.com/svipulc/Evoke-ui/commit/2446fdf2d5c6e7f4bb379ce35009a44d3fbb8ac2))
+
+# [1.16.0](https://github.com/svipulc/Evoke-ui/compare/v1.15.0...v1.16.0) (2024-11-26)
+
+### Features
+
+- add ref to scrollArea component ([7fa2883](https://github.com/svipulc/Evoke-ui/commit/7fa2883c6635353f95713f5ebdfccefea3878968))
+
+# [1.15.0](https://github.com/svipulc/Evoke-ui/compare/v1.14.2...v1.15.0) (2024-11-26)
+
+### Bug Fixes
+
+- remove password functionality, add icon props In Input ([130e055](https://github.com/svipulc/Evoke-ui/commit/130e05530c8bad6c5bad51c4a50eb78277061e2a))
+- reset import orders in Input stories ([21232f9](https://github.com/svipulc/Evoke-ui/commit/21232f97f1bf6e3ea27c4f039478ff4fd65ef2df))
+
+### Features
+
+- add show/hide password functionality in Input ([de60129](https://github.com/svipulc/Evoke-ui/commit/de601294529b9c49949e01a186cf7c87807f7137))
+
 ## [1.14.3](https://github.com/svipulc/Evoke-ui/compare/v1.14.2...v1.14.3) (2024-11-07)
 
 ### Bug Fixes
