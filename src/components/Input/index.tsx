@@ -1,10 +1,12 @@
-import { cn } from "@/utils";
-import { VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
+import { VariantProps } from "class-variance-authority";
+
+import { cn } from "@/utils";
 import { iconStyle, inputStyle, inputWrapperStyle } from "./index.style";
 
 type InputProps = ComponentProps<"input"> &
-  VariantProps<typeof inputStyle> & {
+  VariantProps<typeof inputStyle> &
+  VariantProps<typeof iconStyle> & {
     name: string;
     type: string;
     label?: string;
@@ -12,10 +14,14 @@ type InputProps = ComponentProps<"input"> &
     error?: boolean;
     errorMessage?: string;
     required?: boolean;
+    icon?: React.ReactNode;
   };
 
+const renderIcon = (icon: React.ReactNode, position: "left" | "right") => {
+  return icon ? <span className={cn(iconStyle({ iconPosition: position }))}>{icon}</span> : null;
+};
+
 export const Input = ({
-  children,
   name,
   type,
   label,
@@ -23,6 +29,8 @@ export const Input = ({
   error = false,
   errorMessage = "Invalid input",
   required = false,
+  iconPosition = "right",
+  icon,
   ...props
 }: InputProps) => {
   return (
@@ -35,7 +43,7 @@ export const Input = ({
       )}
       <div className="flex flex-col gap-1 relative">
         <div className={cn(inputWrapperStyle())}>
-          {children && <span className={cn(iconStyle())}>{children}</span>}
+          {iconPosition === "left" && renderIcon(icon, iconPosition)}
           <input
             id={name}
             name={name}
@@ -44,6 +52,7 @@ export const Input = ({
             className={cn(inputStyle({ type, error }))}
             required={required}
           />
+          {iconPosition === "right" && renderIcon(icon, iconPosition)}
         </div>
         {error && <span className="text-sm text-red-600 dark:text-red-400 ">{errorMessage}</span>}
         {helperText && !error && (
