@@ -1,3 +1,14 @@
+# [1.15.0](https://github.com/svipulc/Evoke-ui/compare/v1.14.2...v1.15.0) (2024-11-26)
+
+### Bug Fixes
+
+- remove password functionality, add icon props In Input ([130e055](https://github.com/svipulc/Evoke-ui/commit/130e05530c8bad6c5bad51c4a50eb78277061e2a))
+- reset import orders in Input stories ([21232f9](https://github.com/svipulc/Evoke-ui/commit/21232f97f1bf6e3ea27c4f039478ff4fd65ef2df))
+
+### Features
+
+- add show/hide password functionality in Input ([de60129](https://github.com/svipulc/Evoke-ui/commit/de601294529b9c49949e01a186cf7c87807f7137))
+
 ## [1.14.2](https://github.com/svipulc/Evoke-ui/compare/v1.14.1...v1.14.2) (2024-11-07)
 
 ### Bug Fixes
