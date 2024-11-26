@@ -11,7 +11,7 @@ type ZIndexValue = "default" | "low" | "medium" | "high" | "higher" | "highest" 
 type ColorVariants = "main" | "light" | "dark";
 type CommonColors = { white: string; black: string };
 type NeutralColors = Record<string, string>; // Allows flexibility for neutral color keys
-type ColorCategories = "primary" | "secondary" | "success" | "danger" | "warning" | "info";
+type ColorCategories = "success" | "danger" | "warning" | "info";
 type ThematicColors = Record<ColorVariants, string>;
 
 export type ColorsObject = {

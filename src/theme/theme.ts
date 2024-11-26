@@ -36,16 +36,6 @@ export const colors: ColorsObject = {
     shadow: pallete.gray["900"], // "#212529"
   },
   variants: {
-    primary: {
-      main: pallete.blue["600"], // "#228be6"
-      light: pallete.blue["400"], // "#4dabf7"
-      dark: pallete.blue["800"], // "#1971c2"
-    },
-    secondary: {
-      main: pallete.gray["600"], // "#868e96"
-      light: pallete.gray["400"], // "#ced4da"
-      dark: pallete.gray["800"], // "#343a40"
-    },
     success: {
       main: pallete.green["600"], // "#40c057"
       light: pallete.green["400"], // "#69db7c"
@@ -62,14 +52,9 @@ export const colors: ColorsObject = {
       dark: pallete.yellow["800"], // "#f08c00"
     },
     info: {
-      main: pallete.cyan["600"], // "#15aabf"
-      light: pallete.cyan["400"], // "#3bc9db"
-      dark: pallete.cyan["800"], // "#0c8599"
-    },
-    custom: {
-      main: pallete.red["600"], // "#fa5252"
-      light: pallete.red["400"], // "#ff8787"
-      dark: pallete.red["800"], // "#e03131"
+      main: pallete.blue["600"], // "#228be6"
+      light: pallete.blue["400"], // "#4dabf7"
+      dark: pallete.blue["800"], // "#1971c2"
     },
   },
 };
