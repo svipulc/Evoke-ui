@@ -1,3 +1,9 @@
+# [1.16.0](https://github.com/svipulc/Evoke-ui/compare/v1.15.0...v1.16.0) (2024-11-26)
+
+### Features
+
+- add ref to scrollArea component ([7fa2883](https://github.com/svipulc/Evoke-ui/commit/7fa2883c6635353f95713f5ebdfccefea3878968))
+
 # [1.15.0](https://github.com/svipulc/Evoke-ui/compare/v1.14.2...v1.15.0) (2024-11-26)
 
 ### Bug Fixes
