@@ -1,3 +1,9 @@
+## [1.18.1](https://github.com/svipulc/Evoke-ui/compare/v1.18.0...v1.18.1) (2024-11-27)
+
+### Bug Fixes
+
+- migrate Modal component to Emotion for styling ([#48](https://github.com/svipulc/Evoke-ui/issues/48)) ([d6d4fdd](https://github.com/svipulc/Evoke-ui/commit/d6d4fdd38920be9e0de1b71738403baa0b3455e4))
+
 # [1.18.0](https://github.com/svipulc/Evoke-ui/compare/v1.17.0...v1.18.0) (2024-11-27)
 
 ### Features
