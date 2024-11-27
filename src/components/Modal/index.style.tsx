@@ -1,77 +1,65 @@
 /** @jsxImportSource @emotion/react */
+import { CustomTheme } from "@/evoke-theme-config";
 import { css } from "@emotion/react";
 
-export const modalOverlayStyles = css`
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.25);
-  transition: opacity 300ms ease-in-out;
-  z-index: 10;
-  width: 100%;
-`;
+type Size = "sm" | "md" | "lg" | "full";
 
-export const modalBodyBaseStyles = (size: "sm" | "md" | "lg" | "full") => css`
-  background-color: white;
-  color: black;
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 300ms ease-in-out;
-  display: flex;
-  flex-direction: column;
-  max-height: full;
-  margin: 1rem;
+export const modalOverlayStyles = (theme: CustomTheme) =>
+  css({
+    position: "fixed",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.common.black + theme.opacity.mediumDark,
+    transition: "opacity 300ms ease-in-out",
+    zIndex: theme.zIndex.highest,
+    width: "100%",
+  });
 
-  ${size === "sm" &&
-  `
-  height:auto;
-  width: 32rem;
-    
-`}
-  ${size === "md" &&
-  `
-  height: auto;
-  width: 48rem;
-  
-`}
-${size === "lg" &&
-  `
-  height: auto;
-  width: 72rem;
-  
-`}
+export const modalBodyBaseStyles = (theme: CustomTheme, size: Size) =>
+  css({
+    backgroundColor: theme.colors.common.white,
+    borderRadius: theme.borderRadius.medium,
+    boxShadow: theme.shadows.large,
+    transition: "transform 300ms ease-in-out",
+    display: "flex",
+    flexDirection: "column",
+    margin: theme.spacing.medium,
+    maxHeight: "100%",
+    height: "auto",
+    ...{
+      sm: { width: "32rem" },
+      md: { width: "48rem" },
+      lg: { width: "72rem" },
+      full: {
+        height: "100%",
+        width: "100%",
+        margin: theme.spacing.none,
+        borderRadius: theme.borderRadius.none,
+      },
+    }[size],
 
-${size === "full" &&
-  `
-  height: 100%;
-  width: 100%;
-  margin: 0rem;
-  border-radius: 0;
-`}
+    [`@media (max-width: ${theme.breakpoints.md})`]: {
+      margin: size === "full" ? theme.spacing.none : theme.spacing.small,
+    },
+  });
 
-@media (max-width: 768px) {
-    margin: 0.75rem;
-    ${size === "full" &&
-    `
-      margin:0rem
-    `}
-  }
-`;
+export const modalHeaderStyles = (theme: CustomTheme) =>
+  css({
+    padding: theme.spacing.medium,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
 
-export const modalHeaderStyles = css`
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    [`@media (max-width: ${theme.breakpoints.md})`]: {
+      padding: theme.spacing.small,
+    },
+  });
 
-  @media (max-width: 768px) {
-    padding: 0.75rem;
-  }
-`;
-
-export const modalContentStyles = (size: string) => css`
-  overflow-y: auto;
-  max-height: ${size === "full" ? "100%" : "calc(100vh - 10rem)"};
-`;
+export const modalContentStyles = (theme: CustomTheme, size: Size) =>
+  css({
+    overflowY: "auto",
+    maxHeight: size === "full" ? "100%" : `calc(100vh - ${theme.spacing.xxlarge})`,
+  });

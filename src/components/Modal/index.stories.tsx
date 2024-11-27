@@ -4,7 +4,9 @@ import { useModal } from "../../hooks/Modal";
 import { Button } from "../Button";
 import React, { useState } from "react";
 import { Stack } from "../Stack";
-import { css } from "@emotion/react";
+import { ThemeProvider, css } from "@emotion/react";
+import { lightTheme } from "../../evoke-theme-config";
+import { Story } from "@storybook/blocks";
 
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",
@@ -14,7 +16,7 @@ const meta: Meta<typeof Modal> = {
       control: { type: "boolean" },
       description: "Controls the visibility of the modal.",
     },
-    closeOnOutsideClick: {
+    closeOnOverlayClick: {
       control: { type: "boolean" },
       description: "Close the modal when clicking outside of it.",
     },
@@ -34,6 +36,15 @@ const meta: Meta<typeof Modal> = {
     },
   },
   tags: ["autodocs"],
+  decorators: [
+    Story => {
+      return (
+        <ThemeProvider theme={lightTheme}>
+          <Story />
+        </ThemeProvider>
+      );
+    },
+  ],
 };
 
 export default meta;
@@ -43,6 +54,7 @@ type Story = StoryObj<typeof meta>;
 export const DefaultModal: Story = {
   render: () => {
     const [isShowingModal, toggleModal] = useModal();
+
     return (
       <>
         {/* Modal Trigger */}
@@ -50,7 +62,7 @@ export const DefaultModal: Story = {
           Open
         </Button>
         {/* Modal */}
-        <Modal show={isShowingModal} onCloseButtonClick={toggleModal} closeOnOutsideClick>
+        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick>
           <div className="p-4">This is Sample Modal</div>
         </Modal>
       </>
@@ -68,7 +80,7 @@ export const PopupModal: Story = {
           Open
         </Button>
         {/* Modal */}
-        <Modal show={isShowingModal} onCloseButtonClick={toggleModal} closeOnOutsideClick size="sm">
+        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick size="sm">
           <div className="p-4 md:p-5 text-center">
             <svg
               className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
@@ -124,7 +136,7 @@ export const CustomStyleModal: Story = {
           Open
         </Button>
         {/* Modal */}
-        <Modal show={isShowingModal} onCloseButtonClick={toggleModal} closeOnOutsideClick>
+        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick>
           <Modal.Header css={customStyle}>
             <h1 className="text-xl font-semibold">Terms of Service</h1>
           </Modal.Header>
@@ -190,7 +202,7 @@ export const Size: Story = {
         {/* Modal */}
         <Modal
           show={isShowingModal}
-          onCloseButtonClick={toggleModal}
+          onClose={toggleModal}
           size={size}
           showCloseButton={size !== "full"}
         >

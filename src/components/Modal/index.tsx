@@ -6,8 +6,8 @@ import {
   modalHeaderStyles,
   modalOverlayStyles,
 } from "./index.style";
-import { ComponentProps, useContext } from "react";
-import { CSSObject, SerializedStyles } from "@emotion/react";
+import { ComponentProps, useContext, useEffect } from "react";
+import { CSSObject, SerializedStyles, useTheme } from "@emotion/react";
 import { Button } from "..";
 import { IoMdClose } from "react-icons/io";
 import { ModalContext, ModalContextProvider } from "@/context";
@@ -35,8 +35,8 @@ type ModalProps = ComponentProps<"div"> & {
   size?: "sm" | "md" | "lg" | "full";
   children: React.ReactNode;
   showCloseButton?: boolean;
-  closeOnOutsideClick?: boolean;
-  onCloseButtonClick: () => void;
+  closeOnOverlayClick?: boolean;
+  onClose: () => void;
   className?: string;
   css?: SerializedStyles | CSSObject;
 };
@@ -50,30 +50,43 @@ export const Modal: React.FC<ModalProps> & {
   show,
   size = "md",
   children,
-  closeOnOutsideClick = false,
+  closeOnOverlayClick = false,
   showCloseButton = true,
-  onCloseButtonClick,
+  onClose,
   className,
   css: customCss,
 }: ModalProps) => {
-  if (!show) return null;
+  const theme = useTheme();
+
+  // to close when the user presses the Escape key
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && show) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [show, onClose]);
 
   // Handle outside click
   const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnOutsideClick && event.target === event.currentTarget) {
-      onCloseButtonClick();
+    if (closeOnOverlayClick && event.target === event.currentTarget) {
+      onClose();
     }
   };
 
+  if (!show) return null;
+
+  // Ensure createPortal doesn't throw errors in environments like SSR or testing:
+  const modalRoot = typeof window !== "undefined" ? document.body : null;
+  if (!modalRoot) return null;
+
   // create modal using react portal
   return createPortal(
-    <ModalContextProvider
-      onClose={onCloseButtonClick}
-      size={size}
-      showCloseButton={showCloseButton}
-    >
+    <ModalContextProvider onClose={onClose} size={size} showCloseButton={showCloseButton}>
       <div
-        css={[modalOverlayStyles, customCss]} // Merge default and custom CSS
+        css={[modalOverlayStyles(theme), customCss]}
         className={className}
         aria-modal="true"
         role="dialog"
@@ -81,7 +94,7 @@ export const Modal: React.FC<ModalProps> & {
         tabIndex={-1}
         onClick={handleOverlayClick}
       >
-        <div css={modalBodyBaseStyles(size)} role="dialog" aria-label="modal-body">
+        <div css={modalBodyBaseStyles(theme, size)} role="dialog" aria-label="modal-body">
           {children}
         </div>
       </div>
@@ -92,16 +105,18 @@ export const Modal: React.FC<ModalProps> & {
 
 // Modal Header Component
 export const ModalHeader: React.FC<ModalHeader> = ({ children, className, css: customCss }) => {
+  const theme = useTheme();
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error("ModalHeader component must be wrapped within Modal component");
+    console.warn("Modal subcomponent must be wrapped within Modal");
+    return null; // Prevents runtime crashes
   }
 
   const { showCloseButton } = context;
 
   return (
     <div
-      css={[modalHeaderStyles, customCss]} // Merge default and custom CSS
+      css={[modalHeaderStyles(theme), customCss]} // Merge default and custom CSS
       className={className}
       aria-label="modal-header"
     >
@@ -114,7 +129,7 @@ export const ModalHeader: React.FC<ModalHeader> = ({ children, className, css: c
           onClick={context.onClose}
           className="text-gray-400 hover:text-gray-600 w-fit p-2"
         >
-          <IoMdClose />
+          <IoMdClose tabIndex={0} />
         </Button>
       )}
     </div>
@@ -123,16 +138,18 @@ export const ModalHeader: React.FC<ModalHeader> = ({ children, className, css: c
 
 // Modal Content Component
 export const ModalContent: React.FC<ModalContent> = ({ children, className, css: customCss }) => {
+  const theme = useTheme();
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error("ModalContent component must be wrapped within Modal component");
+    console.warn("Modal subcomponent must be wrapped within Modal");
+    return null; // Prevents runtime crashes
   }
 
   const { size } = context;
 
   return (
     <div
-      css={[modalContentStyles(size), customCss]} // Merge default and custom CSS
+      css={[modalContentStyles(theme, size), customCss]} // Merge default and custom CSS
       className={className}
       aria-label="modal-content"
     >
@@ -145,7 +162,8 @@ export const ModalContent: React.FC<ModalContent> = ({ children, className, css:
 export const ModalFooter: React.FC<ModalFooter> = ({ children, className, css: customCss }) => {
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error("ModalFooter component must be wrapped within Modal component");
+    console.warn("Modal subcomponent must be wrapped within Modal");
+    return null; // Prevents runtime crashes
   }
 
   return (
