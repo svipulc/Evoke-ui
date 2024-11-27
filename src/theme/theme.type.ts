@@ -75,6 +75,17 @@ export type TypographyObject = {
   letterSpacing: TypographyLetterSpacing;
 };
 
+export type OpacityScale =
+  | "none"
+  | "extraLight"
+  | "light"
+  | "mediumLight"
+  | "medium"
+  | "mediumDark"
+  | "dark"
+  | "extraDark"
+  | "full";
+
 // Component-Specific Types
 export type SpacingObject = NoneField & Record<Exclude<Units, "full">, string>;
 export type BorderRadiusObject = NoneField & Record<Exclude<Units, "xxsmall"> | "full", string>;
@@ -82,6 +93,7 @@ export type ShadowsObject = NoneField &
   Record<Exclude<Units, "xxsmall" | "xsmall" | "xxlarge" | "full">, string>;
 export type BreakpointsObject = Record<BreakpointValue, string>;
 export type ZIndexObject = Record<ZIndexValue, string | number>;
+export type OpacityObject = Record<OpacityScale, string>;
 
 // Base Theme
 export interface EvokeTheme {
@@ -93,6 +105,7 @@ export interface EvokeTheme {
   breakpoints: BreakpointsObject;
   typography: TypographyObject;
   zIndex: ZIndexObject;
+  opacity: OpacityObject;
 }
 
 // Theme Creation Utility

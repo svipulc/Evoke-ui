@@ -6,6 +6,7 @@ import {
   ColorsObject,
   DeepPartial,
   EvokeTheme,
+  OpacityObject,
   ShadowsObject,
   SpacingObject,
   TypographyObject,
@@ -147,6 +148,18 @@ export const zIndex: ZIndexObject = {
   auto: "auto",
 };
 
+export const opacity: OpacityObject = {
+  none: "00", // 0% opacity (completely transparent)
+  extraLight: "0D", // ~5% opacity
+  light: "1A", // ~10% opacity
+  mediumLight: "33", // ~20% opacity
+  medium: "4D", // ~30% opacity
+  mediumDark: "80", // ~50% opacity
+  dark: "B3", // ~70% opacity
+  extraDark: "E6", // ~90% opacity
+  full: "FF", // 100% opacity (completely opaque)
+};
+
 export const defaultTheme: EvokeTheme = {
   colors,
   pallete,
@@ -156,6 +169,7 @@ export const defaultTheme: EvokeTheme = {
   shadows,
   spacing,
   zIndex,
+  opacity,
 };
 
 export const createTheme = <CustomTheme extends DeepPartial<EvokeTheme>>(
