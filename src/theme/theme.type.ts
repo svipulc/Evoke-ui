@@ -106,6 +106,7 @@ export interface EvokeTheme {
   typography: TypographyObject;
   zIndex: ZIndexObject;
   opacity: OpacityObject;
+
 }
 
 // Theme Creation Utility

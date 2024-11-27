@@ -1,3 +1,9 @@
+# [1.17.0](https://github.com/svipulc/Evoke-ui/compare/v1.16.1...v1.17.0) (2024-11-26)
+
+### Features
+
+- establish foundational design system ([#52](https://github.com/svipulc/Evoke-ui/issues/52)) ([8c66103](https://github.com/svipulc/Evoke-ui/commit/8c661036bd5930c7a59366da0795baf49b2b87e2))
+
 ## [1.16.1](https://github.com/svipulc/Evoke-ui/compare/v1.16.0...v1.16.1) (2024-11-26)
 
 ### Bug Fixes

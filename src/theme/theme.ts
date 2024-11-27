@@ -160,6 +160,7 @@ export const opacity: OpacityObject = {
   full: "FF", // 100% opacity (completely opaque)
 };
 
+
 export const defaultTheme: EvokeTheme = {
   colors,
   pallete,
