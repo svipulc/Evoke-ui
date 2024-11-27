@@ -1,22 +1,65 @@
-import { cva } from "class-variance-authority";
+/** @jsxImportSource @emotion/react */
+import { CustomTheme } from "@/evoke-theme-config";
+import { css } from "@emotion/react";
 
-export const ModalOverlayStyles = cva([
-  "fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 transition-opacity duration-300 ease-in-out z-10 ",
-]);
+type Size = "sm" | "md" | "lg" | "full";
 
-export const ModalBodyStyles = cva(
-  "bg-white dark:bg-modalColor overflow-hidden rounded-md shadow-lg transition-transform duration-300 ease-in-out flex flex-col",
-  {
-    variants: {
-      size: {
-        sm: "w-full max-w-sm m-4 max-h-[90vh]",
-        md: "w-full max-w-md m-4 max-h-[90vh]",
-        lg: "w-full max-w-lg m-4 max-h-[90vh]",
-        full: "w-full h-full m-0 max-h-screen rounded-none",
+export const modalOverlayStyles = (theme: CustomTheme) =>
+  css({
+    position: "fixed",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.common.black + theme.opacity.mediumDark,
+    transition: "opacity 300ms ease-in-out",
+    zIndex: theme.zIndex.highest,
+    width: "100%",
+  });
+
+export const modalBodyBaseStyles = (theme: CustomTheme, size: Size) =>
+  css({
+    backgroundColor: theme.colors.common.white,
+    borderRadius: theme.borderRadius.medium,
+    boxShadow: theme.shadows.large,
+    transition: "transform 300ms ease-in-out",
+    display: "flex",
+    flexDirection: "column",
+    margin: theme.spacing.medium,
+    maxHeight: "100%",
+    height: "auto",
+    ...{
+      sm: { width: "32rem" },
+      md: { width: "48rem" },
+      lg: { width: "72rem" },
+      full: {
+        height: "100%",
+        width: "100%",
+        margin: theme.spacing.none,
+        borderRadius: theme.borderRadius.none,
       },
+    }[size],
+
+    [`@media (max-width: ${theme.breakpoints.md})`]: {
+      margin: size === "full" ? theme.spacing.none : theme.spacing.small,
     },
-    defaultVariants: {
-      size: "md",
+  });
+
+export const modalHeaderStyles = (theme: CustomTheme) =>
+  css({
+    padding: theme.spacing.medium,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
+
+    [`@media (max-width: ${theme.breakpoints.md})`]: {
+      padding: theme.spacing.small,
     },
-  }
-);
+  });
+
+export const modalContentStyles = (theme: CustomTheme, size: Size) =>
+  css({
+    overflowY: "auto",
+    maxHeight: size === "full" ? "100%" : `calc(100vh - ${theme.spacing.xxlarge})`,
+  });
