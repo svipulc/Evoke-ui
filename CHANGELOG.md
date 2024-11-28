@@ -1,21 +1,3 @@
-## [1.18.1](https://github.com/svipulc/Evoke-ui/compare/v1.18.0...v1.18.1) (2024-11-27)
-
-### Bug Fixes
-
-- migrate Modal component to Emotion for styling ([#48](https://github.com/svipulc/Evoke-ui/issues/48)) ([d6d4fdd](https://github.com/svipulc/Evoke-ui/commit/d6d4fdd38920be9e0de1b71738403baa0b3455e4))
-
-# [1.18.0](https://github.com/svipulc/Evoke-ui/compare/v1.17.0...v1.18.0) (2024-11-27)
-
-### Features
-
-- add opacity scale into design system ([25548ae](https://github.com/svipulc/Evoke-ui/commit/25548ae638fe1f1182852cdaea29f54e9cc47576))
-
-# [1.17.0](https://github.com/svipulc/Evoke-ui/compare/v1.16.1...v1.17.0) (2024-11-26)
-
-### Features
-
-- establish foundational design system ([#52](https://github.com/svipulc/Evoke-ui/issues/52)) ([8c66103](https://github.com/svipulc/Evoke-ui/commit/8c661036bd5930c7a59366da0795baf49b2b87e2))
-
 ## [1.16.1](https://github.com/svipulc/Evoke-ui/compare/v1.16.0...v1.16.1) (2024-11-26)
 
 ### Bug Fixes

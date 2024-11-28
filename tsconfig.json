@@ -41,8 +41,7 @@
       "@/*": [
         "src/*" /* Create a path alias for the 'src' directory, allowing for cleaner import statements. */
       ]
-    },
-    "jsxImportSource": "@emotion/react"
+    }
   },
   "include": [
     "src" /* Specify the files or directories to include in the compilation, typically your source files. */

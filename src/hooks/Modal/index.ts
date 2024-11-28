@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { ModalContext } from "@/context";
+import { useContext } from "react";
 
-// Add useModal hook for managing modal state
-export const useModal: () => [boolean, () => void] = () => {
-  const [isShowingModal, setIsShowingModal] = useState(false);
-
-  const toggleModal = () => {
-    setIsShowingModal(!isShowingModal);
-  };
-
-  return [isShowingModal, toggleModal];
+export const useModalContext = () => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error("context must be present within a Modal");
+  }
+  return context;
 };

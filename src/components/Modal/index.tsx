@@ -1,178 +1,161 @@
-/** @jsxImportSource @emotion/react */
-import { createPortal } from "react-dom";
-import {
-  modalBodyBaseStyles,
-  modalContentStyles,
-  modalHeaderStyles,
-  modalOverlayStyles,
-} from "./index.style";
-import { ComponentProps, useContext, useEffect } from "react";
-import { CSSObject, SerializedStyles, useTheme } from "@emotion/react";
-import { Button } from "..";
+import { cn } from "@/utils";
+import { ModalBodyStyles, ModalOverlayStyles } from "./index.style";
+import { ModalContextProvider } from "../../context/Modal/index";
+
 import { IoMdClose } from "react-icons/io";
-import { ModalContext, ModalContextProvider } from "@/context";
+import { Button } from "../Button";
 
-type ModalHeader = ComponentProps<"div"> & {
-  children: React.ReactNode;
-  className?: string;
-  css?: SerializedStyles | CSSObject;
-};
+import { ComponentProps, useEffect, useState } from "react";
+import { VariantProps } from "class-variance-authority";
+import { useModalContext } from "@/hooks";
+import { createPortal } from "react-dom";
 
-type ModalContent = ComponentProps<"div"> & {
-  children: React.ReactNode;
-  className?: string;
-  css?: SerializedStyles | CSSObject;
-};
+export type ModalDivProps = ComponentProps<"div">;
 
-type ModalFooter = ComponentProps<"div"> & {
-  children: React.ReactNode;
-  className?: string;
-  css?: SerializedStyles | CSSObject;
-};
+export type ModalProps = ModalDivProps &
+  VariantProps<typeof ModalBodyStyles> & {
+    isOpen: boolean;
+    onClose: () => void;
+    closeOnOutsideClick?: boolean;
+    scrollBehaviour?: boolean;
+    showCross?: boolean;
+    size?: "sm" | "md" | "lg" | "full";
+  };
 
-type ModalProps = ComponentProps<"div"> & {
-  show: boolean;
-  size?: "sm" | "md" | "lg" | "full";
-  children: React.ReactNode;
-  showCloseButton?: boolean;
-  closeOnOverlayClick?: boolean;
+export type ModalTriggerProps = ModalDivProps & {
+  isOpen: boolean;
   onClose: () => void;
-  className?: string;
-  css?: SerializedStyles | CSSObject;
 };
 
-// Modal Component
-export const Modal: React.FC<ModalProps> & {
-  Header: React.FC<ModalHeader>;
-  Content: React.FC<ModalContent>;
-  Footer: React.FC<ModalFooter>;
-} = ({
-  show,
-  size = "md",
-  children,
-  closeOnOverlayClick = false,
-  showCloseButton = true,
-  onClose,
-  className,
-  css: customCss,
-}: ModalProps) => {
-  const theme = useTheme();
+export const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
 
-  // to close when the user presses the Escape key
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && show) {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [show, onClose]);
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
-  // Handle outside click
+  return mounted
+    ? createPortal(children, document.getElementById("portal-root") || document.body)
+    : null;
+};
+
+export const Modal: React.FC<ModalProps> & {
+  Header: React.FC<ModalDivProps>;
+  Content: React.FC<ModalDivProps>;
+  Footer: React.FC<ModalDivProps>;
+} = ({
+  isOpen,
+  onClose,
+  children,
+  className,
+  scrollBehaviour = false,
+  closeOnOutsideClick = true,
+  size = "full",
+  showCross = true,
+}) => {
   const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnOverlayClick && event.target === event.currentTarget) {
+    if (closeOnOutsideClick && event.target === event.currentTarget) {
       onClose();
     }
   };
 
-  if (!show) return null;
-
-  // Ensure createPortal doesn't throw errors in environments like SSR or testing:
-  const modalRoot = typeof window !== "undefined" ? document.body : null;
-  if (!modalRoot) return null;
-
-  // create modal using react portal
-  return createPortal(
-    <ModalContextProvider onClose={onClose} size={size} showCloseButton={showCloseButton}>
+  return (
+    <ModalContextProvider
+      onClose={onClose}
+      scrollBehaviour={scrollBehaviour}
+      size={size}
+      showCross={showCross}
+    >
+      {/* <Portal> */}
       <div
-        css={[modalOverlayStyles(theme), customCss]}
-        className={className}
-        aria-modal="true"
-        role="dialog"
-        aria-label="modal"
-        tabIndex={-1}
+        className={cn(
+          ModalOverlayStyles(),
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}
         onClick={handleOverlayClick}
+        role="dialog"
+        aria-modal="true"
+        aria-label="modal"
       >
-        <div css={modalBodyBaseStyles(theme, size)} role="dialog" aria-label="modal-body">
+        <div
+          className={cn(
+            ModalBodyStyles({ size }),
+            isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+            className
+          )}
+          role="dialog"
+          aria-label="modal-body"
+        >
           {children}
         </div>
       </div>
-    </ModalContextProvider>,
-    document.body
+      {/* </Portal> */}
+    </ModalContextProvider>
   );
 };
 
-// Modal Header Component
-export const ModalHeader: React.FC<ModalHeader> = ({ children, className, css: customCss }) => {
-  const theme = useTheme();
-  const context = useContext(ModalContext);
-  if (!context) {
-    console.warn("Modal subcomponent must be wrapped within Modal");
-    return null; // Prevents runtime crashes
-  }
-
-  const { showCloseButton } = context;
-
+const Header: React.FC<ModalDivProps> = ({ children, className }) => {
+  const context = useModalContext();
   return (
     <div
-      css={[modalHeaderStyles(theme), customCss]} // Merge default and custom CSS
-      className={className}
+      className={cn("m-3 mb-2 flex justify-between items-center", className)}
+      role="dialog"
       aria-label="modal-header"
     >
       {children}
-      {showCloseButton && (
+      {context.showCross && (
         <Button
           variant={"ghost"}
           aria-label="close-modal"
-          size={"icon"}
+          size={"sm"}
           onClick={context.onClose}
-          className="text-gray-400 hover:text-gray-600 w-fit p-2"
+          className="text-gray-400 text-2xl hover:text-gray-600 w-fit"
         >
-          <IoMdClose tabIndex={0} />
+          <IoMdClose />
         </Button>
       )}
     </div>
   );
 };
 
-// Modal Content Component
-export const ModalContent: React.FC<ModalContent> = ({ children, className, css: customCss }) => {
-  const theme = useTheme();
-  const context = useContext(ModalContext);
-  if (!context) {
-    console.warn("Modal subcomponent must be wrapped within Modal");
-    return null; // Prevents runtime crashes
+const Content: React.FC<ModalDivProps> = ({ children, className }) => {
+  const context = useModalContext();
+
+  let contentStyle;
+
+  if (context.scrollBehaviour && context.size === "full") {
+    contentStyle = "m-4 mt-2 overflow-auto min-h-[30vh]";
+  } else if (context.scrollBehaviour) {
+    contentStyle = "m-4 mt-2 overflow-auto h-[30vh]";
+  } else {
+    contentStyle = "m-4 mt-2";
   }
-
-  const { size } = context;
-
   return (
     <div
-      css={[modalContentStyles(theme, size), customCss]} // Merge default and custom CSS
-      className={className}
+      className={cn(contentStyle, className)}
+      role="dialog"
       aria-label="modal-content"
+      tabIndex={0}
     >
       {children}
     </div>
   );
 };
 
-// Modal Footer Component
-export const ModalFooter: React.FC<ModalFooter> = ({ children, className, css: customCss }) => {
-  const context = useContext(ModalContext);
-  if (!context) {
-    console.warn("Modal subcomponent must be wrapped within Modal");
-    return null; // Prevents runtime crashes
-  }
-
+const Footer: React.FC<ModalDivProps> = ({ children, className }) => {
+  const context = useModalContext();
   return (
-    <div css={customCss} className={className} aria-label="modal-footer">
+    <div
+      className={cn(context.size === "full" ? "m-3 mt-auto" : "m-3", className)}
+      role="dialog"
+      aria-label="modal-footer"
+    >
       {children}
     </div>
   );
 };
 
-Modal.Header = ModalHeader;
-Modal.Content = ModalContent;
-Modal.Footer = ModalFooter;
+Modal.Header = Header;
+Modal.Content = Content;
+Modal.Footer = Footer;

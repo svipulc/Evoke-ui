@@ -1,26 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Modal } from ".";
-import { useModal } from "../../hooks/Modal";
+import { Modal } from "./index";
 import { Button } from "../Button";
-import React, { useState } from "react";
-import { Stack } from "../Stack";
-import { ThemeProvider, css } from "@emotion/react";
-import { lightTheme } from "../../evoke-theme-config";
-import { Story } from "@storybook/blocks";
+import React, { useEffect, useState } from "react";
 
 const meta: Meta<typeof Modal> = {
   title: "Components/Modal",
   component: Modal,
   argTypes: {
-    show: {
+    isOpen: {
       control: { type: "boolean" },
       description: "Controls the visibility of the modal.",
     },
-    closeOnOverlayClick: {
+    closeOnOutsideClick: {
       control: { type: "boolean" },
       description: "Close the modal when clicking outside of it.",
     },
-    showCloseButton: {
+    scrollBehaviour: {
+      control: { type: "boolean" },
+      description: "Determines whether the content inside the modal is scrollable.",
+    },
+    showCross: {
       control: { type: "boolean" },
       description: "Determines whether the cross button inside the modal should be present.",
     },
@@ -28,23 +27,12 @@ const meta: Meta<typeof Modal> = {
       control: { type: "select" },
       options: ["sm", "md", "lg", "full"],
       description: "Size of the modal.",
-      defaultValue: "md",
-    },
-    css: {
-      control: "text",
-      description: "Apply custom css by emotion serialize style or css object",
     },
   },
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={lightTheme}>
-          <Story />
-        </ThemeProvider>
-      );
-    },
-  ],
 };
 
 export default meta;
@@ -52,119 +40,38 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultModal: Story = {
-  render: () => {
-    const [isShowingModal, toggleModal] = useModal();
-
-    return (
-      <>
-        {/* Modal Trigger */}
-        <Button onClick={toggleModal} className="w-fit">
-          Open
-        </Button>
-        {/* Modal */}
-        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick>
-          <div className="p-4">This is Sample Modal</div>
-        </Modal>
-      </>
-    );
+  args: {
+    size: "md",
+    scrollBehaviour: false,
+    closeOnOutsideClick: true,
+    showCross: true,
   },
-};
+  render: args => {
+    const [isOpen, setIsOpen] = useState(false);
 
-export const PopupModal: Story = {
-  render: () => {
-    const [isShowingModal, toggleModal] = useModal();
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
     return (
       <>
         {/* Modal Trigger */}
-        <Button onClick={toggleModal} className="w-fit">
-          Open
-        </Button>
-        {/* Modal */}
-        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick size="sm">
-          <div className="p-4 md:p-5 text-center">
-            <svg
-              className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this product?
-            </h3>
-            <button
-              data-modal-hide="popup-modal"
-              type="button"
-              className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-            >
-              Yes, sure
-            </button>
-            <button
-              data-modal-hide="popup-modal"
-              type="button"
-              className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-              onClick={toggleModal}
-            >
-              No, cancel
-            </button>
-          </div>
-        </Modal>
-      </>
-    );
-  },
-};
+        <Button onClick={openModal}>Open Modal</Button>
 
-export const CustomStyleModal: Story = {
-  render: () => {
-    const [isShowingModal, toggleModal] = useModal();
-    const customStyle = css`
-      background-color: #cbd5e1;
-    `;
-
-    return (
-      <>
-        {/* Modal Trigger */}
-        <Button onClick={toggleModal} className="w-fit">
-          Open
-        </Button>
         {/* Modal */}
-        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick>
-          <Modal.Header css={customStyle}>
-            <h1 className="text-xl font-semibold">Terms of Service</h1>
+        <Modal {...args} isOpen={isOpen} onClose={closeModal}>
+          <Modal.Header>
+            <h2 className="text-xl font-semibold dark:text-white text-gray-600">Delete User?</h2>
           </Modal.Header>
-          <Modal.Content className="bg-light-modalColor dark:bg-modalColor p-2">
-            <p>
-              With less than a month to go before the European Union enacts new consumer privacy
-              laws for its citizens, companies around the world are updating their terms of service
-              agreements to comply. The European Unions General Data Protection Regulation
-              (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data
-              rights in the European Union. It requires organizations to notify users as soon as
-              possible of high-risk data breaches that could personally affect them.
-            </p>
-            <p>
-              The European Unions General Data Protection Regulation (G.D.P.R.) goes into effect on
-              May 25 and is meant to ensure a common set of data rights in the European Union. It
-              requires organizations to notify users as soon as possible of high-risk data breaches
-              that could personally affect them.
-            </p>
+
+          <Modal.Content>
+            <p className="dark:text-white text-gray-600">Are You sure to delete the user?</p>
           </Modal.Content>
-          <Modal.Footer>
-            <Stack spacing="small" className="p-4 bg-slate-300 text-slate-200">
-              <Button onClick={toggleModal} className="w-fit">
-                Accept
-              </Button>
-              <Button variant="destructive" onClick={toggleModal} className="w-fit">
-                Reject
-              </Button>
-            </Stack>
+          <Modal.Footer className="flex justify-between">
+            <Button onClick={closeModal} className="w-25 justify-center" variant={"outline"}>
+              Cancel
+            </Button>
+            <Button onClick={closeModal} className="w-25 justify-center" variant={"destructive"}>
+              Delete
+            </Button>
           </Modal.Footer>
         </Modal>
       </>
@@ -172,70 +79,147 @@ export const CustomStyleModal: Story = {
   },
 };
 
-export const Size: Story = {
-  render: () => {
-    type ModalSize = "sm" | "md" | "lg" | "full";
+export const clickoutsideModal: Story = {
+  args: {
+    closeOnOutsideClick: false,
+    showCross: false,
+    size: "md",
+  },
+  render: args => {
+    const [isOpen, setIsOpen] = useState(false);
 
-    const [isShowingModal, toggleModal] = useModal();
-    const [size, setSize] = useState<ModalSize>("md");
-    const handleModalClick = (modalSize: ModalSize) => {
-      setSize(modalSize);
-      toggleModal();
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+    return (
+      <>
+        {/* Modal Trigger */}
+        <Button onClick={openModal}>Open Modal</Button>
+
+        {/* Modal */}
+        <Modal {...args} isOpen={isOpen} onClose={closeModal}>
+          <Modal.Header>
+            <h2 className="text-xl font-semibold dark:text-white text-gray-600">Delete User?</h2>
+          </Modal.Header>
+
+          <Modal.Content>
+            <p className="dark:text-white text-gray-600">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus quasi vitae
+              voluptatibus, dicta quod nihil vero nesciunt sunt repudiandae dignissimos quam
+              blanditiis dolore odit veniam itaque vel. Provident reprehenderit nesciunt expedita
+              voluptas ullam nisi ex deserunt mollitia quam quaerat, numquam a nulla. Possimus
+              debitis, reprehenderit voluptate quidem corrupti ad officia cum, alias optio inventore
+              labore aspernatur asperiores vel. Culpa alias eum possimus repellendus dolorum id
+            </p>
+          </Modal.Content>
+          <Modal.Footer className="flex justify-between">
+            <Button
+              onClick={closeModal}
+              className="w-25 justify-center"
+              variant={"outline"}
+              aria-label="modal-close"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={closeModal}
+              className="w-25 justify-center"
+              variant={"destructive"}
+              aria-label="modal-close"
+            >
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  },
+};
+
+export const ModalWithLoadingContent: Story = {
+  args: {
+    closeOnOutsideClick: false,
+    scrollBehaviour: true,
+    size: "lg",
+  },
+
+  render: args => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [content, setContent] = useState<string | null>(null);
+    const openModal = () => {
+      setIsOpen(true);
+      setIsLoading(true);
+      setContent(null);
     };
+
+    const closeModal = () => {
+      setIsOpen(false);
+    };
+
+    useEffect(() => {
+      if (isOpen) {
+        const timer = setTimeout(() => {
+          setIsLoading(false);
+          setContent(
+            `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus quasi vitae
+              voluptatibus, dicta quod nihil vero nesciunt sunt repudiandae dignissimos quam
+              blanditiis dolore odit veniam itaque vel. Provident reprehenderit nesciunt expedita
+              voluptas ullam nisi ex deserunt mollitia quam quaerat, numquam a nulla. Possimus
+              debitis, reprehenderit voluptate quidem corrupti ad officia cum, alias optio inventore
+              labore aspernatur asperiores vel. Culpa alias eum possimus repellendus dolorum id
+              ducimus obcaecati. Esse voluptatibus laboriosam reprehenderit animi voluptas hic
+              temporibus nisi iure quia quo alias officiis, aliquam earum corporis illo maiores
+              beatae perspiciatis. Id, sequi. Nisi nulla quo atque pariatur, debitis voluptatibus
+              est dolore quam veniam quasi, veritatis ad. Voluptas hic praesentium facere laboriosam
+              officia ut magnam iste illum sed recusandae tempora ipsum, sint voluptatum, maiores
+              deleniti vero enim aliquam earum distinctio quod velit. Quod, cupiditate nostrum vero
+              quisquam labore laboriosam? Quia qui in voluptates quibusdam officiis quasi quo!
+              Aliquam, id. Aut eius repudiandae veritatis blanditiis? Vitae tempore aliquam illo
+              repudiandae quas rem vel facilis excepturi, optio, aliquid ratione quae maxime
+              nostrum, minima beatae. Blanditiis accusamus est nam ullam aliquam assumenda molestiae
+              enim nulla quibusdam ea a tenetur vel qui commodi, sunt cumque. Dolores alias enim
+              doloremque, harum ipsa hic adipisci tempora velit et optio, fugit, reiciendis
+              obcaecati quos numquam libero sequi dolore reprehenderit mollitia aspernatur minima
+              accusantium laudantium molestias illo. Deserunt eos tempora beatae illum sequi,
+              reiciendis nam commodi molestiae veritatis doloremque cum necessitatibus aperiam
+              placeat? Natus mollitia amet quibusdam porro inventore quae expedita, magni quo.
+              Inventore, nisi laboriosam facilis delectus fuga quis sunt dolores. Aperiam ex sequi
+              vel eaque dolore beatae rerum mollitia adipisci rem deserunt quaerat numquam at, modi
+              minima eos delectus earum eius totam non ut recusandae? Laboriosam quidem recusandae
+              placeat quas dolores facere commodi eveniet maxime, obcaecati nihil voluptate quasi,
+              expedita maiores, rem exercitationem itaque mollitia debitis beatae eligendi illo.`
+          );
+        }, 2000); // 2 seconds delay
+
+        return () => clearTimeout(timer);
+      }
+    }, [isOpen]);
 
     return (
       <>
-        <Stack spacing="small">
-          <Button className="w-fit" onClick={() => handleModalClick("md")}>
-            Default
-          </Button>
-          <Button className="w-fit" onClick={() => handleModalClick("sm")}>
-            Small
-          </Button>
-          <Button className="w-fit" onClick={() => handleModalClick("lg")}>
-            Large
-          </Button>
-          <Button className="w-fit" onClick={() => handleModalClick("full")}>
-            Full Screen
-          </Button>
-        </Stack>
-        {/* Modal */}
-        <Modal
-          show={isShowingModal}
-          onClose={toggleModal}
-          size={size}
-          showCloseButton={size !== "full"}
-        >
+        <Button onClick={openModal}>Open Modal</Button>
+
+        <Modal {...args} isOpen={isOpen} onClose={closeModal}>
           <Modal.Header>
-            <h1 className="text-xl font-semibold">Terms of Service</h1>
+            <h2 className="text-xl font-semibold dark:text-white text-gray-600">
+              Modal with Loading Content
+            </h2>
           </Modal.Header>
-          <Modal.Content>
-            <div className="space-y-6 p-4 pt-0">
-              <p>
-                With less than a month to go before the European Union enacts new consumer privacy
-                laws for its citizens, companies around the world are updating their terms of
-                service agreements to comply. The European Unions General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data
-                rights in the European Union. It requires organizations to notify users as soon as
-                possible of high-risk data breaches that could personally affect them.
-              </p>
-              <p>
-                The European Unions General Data Protection Regulation (G.D.P.R.) goes into effect
-                on May 25 and is meant to ensure a common set of data rights in the European Union.
-                It requires organizations to notify users as soon as possible of high-risk data
-                breaches that could personally affect them.
-              </p>
-            </div>
+
+          <Modal.Content className="text-justify px-2">
+            {isLoading ? (
+              <div className="flex justify-center items-center h-full">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+              </div>
+            ) : (
+              <p className="dark:text-white  text-gray-600">{content}</p>
+            )}
           </Modal.Content>
-          <Modal.Footer>
-            <Stack spacing="small" className="p-4 ">
-              <Button onClick={toggleModal} className="w-fit">
-                Accept
-              </Button>
-              <Button variant="destructive" onClick={toggleModal} className="w-fit">
-                Reject
-              </Button>
-            </Stack>
+
+          <Modal.Footer className="flex justify-end">
+            <Button onClick={closeModal} className="w-25 justify-center" variant="outline">
+              Close
+            </Button>
           </Modal.Footer>
         </Modal>
       </>
