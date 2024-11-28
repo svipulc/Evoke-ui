@@ -13,7 +13,7 @@ import {
   ZIndexObject,
 } from "./theme.type";
 
-export const spacing: SpacingObject = {
+const spacing: SpacingObject = {
   none: 0,
   xxsmall: "4px", // Base spacing * 1
   xsmall: "8px", // Base spacing * 2
@@ -24,7 +24,7 @@ export const spacing: SpacingObject = {
   xxlarge: "64px", // Base spacing * 16
 };
 
-export const colors: ColorsObject = {
+const colors: ColorsObject = {
   common: {
     black: "#000000",
     white: "#ffffff",
@@ -60,7 +60,7 @@ export const colors: ColorsObject = {
   },
 };
 
-export const borderRadius: BorderRadiusObject = {
+const borderRadius: BorderRadiusObject = {
   none: 0,
   xsmall: "0.125rem", // 2px
   small: "0.25rem", // 4px
@@ -71,7 +71,7 @@ export const borderRadius: BorderRadiusObject = {
   full: "9999px",
 };
 
-export const shadows: ShadowsObject = {
+const shadows: ShadowsObject = {
   none: "none",
   small: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
   medium: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
@@ -79,7 +79,7 @@ export const shadows: ShadowsObject = {
   xlarge: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
 };
 
-export const breakpoints: BreakpointsObject = {
+const breakpoints: BreakpointsObject = {
   xs: "0",
   sm: "600px",
   md: "960px",
@@ -87,7 +87,7 @@ export const breakpoints: BreakpointsObject = {
   xl: "1920px",
 };
 
-export const typography: TypographyObject = {
+const typography: TypographyObject = {
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",
@@ -138,7 +138,7 @@ export const typography: TypographyObject = {
   },
 };
 
-export const zIndex: ZIndexObject = {
+const zIndex: ZIndexObject = {
   default: 0,
   low: 10,
   medium: 20,
@@ -148,7 +148,7 @@ export const zIndex: ZIndexObject = {
   auto: "auto",
 };
 
-export const opacity: OpacityObject = {
+const opacity: OpacityObject = {
   none: "00", // 0% opacity (completely transparent)
   extraLight: "0D", // ~5% opacity
   light: "1A", // ~10% opacity
@@ -160,8 +160,7 @@ export const opacity: OpacityObject = {
   full: "FF", // 100% opacity (completely opaque)
 };
 
-
-export const defaultTheme: EvokeTheme = {
+const defaultTheme: EvokeTheme = {
   colors,
   pallete,
   breakpoints,

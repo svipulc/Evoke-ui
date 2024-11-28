@@ -1,3 +1,9 @@
+## [1.18.2](https://github.com/svipulc/Evoke-ui/compare/v1.18.1...v1.18.2) (2024-11-28)
+
+### Bug Fixes
+
+- change exports in theme file and add it in index.ts ([d7533f9](https://github.com/svipulc/Evoke-ui/commit/d7533f9c86dee0143d1f29fdc629fed926a417f3))
+
 ## [1.18.1](https://github.com/svipulc/Evoke-ui/compare/v1.18.0...v1.18.1) (2024-11-27)
 
 ### Bug Fixes
