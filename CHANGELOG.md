@@ -1,3 +1,9 @@
+## [1.18.3](https://github.com/svipulc/Evoke-ui/compare/v1.18.2...v1.18.3) (2024-11-29)
+
+### Bug Fixes
+
+- add warning condition for preventing modal without theme ([aef4d7b](https://github.com/svipulc/Evoke-ui/commit/aef4d7b3e7a1fa5ca8e8c17cb51d385abf4f96c8))
+
 ## [1.18.2](https://github.com/svipulc/Evoke-ui/compare/v1.18.1...v1.18.2) (2024-11-28)
 
 ### Bug Fixes
