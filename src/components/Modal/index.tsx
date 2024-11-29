@@ -85,6 +85,10 @@ export const Modal: React.FC<ModalProps> & {
   const modalRoot = typeof window !== "undefined" ? document.body : null;
   if (!modalRoot) return null;
 
+  if (Object.entries(theme).length === 0) {
+    console.warn("Theme is not provided");
+  }
+
   // create modal using react portal
   return createPortal(
     <ModalContextProvider onClose={onClose} size={size} showCloseButton={showCloseButton}>
@@ -170,6 +174,7 @@ export const ModalContent: React.FC<ModalContent> = ({ children, className, css:
 export const ModalFooter: React.FC<ModalFooter> = ({ children, className, css: customCss }) => {
   const context = useContext(ModalContext);
   const theme = useTheme();
+
   if (!context) {
     console.warn("Modal subcomponent must be wrapped within Modal");
     return null; // Prevents runtime crashes
