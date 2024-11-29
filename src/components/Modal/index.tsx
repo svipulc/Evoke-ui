@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import {
   modalBodyBaseStyles,
   modalContentStyles,
+  modalFooterStyles,
   modalHeaderStyles,
   modalOverlayStyles,
 } from "./index.style";
@@ -38,6 +39,7 @@ type ModalProps = ComponentProps<"div"> & {
   closeOnOverlayClick?: boolean;
   onClose: () => void;
   className?: string;
+  bodyClassName?: string;
   css?: SerializedStyles | CSSObject;
 };
 
@@ -54,6 +56,7 @@ export const Modal: React.FC<ModalProps> & {
   showCloseButton = true,
   onClose,
   className,
+  bodyClassName,
   css: customCss,
 }: ModalProps) => {
   const theme = useTheme();
@@ -94,7 +97,12 @@ export const Modal: React.FC<ModalProps> & {
         tabIndex={-1}
         onClick={handleOverlayClick}
       >
-        <div css={modalBodyBaseStyles(theme, size)} role="dialog" aria-label="modal-body">
+        <div
+          css={modalBodyBaseStyles(theme, size)}
+          className={bodyClassName}
+          role="dialog"
+          aria-label="modal-body"
+        >
           {children}
         </div>
       </div>
@@ -129,7 +137,7 @@ export const ModalHeader: React.FC<ModalHeader> = ({ children, className, css: c
           onClick={context.onClose}
           className="text-gray-400 hover:text-gray-600 w-fit p-2"
         >
-          <IoMdClose tabIndex={0} />
+          <IoMdClose />
         </Button>
       )}
     </div>
@@ -161,13 +169,18 @@ export const ModalContent: React.FC<ModalContent> = ({ children, className, css:
 // Modal Footer Component
 export const ModalFooter: React.FC<ModalFooter> = ({ children, className, css: customCss }) => {
   const context = useContext(ModalContext);
+  const theme = useTheme();
   if (!context) {
     console.warn("Modal subcomponent must be wrapped within Modal");
     return null; // Prevents runtime crashes
   }
 
   return (
-    <div css={customCss} className={className} aria-label="modal-footer">
+    <div
+      css={[modalFooterStyles(theme), customCss]}
+      className={className}
+      aria-label="modal-footer"
+    >
       {children}
     </div>
   );

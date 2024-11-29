@@ -34,6 +34,10 @@ const meta: Meta<typeof Modal> = {
       control: "text",
       description: "Apply custom css by emotion serialize style or css object",
     },
+    bodyClassName: {
+      control: "text",
+      description: "Apply custom css by tailwind class name or utility class name",
+    },
   },
   tags: ["autodocs"],
   decorators: [
@@ -136,11 +140,16 @@ export const CustomStyleModal: Story = {
           Open
         </Button>
         {/* Modal */}
-        <Modal show={isShowingModal} onClose={toggleModal} closeOnOverlayClick>
+        <Modal
+          show={isShowingModal}
+          onClose={toggleModal}
+          closeOnOverlayClick
+          bodyClassName="bg-white"
+        >
           <Modal.Header css={customStyle}>
             <h1 className="text-xl font-semibold">Terms of Service</h1>
           </Modal.Header>
-          <Modal.Content className="bg-light-modalColor dark:bg-modalColor p-2">
+          <Modal.Content>
             <p>
               With less than a month to go before the European Union enacts new consumer privacy
               laws for its citizens, companies around the world are updating their terms of service
@@ -157,7 +166,7 @@ export const CustomStyleModal: Story = {
             </p>
           </Modal.Content>
           <Modal.Footer>
-            <Stack spacing="small" className="p-4 bg-slate-300 text-slate-200">
+            <Stack spacing="small">
               <Button onClick={toggleModal} className="w-fit">
                 Accept
               </Button>
