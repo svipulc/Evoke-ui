@@ -19,7 +19,7 @@ export const modalOverlayStyles = (theme: CustomTheme) =>
 
 export const modalBodyBaseStyles = (theme: CustomTheme, size: Size) =>
   css({
-    backgroundColor: theme.colors.common.white,
+    backgroundColor: theme.colors.variants.modalColor.main,
     borderRadius: theme.borderRadius.medium,
     boxShadow: theme.shadows.large,
     transition: "transform 300ms ease-in-out",
@@ -52,6 +52,8 @@ export const modalHeaderStyles = (theme: CustomTheme) =>
     flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
+    borderStartEndRadius: `${theme.borderRadius.medium}`,
+    borderStartStartRadius: `${theme.borderRadius.medium}`,
 
     [`@media (max-width: ${theme.breakpoints.md})`]: {
       padding: theme.spacing.small,
@@ -60,6 +62,17 @@ export const modalHeaderStyles = (theme: CustomTheme) =>
 
 export const modalContentStyles = (theme: CustomTheme, size: Size) =>
   css({
+    padding: theme.spacing.medium,
     overflowY: "auto",
     maxHeight: size === "full" ? "100%" : `calc(100vh - ${theme.spacing.xxlarge})`,
+    [`@media (max-width: ${theme.breakpoints.md})`]: {
+      padding: theme.spacing.small,
+    },
+  });
+
+export const modalFooterStyles = (theme: CustomTheme) =>
+  css({
+    padding: theme.spacing.medium,
+    borderEndStartRadius: `${theme.borderRadius.medium}`,
+    borderEndEndRadius: `${theme.borderRadius.medium}`,
   });
