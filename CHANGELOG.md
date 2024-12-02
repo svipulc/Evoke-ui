@@ -1,3 +1,9 @@
+## [1.19.1](https://github.com/svipulc/Evoke-ui/compare/v1.19.0...v1.19.1) (2024-12-02)
+
+### Bug Fixes
+
+- add warning condition for preventing use of modal component without theme ([1954df8](https://github.com/svipulc/Evoke-ui/commit/1954df8bfaf446e120680a05ab7a62bf1b5e55a7))
+
 ## [1.18.4](https://github.com/svipulc/Evoke-ui/compare/v1.18.3...v1.18.4) (2024-11-29)
 
 ### Bug Fixes
