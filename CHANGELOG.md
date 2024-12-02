@@ -1,3 +1,9 @@
+# [1.19.0](https://github.com/svipulc/Evoke-ui/compare/v1.18.3...v1.19.0) (2024-12-02)
+
+### Features
+
+- migrate scroll-area into emotion styling ([7f39d2e](https://github.com/svipulc/Evoke-ui/commit/7f39d2e6d43f8fceb67fb29ba0f62eb0e0371e67))
+
 ## [1.18.3](https://github.com/svipulc/Evoke-ui/compare/v1.18.2...v1.18.3) (2024-11-29)
 
 ### Bug Fixes
