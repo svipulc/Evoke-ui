@@ -34,7 +34,7 @@ const orientationVariants = (theme: CustomTheme) => ({
     [`@media(min-width: ${theme.breakpoints.sm})`]: {
       overflowY: "hidden",
       "&:hover": {
-        overflowY: "scroll",
+        overflowY: "auto",
       },
     },
   }),
@@ -43,7 +43,7 @@ const orientationVariants = (theme: CustomTheme) => ({
     [`@media(min-width: ${theme.breakpoints.sm})`]: {
       overflowX: "hidden",
       "&:hover": {
-        overflowX: "scroll",
+        overflowX: "auto",
       },
     },
   }),
@@ -52,7 +52,7 @@ const orientationVariants = (theme: CustomTheme) => ({
     [`@media(min-width: ${theme.breakpoints.sm})`]: {
       overflow: "hidden",
       "&:hover": {
-        overflow: "scroll",
+        overflow: "auto",
       },
     },
   }),
