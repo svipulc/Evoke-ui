@@ -1,3 +1,9 @@
+## [1.19.2](https://github.com/svipulc/Evoke-ui/compare/v1.19.1...v1.19.2) (2024-12-03)
+
+### Bug Fixes
+
+- add focus style on button component ([9b0cb66](https://github.com/svipulc/Evoke-ui/commit/9b0cb66c6dc3782a73734c5080a25214db6b10c9))
+
 ## [1.19.1](https://github.com/svipulc/Evoke-ui/compare/v1.19.0...v1.19.1) (2024-12-02)
 
 ### Bug Fixes
