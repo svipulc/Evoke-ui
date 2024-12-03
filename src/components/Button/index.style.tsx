@@ -12,6 +12,13 @@ export const buttonStyles = cva(
     "items-center",
     "justify-center",
     "gap-3",
+    "focus-visible:ring-2",
+    "focus-visible:ring-light-secondary",
+    "focus-visible:dark:ring-secondary",
+    "focus-visible:ring-offset-2",
+    "focus-visible:ring-offset-light-primary",
+    "focus-visible:dark:ring-offset-primary",
+    "focus-visble-:inset-2",
   ],
   {
     variants: {
