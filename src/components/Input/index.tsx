@@ -36,7 +36,7 @@ export const Input = ({
   return (
     <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={name} className="text-sm text-light-silverSteel dark:text-silverSteel">
+        <label htmlFor={name} className="text-sm text-light-silverSteel dark:text-dark-silverSteel">
           {label}
           {required && <span className="text-red-500"> *</span>}
         </label>
@@ -56,7 +56,9 @@ export const Input = ({
         </div>
         {error && <span className="text-sm text-red-600 dark:text-red-400 ">{errorMessage}</span>}
         {helperText && !error && (
-          <span className="text-sm text-light-silverSteel dark:text-silverSteel">{helperText}</span>
+          <span className="text-sm text-light-silverSteel dark:text-dark-silverSteel">
+            {helperText}
+          </span>
         )}
       </div>
     </div>

@@ -31,7 +31,7 @@ export const VerticalScrolling: Story = {
     orientation: "vertical",
     css: { height: "350px" },
     className:
-      "h-[350px] bg-white dark:bg-primary dark:highlight-white/5 shadow-lg rounded-xl flex flex-col divide-y dark:divide-secondary/10",
+      "h-[350px] bg-white dark:bg-dark-primary dark:highlight-white/5 shadow-lg rounded-xl flex flex-col divide-y dark:divide-dark-secondary/10",
     children: people.map(person => (
       <div key={person.id} className="flex items-center gap-4 p-4" tabIndex={0}>
         <img className="w-12 h-12 rounded-full" src={person.image} alt={person.name} />
@@ -39,7 +39,7 @@ export const VerticalScrolling: Story = {
           <strong className="text-primary text-sm font-medium dark:text-white">
             {person.name}
           </strong>
-          <span className="text-gray-500 text-sm font-medium dark:text-secondary/70">
+          <span className="text-gray-500 text-sm font-medium dark:text-dark-secondary/70">
             {person.role}
           </span>
         </div>
@@ -53,7 +53,7 @@ export const HorizontalScrolling: Story = {
     orientation: "horizontal",
     css: { width: "500px" },
     className:
-      "flex h-[150px] bg-white dark:bg-primary dark:highlight-white/5 shadow-lg rounded-xl ",
+      "flex h-[150px] bg-white dark:bg-dark-primary dark:highlight-white/5 shadow-lg rounded-xl ",
     children: people.map(person => (
       <div key={person.id} className="flex-none py-6 px-3 first:pl-6 last:pr-6" tabIndex={0}>
         <div className="flex flex-col items-center justify-center gap-3">

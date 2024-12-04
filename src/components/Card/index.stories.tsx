@@ -56,7 +56,7 @@ export const CardPost: Story = {
           />
           <div className="flex flex-col">
             <h6>Username</h6>
-            <p className="text-sm text-slate-600 dark:text-silverSteel">
+            <p className="text-sm text-slate-600 dark:text-dark-silverSteel">
               Lorem ipsum dolor sit amet consectetur adipisicing elit...
             </p>
           </div>
@@ -74,7 +74,7 @@ export const CardPost: Story = {
             <IoChatbubbleEllipsesOutline size={30} />
           </div>
           <div className="flex gap-2 items-center mt-2">
-            <IoHeart size={15} className="fill-primary dark:fill-secondary" />
+            <IoHeart size={15} className="fill-primary dark:fill-dark-secondary" />
             <span>35 Likes</span>
           </div>
           <p className="text-wrap">
@@ -265,11 +265,14 @@ export const FriendsCard: Story = {
             />
             <div className="flex flex-col">
               <h6>Username</h6>
-              <p className="text-sm text-slate-600 dark:text-silverSteel">Lorem ipsum...</p>
+              <p className="text-sm text-slate-600 dark:text-dark-silverSteel">Lorem ipsum...</p>
             </div>
           </div>
           <div>
-            <IoChatbubbleEllipsesSharp size={30} className="dark:fill-silverSteel fill-primary" />
+            <IoChatbubbleEllipsesSharp
+              size={30}
+              className="dark:fill-dark-silverSteel fill-primary"
+            />
           </div>
         </Card.Content>
       </>

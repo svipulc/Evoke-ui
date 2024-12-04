@@ -188,7 +188,7 @@ export const UsingDividerInCard: Story = {
   },
   render: args => (
     <>
-      <Card className="md:w-96 dark:bg-primary dark:text-white dark:border-none">
+      <Card className="md:w-96 dark:bg-dark-primary dark:text-white dark:border-none">
         <React.Fragment key=".0">
           <Card.Header>
             <h4 className="text-2xl font-semibold">Card Title</h4>

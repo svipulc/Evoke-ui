@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority";
 export const tabsStyles = cva(["tabs", "w-full", "h-full", "p-2", "rounded-md"], {
   variants: {
     border: {
-      true: "border border-light-silverSteel/20 dark:border-silverSteel",
+      true: "border border-light-silverSteel/20 dark:border-dark-silverSteel",
       false: "border-none",
     },
     direction: {
@@ -50,13 +50,13 @@ export const tabsTriggerStyles = cva(
     "rounded-md",
     "transition-colors duration-200",
     "hover:bg-light-silverSteel/10",
-    "dark:hover:bg-silverSteel",
+    "dark:hover:bg-dark-silverSteel",
   ],
   {
     variants: {
       active: {
-        true: "dark:text-white text-light-secondary hover:bg-light-secondary dark:hover:bg-secondary hover:text-light-primary dark:hover:text-primary",
-        false: "text-light-silverSteel dark:text-silverSteel dark:hover:text-white",
+        true: "dark:text-white text-light-secondary hover:bg-light-secondary dark:hover:bg-dark-secondary hover:text-light-primary dark:hover:text-dark-primary",
+        false: "text-light-silverSteel dark:text-dark-silverSteel dark:hover:text-white",
       },
       disabled: {
         true: "opacity-50 cursor-not-allowed",
@@ -100,7 +100,7 @@ export const tabsContentStyles = cva(
 export const tabsIndicatorStyles = cva(
   [
     "absolute",
-    "bg-light-secondary dark:bg-secondary",
+    "bg-light-secondary dark:bg-dark-secondary",
     "rounded-full",
     "transition-all duration-300 ease-in-out",
     "h-[2px]",

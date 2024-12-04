@@ -5,7 +5,7 @@ export const cardStyle = cva([
   "flex flex-col justify-center",
   "w-full",
   "rounded-lg",
-  "bg-white dark:bg-primary dark:text-white ",
+  "bg-white dark:bg-dark-primary dark:text-white ",
 ]);
 
 export const cardHeaderStyle = cva([

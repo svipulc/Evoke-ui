@@ -29,7 +29,7 @@ export const NavContainer: Story = {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <Container {...args}>
-        <nav className="bg-primary/10 p-4 dark:bg-primary dark:text-secondary text-primary">
+        <nav className="bg-primary/10 p-4 dark:bg-dark-primary dark:text-dark-secondary text-primary">
           <div className="flex justify-between items-center">
             <div className=" text-lg">Brand</div>
 
@@ -67,7 +67,7 @@ export const NavContainer: Story = {
 export const LoginContainer: Story = {
   render: ({ ...args }) => (
     <Container {...args} className="flex justify-center items-center h-screen">
-      <Card className="w-full max-w-md dark:bg-primary dark:text-white dark:border-none">
+      <Card className="w-full max-w-md dark:bg-dark-primary dark:text-white dark:border-none">
         <Card.Header>
           <h2 className="text-2xl font-bold text-center">Login</h2>
         </Card.Header>
@@ -112,7 +112,7 @@ export const LoginContainer: Story = {
                 </label>
               </div>
               <div className="text-sm">
-                <a href="#" className="font-medium text-primary dark:text-secondary">
+                <a href="#" className="font-medium text-primary dark:text-dark-secondary">
                   Forgot your password?
                 </a>
               </div>
@@ -127,7 +127,7 @@ export const LoginContainer: Story = {
         <Card.Footer>
           <p className="text-sm  text-center">
             Don&apos;t have an account?{" "}
-            <a href="#" className="font-medium text-primary dark:text-secondary">
+            <a href="#" className="font-medium text-primary dark:text-dark-secondary">
               Sign up
             </a>
           </p>

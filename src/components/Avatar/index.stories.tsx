@@ -1,8 +1,7 @@
 // Avatar component story
-
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Avatar, AvatarFallback, AvatarImage } from ".";
-import testImg from "../../../public/assets/test.jpg";
 
 const meta: Meta<typeof Avatar> = {
   title: "Components/Avatar",
@@ -54,7 +53,7 @@ export const ProfileWithFallback: Story = {
 export const ProfileUsingPath: Story = {
   args: {
     size: "sm",
-    children: <AvatarImage src={testImg} />,
+    children: <AvatarImage src={"https://mui.com/static/images/avatar/2.jpg"} />,
   },
 };
 
