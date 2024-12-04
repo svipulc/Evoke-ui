@@ -1,3 +1,9 @@
+## [1.19.3](https://github.com/svipulc/Evoke-ui/compare/v1.19.2...v1.19.3) (2024-12-04)
+
+### Bug Fixes
+
+- **style:** update Tailwind dark theme configuration and apply changes to components ([1ba48f9](https://github.com/svipulc/Evoke-ui/commit/1ba48f93198f8da37205bd68d2b987e133f792e5))
+
 ## [1.19.2](https://github.com/svipulc/Evoke-ui/compare/v1.19.1...v1.19.2) (2024-12-03)
 
 ### Bug Fixes
