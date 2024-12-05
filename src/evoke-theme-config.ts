@@ -4,12 +4,17 @@ export type CustomTheme = typeof lightTheme;
 
 export const lightTheme = createTheme({
   colors: {
+    neutral: {
+      text: "#ffffff",
+    },
     variants: {
       primary: {
-        main: "#FFFFFF",
+        main: "#3366CC",
+        contrastText: "#ffffff",
       },
       secondary: {
-        main: "#3366CC",
+        main: "#FFFFFF",
+        contrastText: "#000000",
       },
       levender: {
         main: "#D4BFFF",
@@ -29,9 +34,11 @@ export const darkTheme = createTheme({
     variants: {
       primary: {
         main: "#24293C",
+        contrastText: "#ffffff",
       },
       secondary: {
         main: "#AACCFF",
+        contrastText: "#24293C",
       },
       levender: {
         main: "#E6E6FA",
