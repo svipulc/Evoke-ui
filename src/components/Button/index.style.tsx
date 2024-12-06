@@ -1,47 +1,127 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
+import { ButtonColor, ButtonSize, ButtonVariant } from ".";
 
-export const buttonStyles = cva(
-  [
-    "w-full",
-    "rounded-md",
-    "font-semibold",
-    "focus:outline-none",
-    "disabled:opacity-50",
-    "disabled:cursor-not-allowed",
-    "flex",
-    "items-center",
-    "justify-center",
-    "gap-3",
-    "focus-visible:ring-2",
-    "focus-visible:ring-light-secondary",
-    "focus-visible:dark:ring-dark-secondary",
-    "focus-visible:ring-offset-2",
-    "focus-visible:ring-offset-light-primary",
-    "focus-visible:dark:ring-offset-dark-primary",
-    "focus-visble-:inset-2",
-  ],
-  {
-    variants: {
-      variant: {
-        solid:
-          " dark:bg-dark-secondary dark:hover:bg-dark-secondary/90 dark:active:ring-2 dark:active:ring-dark-secondary/50 dark:text-dark-primary bg-light-secondary hover:bg-light-secondary/90 active:ring-2 active:ring-primary/50 text-light-primary",
-        outline:
-          "dark:border-dark-secondary dark:text-dark-secondary dark:hover:bg-dark-secondary/10 dark:active:ring-2 dark:active:ring-dark-secondary/50 border-light-secondary bg-transparent hover:bg-light-secondary/10 active:ring-2 active:ring-light-secondary/50 border-2 text-light-secondary",
-        ghost:
-          "dark:text-dark-secondary dark:hover:bg-dark-secondary/10 dark:active:ring-2 dark:active:ring-dark-secondary/50 transition-colors duration-300 hover:bg-light-secondary/10 active:ring-2 active:ring-light-secondary/50 text-light-secondary",
-        link: "text-light-secondary dark:text-dark-secondary bg-transparent underline-offset-4 hover:underline cursor-pointer",
-        destructive: "bg-red-600 hover:bg-red-700/90 active:ring-2 active:ring-red-300 text-white",
-      },
-      size: {
-        sm: "h-9 px-4 py-2 text-sm",
-        md: "h-10 px-4 py-2 text-base",
-        lg: "h-11 px-6 py-3 text-lg",
-        icon: "h-8 w-8",
-      },
+const baseStyle = (theme: EvokeTheme, color: ButtonColor) =>
+  css({
+    width: "fit-content",
+    height: "fit-content",
+    display: "flex",
+    alignItems: "center",
+    justifyItems: "center",
+    gap: theme.spacing.xsmall,
+    borderRadius: theme.borderRadius.small,
+    fontWeight: theme.typography.fontWeight.medium,
+    fontSize: theme.typography.fontSizes.base,
+    "&:focus-visible": {
+      outline: "none",
+      boxShadow: `0 0 0 2px ${theme.colors.common.white}, 0 0 0 4px ${theme.colors.variants[`${color}`].main}`,
     },
-    defaultVariants: {
-      variant: "solid",
-      size: "md",
+    "&:hover": {
+      opacity: 0.9,
     },
-  }
-);
+    "&:disabled": {
+      cursor: "not-allowed",
+      opacity: 0.5,
+    },
+  });
+
+const sizeStyle = (theme: EvokeTheme) => ({
+  xs: css({
+    fontSize: theme.typography.fontSizes.xsmall,
+    padding: `${theme.spacing.none} ${theme.spacing.xsmall}`,
+    height: theme.size["8"],
+  }),
+  sm: css({
+    fontSize: theme.typography.fontSizes.small,
+    padding: `${theme.spacing.none} ${theme.spacing.small}`,
+    height: theme.size["9"],
+  }),
+  md: css({
+    fontSize: theme.typography.fontSizes.base,
+    padding: `${theme.spacing.none} ${theme.spacing.medium}`,
+    height: theme.size["10"],
+  }),
+  lg: css({
+    fontSize: theme.typography.fontSizes.base,
+    padding: `${theme.spacing.none} ${theme.spacing.large}`,
+    height: theme.size["11"],
+  }),
+  xl: css({
+    fontSize: theme.typography.fontSizes.base,
+    padding: `${theme.spacing.none} ${theme.spacing.large}`,
+    height: theme.size["12"],
+  }),
+  icon: css({
+    padding: `${theme.spacing.small} ${theme.spacing.small}`,
+    height: theme.size["10"],
+  }),
+});
+
+const variantStyle = (theme: EvokeTheme, color: ButtonColor) => ({
+  solid: css({
+    backgroundColor: theme.colors.variants[`${color}`].main,
+    color: theme.colors.variants[`${color}`].contrastText || theme.colors.common.white,
+    "&:hover": {
+      background: theme.colors.variants[`${color}`].main,
+    },
+  }),
+  outline: css({
+    backgroundColor: "transparent",
+    color: theme.colors.variants[`${color}`].main,
+    border: `${theme.size["px"]} solid ${theme.colors.variants[`${color}`].main}`,
+    "&:hover": {
+      backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.light,
+    },
+  }),
+  ghost: css({
+    backgroundColor: "transparent",
+    color: theme.colors.variants[`${color}`].main,
+    "&:hover": {
+      backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.light,
+    },
+  }),
+  link: css({
+    background: "none",
+    color: theme.colors.variants[`${color}`].main,
+    "&:hover": {
+      textDecoration: "underline",
+      textUnderlineOffset: theme.size["0.5"],
+    },
+  }),
+  surface: css({
+    backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.light,
+    color: theme.colors.variants[`${color}`].main,
+    border: `${theme.size["px"]} solid ${theme.colors.variants[`${color}`].main}`,
+    "&:hover": {
+      backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.mediumLight,
+    },
+  }),
+  subtle: css({
+    backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.light,
+    color: theme.colors.variants[`${color}`].main,
+    "&:hover": {
+      backgroundColor: theme.colors.variants[`${color}`].main + theme.opacity.mediumLight,
+    },
+  }),
+});
+
+const colorStyle = (themes: EvokeTheme, color: ButtonColor) =>
+  css({
+    backgroundColor: themes.colors.variants[`${color}`].main,
+    color: themes.colors.variants[`${color}`].main || themes.colors.common.white,
+  });
+
+export const buttonStyles = (
+  theme: EvokeTheme,
+  variant: ButtonVariant,
+  size: ButtonSize,
+  color: ButtonColor
+) => {
+  return css([
+    baseStyle(theme, color),
+    sizeStyle(theme)[size],
+    colorStyle(theme, color),
+    variantStyle(theme, color)[variant],
+  ]);
+};
