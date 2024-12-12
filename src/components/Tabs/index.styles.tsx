@@ -1,119 +1,107 @@
 // Tabs component styles
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
 
 // Tabs
-export const tabsStyles = cva(["tabs", "w-full", "h-full", "p-2", "rounded-md"], {
-  variants: {
-    border: {
-      true: "border border-light-silverSteel/20 dark:border-dark-silverSteel",
-      false: "border-none",
-    },
-    direction: {
-      horizontal: "flex-col",
-      vertical: "flex flex-row gap-2",
-    },
-  },
-  defaultVariants: {
-    border: false,
-    direction: "horizontal",
-  },
-});
+export const tabsStyles = ({
+  theme,
+  border,
+  direction,
+}: {
+  theme: EvokeTheme;
+  border: boolean;
+  direction: "horizontal" | "vertical";
+}) =>
+  css({
+    display: "flex",
+    width: theme.size.full,
+    height: theme.size.full,
+    padding: theme.spacing.small,
+    borderRadius: theme.borderRadius.xlarge,
+    flexDirection: direction === "horizontal" ? "column" : "row",
+    border: border
+      ? `${theme.size["px"]} solid ${theme.colors.neutral.border}`
+      : theme.borderRadius.none,
+  });
 
 // Tabs List
-export const tabsListStyles = cva(
-  ["tabs-list", "relative", "w-full", "h-full", "selection-none", "overflow-hidden"],
-  {
-    variants: {
-      isFitted: {
-        true: "",
-        false: "sm:w-auto",
-      },
-      direction: {
-        horizontal: "flex flex-row flex-nowrap mb-2 py-2 gap-x-2  hover:overflow-x-auto",
-        vertical: "flex flex-col min-w-fit sm:mr-4 px-2  hover:overflow-y-auto",
-      },
-    },
-    defaultVariants: {
-      isFitted: false,
-      direction: "horizontal",
-    },
-  }
-);
-
+export const tabsListStyles = ({
+  theme,
+  isFitted,
+  direction,
+}: {
+  theme: EvokeTheme;
+  isFitted: boolean;
+  direction: "horizontal" | "vertical";
+}) =>
+  css({
+    display: isFitted ? "flex" : "block",
+    borderBottom: `${theme.size["px"]} solid ${theme.colors.neutral.border}`,
+    flexDirection: direction === "horizontal" ? "row" : "column",
+    overflow: direction === "horizontal" ? "hidden auto" : "auto hidden",
+    ...(direction === "vertical" && {
+      display: "flex",
+      // flex: 1,
+      height: "fit-content",
+      minWidth: "max-content",
+      flexDirection: "column",
+      width: "max-content",
+      borderBottom: theme.size[0],
+    }),
+  });
 // Tabs Trigger
-export const tabsTriggerStyles = cva(
-  [
-    "tabs-trigger",
-    "p-2",
-    "text-md",
-    "text-nowrap",
-    "rounded-md",
-    "transition-colors duration-200",
-    "hover:bg-light-silverSteel/10",
-    "dark:hover:bg-dark-silverSteel",
-  ],
-  {
-    variants: {
-      active: {
-        true: "dark:text-white text-light-secondary hover:bg-light-secondary dark:hover:bg-dark-secondary hover:text-light-primary dark:hover:text-dark-primary",
-        false: "text-light-silverSteel dark:text-dark-silverSteel dark:hover:text-white",
-      },
-      disabled: {
-        true: "opacity-50 cursor-not-allowed",
-        false: "",
-      },
-      isFitted: {
-        true: "flex-1 text-center",
-        false: "",
-      },
-      direction: {
-        horizontal: "first:ms-2 last:mr-2",
-        vertical: "mb-2 first:mt-2 last:mb-0",
-      },
+export const tabsTriggerStyles = ({
+  theme,
+  active,
+  disabled,
+  isFitted,
+  direction,
+}: {
+  theme: EvokeTheme;
+  active: boolean;
+  disabled: boolean;
+  isFitted: boolean;
+  direction: "horizontal" | "vertical";
+}) =>
+  css({
+    boxSizing: "content-box",
+    width: isFitted ? theme.size.full : theme.size.fit,
+    transition: "color 0.2s, background-color 0.2s",
+    border: "none",
+    cursor: disabled ? "not-allowed" : "pointer",
+    color: active ? theme.colors.variants.primary.main : theme.colors.neutral.text,
+    "&:focus": {
+      outline: "none",
     },
-    defaultVariants: {
-      active: false,
-      disabled: false,
-      isFitted: false,
-      direction: "horizontal",
+    "&:focus-visible": {
+      boxShadow: ` inset 0 0 0 2px ${theme.colors.variants.primary.main}`,
+      inset: "1px",
+      borderRadius: theme.borderRadius.medium,
     },
-  }
-);
+    ...(direction === "horizontal"
+      ? {
+          padding: theme.spacing.xsmall + " " + theme.spacing.small,
+          borderBottom: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
+        }
+      : {
+          padding: theme.spacing.small + " " + theme.spacing.xsmall,
+          height: theme.size.fit,
+          borderLeft: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
+        }),
+  });
 
 // Tabs Content
-export const tabsContentStyles = cva(
-  ["tabs-content", "w-full", "h-full", "p-1", "dark:text-white"],
-  {
-    variants: {
-      direction: {
-        horizontal: "",
-        vertical: "mt-2 overflow-auto",
-      },
-    },
-    defaultVariants: {
-      direction: "horizontal",
-    },
-  }
-);
-
-// Tabs indicator
-export const tabsIndicatorStyles = cva(
-  [
-    "absolute",
-    "bg-light-secondary dark:bg-dark-secondary",
-    "rounded-full",
-    "transition-all duration-300 ease-in-out",
-    "h-[2px]",
-  ],
-  {
-    variants: {
-      direction: {
-        horizontal: "bottom-0 mb-[2px] w-0",
-        vertical: "right-0 w-[2px] mr-[2px]",
-      },
-    },
-    defaultVariants: {
-      direction: "horizontal",
-    },
-  }
-);
+export const tabsContentStyles = ({
+  theme,
+  direction,
+}: {
+  theme: EvokeTheme;
+  direction: "horizontal" | "vertical";
+}) =>
+  css({
+    width: theme.size.full,
+    height: theme.size.full,
+    padding: theme.spacing.medium,
+    overflow: direction === "vertical" ? "auto" : "hidden",
+    color: theme.colors.neutral.text,
+  });
