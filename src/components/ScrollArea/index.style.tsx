@@ -1,22 +1,23 @@
-import { CustomTheme } from "@/evoke-theme-config";
+import { EvokeTheme } from "@/theme/theme.type";
 import { css } from "@emotion/react";
 
 // Base styles for scroll area
-const scrollAreaBase = css({
-  width: "100%",
-  height: "100%",
-  overflow: "hidden",
-  position: "relative",
-  border: "solid 3px transparent",
-  scrollbarGutter: "stable both-edges",
-});
+const scrollAreaBase = (theme: EvokeTheme) =>
+  css({
+    width: theme.size.full,
+    height: theme.size.full,
+    overflow: "hidden",
+    position: "relative",
+    border: `${theme.size[0.5]} solid transparent`,
+    scrollbarGutter: "stable both-edges",
+  });
 
 // Scrollbar styles
-const scrollbarStyles = (theme: CustomTheme) =>
+const scrollbarStyles = (theme: EvokeTheme) =>
   css({
     "&::-webkit-scrollbar": {
-      width: "8px",
-      height: "8px",
+      width: theme.size[2],
+      height: theme.size[2],
     },
     "&::-webkit-scrollbar-track": {
       background: "transparent",
@@ -28,7 +29,7 @@ const scrollbarStyles = (theme: CustomTheme) =>
   });
 
 // Orientation variant styles
-const orientationVariants = (theme: CustomTheme) => ({
+const orientationVariants = (theme: EvokeTheme) => ({
   vertical: css({
     overflowY: "auto",
     [`@media(min-width: ${theme.breakpoints.sm})`]: {
@@ -60,8 +61,12 @@ const orientationVariants = (theme: CustomTheme) => ({
 
 // Function to get the appropriate styles based on the orientation
 export const scrollAreaStyles = (
-  theme: CustomTheme,
+  theme: EvokeTheme,
   orientation: "vertical" | "horizontal" | "both"
 ) => {
-  return css([scrollAreaBase, scrollbarStyles(theme), orientationVariants(theme)[orientation]]);
+  return css([
+    scrollAreaBase(theme),
+    scrollbarStyles(theme),
+    orientationVariants(theme)[orientation],
+  ]);
 };

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { useEvokeTheme } from "@/hooks/theme";
+import { CSSObject, SerializedStyles } from "@emotion/react";
 import { ComponentProps, forwardRef } from "react";
 import { scrollAreaStyles } from "./index.style";
-import { CSSObject, SerializedStyles, useTheme } from "@emotion/react";
-import { CustomTheme } from "@/evoke-theme-config";
 
 type ScrollAreaProps = ComponentProps<"div"> & {
   css?: SerializedStyles | CSSObject;
@@ -12,7 +12,7 @@ type ScrollAreaProps = ComponentProps<"div"> & {
 
 export const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
   ({ css, children, orientation = "vertical", className, ...props }, ref) => {
-    const theme = useTheme() as CustomTheme;
+    const theme = useEvokeTheme();
 
     return (
       <div
