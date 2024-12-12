@@ -1,28 +1,118 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
 
-export const tooltipParentStyle = cva("group relative inline-block");
+export const positionStyle = (theme: EvokeTheme) => ({
+  top: css({
+    bottom: "100%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    marginBottom: theme.spacing.xsmall,
+  }),
+  bottom: css({
+    top: "100%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    marginTop: theme.spacing.xsmall,
+  }),
+  left: css({
+    top: "50%",
+    right: "100%",
+    transform: "translateY(-50%)",
+    marginRight: theme.spacing.xsmall,
+  }),
+  right: css({
+    top: "50%",
+    left: "100%",
+    transform: "translateY(-50%)",
+    marginLeft: theme.spacing.xsmall,
+  }),
+  topStart: css({
+    bottom: "100%",
+    left: "0%",
+    transform: "translateX(0%)",
+    marginBottom: theme.spacing.xsmall,
+  }),
+  topEnd: css({
+    bottom: "100%",
+    right: "0%",
+    transform: "translateX(0%)",
+    marginBottom: theme.spacing.xsmall,
+  }),
+  bottomStart: css({
+    top: "100%",
+    left: "0%",
+    transform: "translateX(0%)",
+    marginTop: theme.spacing.xsmall,
+  }),
+  bottomEnd: css({
+    top: "100%",
+    right: "0%",
+    transform: "translateX(0%)",
+    marginTop: theme.spacing.xsmall,
+  }),
+  leftStart: css({
+    top: "0%",
+    right: "100%",
+    transform: "translateY(0%)",
+    marginRight: theme.spacing.xsmall,
+  }),
+  leftEnd: css({
+    bottom: "0%",
+    right: "100%",
+    transform: "translateY(0%)",
+    marginRight: theme.spacing.xsmall,
+  }),
+  rightStart: css({
+    top: "0%",
+    left: "100%",
+    transform: "translateY(0%)",
+    marginLeft: theme.spacing.xsmall,
+  }),
+  rightEnd: css({
+    bottom: "0%",
+    left: "100%",
+    transform: "translateY(0%)",
+    marginLeft: theme.spacing.xsmall,
+  }),
+});
 
-export const tooltipStyle = cva(
-  "invisible group-hover:visible opacity-0 group-hover:opacity-100 transition p-2 rounded absolute bg-gray-800 text-white text-xs break-words whitespace-normal max-w-[200px] w-max",
-  {
-    variants: {
-      position: {
-        top: "left-1/2 transform -translate-x-1/2 bottom-[calc(100%+5px)]",
-        bottom: "left-1/2 transform -translate-x-1/2 top-[calc(100%+5px)]",
-        left: "top-1/2 transform -translate-y-1/2 right-[calc(100%+5px)]",
-        right: "top-1/2 transform -translate-y-1/2 left-[calc(100%+5px)]",
-        topStart: "left-0 bottom-[calc(100%+5px)]",
-        topEnd: "right-0 bottom-[calc(100%+5px)]",
-        bottomStart: "left-0 top-[calc(100%+5px)]",
-        bottomEnd: "right-0 top-[calc(100%+5px)]",
-        leftStart: "top-0 right-[calc(100%+5px)]",
-        leftEnd: "bottom-0 right-[calc(100%+5px)]",
-        rightStart: "top-0 left-[calc(100%+5px)]",
-        rightEnd: "bottom-0 left-[calc(100%+5px)]",
-      },
-    },
-    defaultVariants: {
-      position: "top",
-    },
-  }
-);
+export const baseStyle = (theme: EvokeTheme) =>
+  css({
+    position: "absolute",
+    visibility: "hidden",
+    opacity: 0,
+    zIndex: theme.zIndex.high,
+    transition: "opacity 0.3s",
+    transitionDelay: "1s",
+    whiteSpace: "normal",
+    wordBreak: "break-word",
+    maxWidth: "200px",
+    width: "max-content",
+    padding: `${theme.spacing.xxsmall} ${theme.spacing.xsmall}`,
+    borderRadius: theme.borderRadius.small,
+    backgroundColor: theme.colors.common.black,
+    color: theme.colors.common.white,
+    fontSize: theme.typography.fontSizes.xsmall,
+  });
+
+export const tooltipParentStyle = css({
+  position: "relative",
+  display: "inline-block",
+  // tooltip should be visible when hovered (mouse accessibility)
+  "&:hover .tooltip": {
+    visibility: "visible",
+    opacity: 1,
+  },
+  // tooltip should be visible when focused (keyboard accessibility)
+  "&:focus-within .tooltip": {
+    visibility: "visible",
+    opacity: 1,
+  },
+});
+
+export const tooltipStyle = (
+  theme: EvokeTheme,
+  position: keyof ReturnType<typeof positionStyle>
+) => {
+  return css([baseStyle(theme), positionStyle(theme)[position]]);
+};
