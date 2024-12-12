@@ -1,39 +1,107 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
+import { IconPosition } from ".";
 
-export const inputWrapperStyle = cva(
-  "flex rounded-md relative items-center gap-1 ring-offset-background ring-1 ring-gray-300 dark:ring-gray-50/50 text-black dark:text-white bg-transparent focus-within:ring-2 focus-within:ring-ring focus-within:ring-light-secondary dark:focus-within:ring-dark-secondary focus-within:hover:ring-light-secondary dark:focus-within:hover:ring-dark-secondary hover:ring-light-secondary dark:hover:ring-white autofill:bg-transparent"
-);
+export const componentContainerStyle = (theme: EvokeTheme) =>
+  css({
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.xxsmall,
+  });
 
-export const iconStyle = cva("w-fit h-4 text-light-silverSteel dark:text-dark-silverSteel", {
-  variants: {
-    iconPosition: {
-      left: "ps-3",
-      right: "pe-3",
+export const labelStyle = (theme: EvokeTheme) =>
+  css({
+    color: theme.colors.neutral.text,
+    fontSize: theme.typography.fontSizes.small,
+    fontWeight: theme.typography.fontWeight.medium,
+  });
+
+export const inputWrapperStyle = (theme: EvokeTheme, error: boolean, disabled: boolean) =>
+  css({
+    display: "flex",
+    alignItems: "center",
+    borderRadius: theme.borderRadius.medium,
+    backgroundColor: "transparent",
+    height: theme.size[10],
+    textAlign: "left",
+    color: theme.colors.neutral.text,
+    border: `${theme.size["px"]} solid ${theme.colors.neutral.border}`,
+    ":hover": {
+      borderColor: theme.colors.variants.primary.main,
     },
-  },
-  defaultVariants: {
-    iconPosition: "right",
-  },
-});
-
-export const inputStyle = cva(
-  "w-full px-3 py-2 h-8 md:h-10 bg-transparent text-sm file:bg-transparent file:border-0 file:text-sm file:font-medium file:text-light-secondary dark:file:text-dark-secondary placeholder:text-light-silverSteel dark:placeholder:text-dark-silverSteel focus:outline-none disabled:cursor-not-allowed disabled:opacity-60 autofill:rounded-md autofill:opacity-90",
-  {
-    variants: {
-      type: {
-        text: "",
-        email: "",
-        password: "",
-        number: "",
-        file: "",
+    ":focus-within": {
+      borderWidth: theme.size[0.5],
+      borderColor: theme.colors.variants.primary.main,
+    },
+    "&:autofill": {
+      backgroundColor: "transparent",
+    },
+    ...(error && {
+      border: `${theme.size["px"]} solid ${theme.colors.variants.error.main}`,
+      ":focus-within": {
+        borderWidth: theme.size[0.5],
+        borderColor: theme.colors.variants.error.main,
       },
-      error: {
-        true: "ring-red-500 dark:ring-red-400 focus-within:ring-red-500 dark:focus-within:ring-red-400 hover:ring-red-500 dark:hover:ring-red-400 focus-within:hover:ring-red-500 dark:focus-within:hover:ring-red-400",
-        false: "",
+      ":hover": {
+        borderColor: theme.colors.variants.error.main,
+      },
+    }),
+    ...(disabled && {
+      cursor: "not-allowed",
+      "&:hover": {
+        borderColor: theme.colors.neutral.border,
+      },
+    }),
+  });
+
+export const inputStyle = (theme: EvokeTheme) =>
+  css({
+    width: "100%",
+    padding: `${theme.spacing.none} ${theme.spacing.small}`,
+    fontSize: theme.typography.fontSizes.small,
+    color: theme.colors.neutral.text,
+    backgroundColor: "transparent",
+    "::file-selector-button": {
+      backgroundColor: "transparent",
+      border: theme.size[0],
+      fontSize: theme.typography.fontSizes.small,
+      fontWeight: theme.typography.fontWeight.medium,
+      color: theme.colors.variants.primary.main,
+    },
+    "::placeholder": {
+      color: theme.colors.neutral.text + theme.opacity.mediumDark,
+    },
+    ":focus": {
+      outline: "none", // Equivalent to "focus:outline-none"
+    },
+    "&[disabled]": {
+      cursor: "not-allowed",
+      opacity: 0.6,
+      "&:hover": {
+        borderderColor: theme.colors.neutral.border,
       },
     },
-    defaultVariants: {
-      error: false,
+    "&:autofill": {
+      boxShadow: "0 0 0px 1000px transparent inset",
     },
-  }
-);
+  });
+
+export const errorMessageStyle = (theme: EvokeTheme) =>
+  css({
+    color: theme.colors.variants.error.main,
+    fontSize: theme.typography.fontSizes.small,
+  });
+
+export const helperTextStyle = (theme: EvokeTheme) =>
+  css({
+    color: theme.colors.neutral.text + theme.opacity.mediumDark,
+    fontSize: theme.typography.fontSizes.small,
+  });
+
+export const iconStyle = (theme: EvokeTheme, iconPosition: IconPosition) =>
+  css({
+    width: "fit-content",
+    color: theme.colors.neutral.text + theme.opacity.mediumDark,
+    ...(iconPosition === "left" && { paddingInlineStart: theme.spacing.small }),
+    ...(iconPosition === "right" && { paddingInlineEnd: theme.spacing.small }),
+  });

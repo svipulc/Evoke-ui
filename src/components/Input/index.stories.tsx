@@ -1,26 +1,50 @@
-import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaMailBulk, FaSearch } from "react-icons/fa";
 import { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
-
 import { Input } from ".";
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
   component: Input,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
+  decorators: [
+    Story => (
+      <div style={{ width: "500px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Text: Story = {
+export const Usage: Story = {
   args: {
     type: "text",
-    placeholder: "Enter your name",
+    placeholder: "Enter your email",
+  },
+};
+
+export const Label: Story = {
+  args: {
+    ...Usage.args,
+    label: "Email",
+  },
+};
+
+export const Required: Story = {
+  args: {
+    ...Label.args,
+    required: true,
+  },
+};
+
+export const HelperText: Story = {
+  args: {
+    ...Label.args,
+    helperText: "Must be at least 8 characters long",
   },
 };
 
@@ -31,44 +55,42 @@ export const Disable: Story = {
     placeholder: "Ex. jhondoe@gmail.com",
   },
 };
-export const Required: Story = {
-  args: {
-    type: "email",
-    required: true,
-    placeholder: "Ex. jhondoe@gmail.com",
-  },
-};
 
 export const Error: Story = {
   args: {
-    type: "email",
-    placeholder: "Ex. jhondoe@gmail.com",
+    ...HelperText.args,
     error: true,
+    errorMessage: "Invalid email",
   },
 };
 
-export const WithHelperText: Story = {
-  args: {
-    type: "password",
-    placeholder: "Type your password",
-    helperText: "Must be at least 8 characters long",
-  },
-};
-
-export const WithLabel: Story = {
-  args: {
-    type: "email",
-    label: "Email",
-    placeholder: "Email..",
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    type: "text",
-    placeholder: "Search...",
-    icon: <FaSearch />,
-    iconPosition: "left",
+export const IconOrElement: Story = {
+  render: () => {
+    return (
+      <div style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
+        <Input
+          name="search"
+          type="text"
+          placeholder="Search"
+          icon={<FaSearch />}
+          iconPosition="left"
+        />
+        <Input
+          name="url"
+          type="text"
+          placeholder="Enter URL"
+          icon={<span>https://</span>}
+          iconPosition="left"
+        />
+        <Input
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          icon={<FaMailBulk />}
+          iconPosition="right"
+        />
+      </div>
+    );
   },
 };
 
@@ -79,7 +101,7 @@ export const FileInput: Story = {
   },
 };
 
-export const passwordInput: Story = {
+export const Password: Story = {
   args: {
     required: true,
   },
