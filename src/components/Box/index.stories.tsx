@@ -4,41 +4,48 @@ import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Box> = {
   title: "Layouts/Box",
-  component: Box as React.FC,
+  component: Box,
   tags: ["autodocs"],
   argTypes: {
     as: {
       options: ["div", "section", "header", "footer", "main", "summary", "aside", "nav", "article"],
       control: {
-        type: "select",
+        type: "inline-radio",
       },
       defaultValue: "div",
+      description: "The HTML element to render the Box component as.",
+      table: {
+        type: {
+          summary: "div | section | header | footer | main | summary | aside | nav | article",
+        },
+        defaultValue: { summary: "div" },
+      },
     },
     padding: {
       options: ["none", "small", "medium", "large"],
       control: {
-        type: "select",
+        type: "inline-radio",
       },
       defaultValue: "none",
     },
     border: {
       options: ["none", "thin", "thick"],
       control: {
-        type: "select",
+        type: "inline-radio",
       },
       defaultValue: "none",
     },
     borderRadius: {
       options: ["none", "small", "medium", "large"],
       control: {
-        type: "select",
+        type: "inline-radio",
       },
       defaultValue: "none",
     },
     boxShadow: {
       options: ["none", "small", "medium", "large"],
       control: {
-        type: "select",
+        type: "inline-radio",
       },
       defaultValue: "none",
     },
@@ -53,14 +60,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const DefaultBox: Story = {
+export const Usage: Story = {
   args: {
-    as: "header",
-    padding: "small",
-    border: "thin",
-    children: "This is the default Box component.",
-    borderRadius: "none",
-    boxShadow: "small",
+    children: "This is a Box component.",
   },
-  render: args => <Box {...args} />,
 };
