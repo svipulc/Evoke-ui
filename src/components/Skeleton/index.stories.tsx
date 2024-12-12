@@ -1,3 +1,4 @@
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Skeleton } from ".";
 
@@ -34,6 +35,7 @@ export const Rectangular: Story = {
     variant: "rectangular",
   },
 };
+
 export const Text: Story = {
   args: {
     variant: "text",

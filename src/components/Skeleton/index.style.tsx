@@ -1,17 +1,36 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
+import { SkeletonVariants } from ".";
 
-export const skeletonStyle = cva(
-  ["animate-pulse", "bg-light-secondary/30", "dark:bg-dark-secondary/30"],
-  {
-    variants: {
-      variant: {
-        circular: "rounded-full h-10 w-10",
-        rectangular: "rounded-sm w-full min-h-4",
-        text: "text-base rounded-lg h-2 w-full",
-      },
-    },
-    defaultVariants: {
-      variant: "circular",
-    },
-  }
-);
+export const baseStyle = (theme: EvokeTheme) =>
+  css({
+    animation: "pulse 2s ease-in-out infinite",
+    backgroundColor: theme.colors.neutral.border + theme.opacity.extraDark,
+  });
+
+const variantStyle = (theme: EvokeTheme, width?: string, height?: string) => ({
+  circular: css({
+    borderRadius: theme.borderRadius.full,
+    height: height || theme.size["12"],
+    width: width || theme.size["12"],
+  }),
+  rectangular: css({
+    borderRadius: theme.borderRadius.medium,
+    height: height || theme.size["12"],
+    width: width || theme.size.full,
+  }),
+  text: css({
+    borderRadius: theme.borderRadius.medium,
+    height: height || theme.size["2"],
+    width: width || theme.size.full,
+  }),
+});
+
+export const skeletonStyle = (
+  theme: EvokeTheme,
+  variant: SkeletonVariants,
+  width?: string,
+  height?: string
+) => {
+  return css([baseStyle(theme), variantStyle(theme, width, height)[variant], width, height]);
+};
