@@ -1,48 +1,77 @@
-// Avatar component style
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
 
-import { cva } from "class-variance-authority";
+const baseStyle = css({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+});
 
-// Avatar
-export const avatarStyles = cva(
-  [
-    // css style
-    "w-full",
-    "h-full",
-    "flex justify-center items-center",
-  ],
-  {
-    variants: {
-      size: {
-        //size
-        sm: "w-12 h-12 text-sm",
-        md: "w-14 h-14 text-md",
-        lg: "w-16 h-16 text-lg",
-      },
-    },
-    defaultVariants: {
-      // default variants
-      size: "md",
-    },
-  }
-);
+export const shapeStyle = (theme: EvokeTheme) => ({
+  circular: css({
+    borderRadius: theme.borderRadius.full,
+  }),
+  square: css({
+    borderRadius: theme.borderRadius.medium,
+  }),
+});
 
-// Avatar Image
-export const avatarImageStyle = cva([
-  // css style
-  "w-full",
-  "h-full",
-  "rounded-full",
-  "object-cover",
-  "ring-2 ring-light-secondary dark:ring-dark-secondary",
-]);
+export const sizeStyle = (theme: EvokeTheme) => ({
+  xs: css({
+    width: theme.size["8"],
+    height: theme.size["8"],
+  }),
+  sm: css({
+    width: theme.size["9"],
+    height: theme.size["9"],
+  }),
+  md: css({
+    width: theme.size["10"],
+    height: theme.size["10"],
+  }),
+  lg: css({
+    width: theme.size["11"],
+    height: theme.size["11"],
+  }),
+  xl: css({
+    width: theme.size["12"],
+    height: theme.size["12"],
+  }),
+  "2xl": css({
+    width: theme.size["14"],
+    height: theme.size["14"],
+  }),
+  "3xl": css({
+    width: theme.size["16"],
+    height: theme.size["16"],
+  }),
+});
 
-// Avatar Fallback
-export const avatarFallbackStyle = cva([
-  // css style
-  "w-full",
-  "h-full",
-  "rounded-full",
-  "bg-light-silverSteel dark:bg-dark-silverSteel",
-  "flex justify-center items-center",
-  "text-light-primary dark:text-dark-primary",
-]);
+export const avatarStyles = (
+  theme: EvokeTheme,
+  size: keyof ReturnType<typeof sizeStyle>,
+  shape: keyof ReturnType<typeof shapeStyle>
+) => {
+  return css([baseStyle, sizeStyle(theme)[size], shapeStyle(theme)[shape]]);
+};
+
+export const avatarImageStyle = (theme: EvokeTheme) =>
+  css({
+    width: theme.size.full,
+    height: theme.size.full,
+    borderRadius: "inherit",
+    objectFit: "cover",
+    objectPosition: "center",
+  });
+
+export const avatarFallbackStyle = (theme: EvokeTheme) =>
+  css({
+    width: theme.size.full,
+    height: theme.size.full,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: theme.colors.neutral.border,
+    borderRadius: "inherit",
+    color: theme.colors.neutral.foreground,
+  });

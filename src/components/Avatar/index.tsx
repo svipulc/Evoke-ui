@@ -1,99 +1,113 @@
-// Avatar Component
-
-import { cn } from "@/utils";
-import { VariantProps } from "class-variance-authority";
+/** @jsxImportSource @emotion/react */
 import React, { ComponentProps, useEffect, useState } from "react";
-import { avatarFallbackStyle, avatarImageStyle, avatarStyles } from "./index.style";
+import {
+  avatarFallbackStyle,
+  avatarImageStyle,
+  avatarStyles,
+  shapeStyle,
+  sizeStyle,
+} from "./index.style";
+import { CSSObject, SerializedStyles } from "@emotion/react";
+import { useEvokeTheme } from "@/hooks/theme";
 
-// Avatar
-
-export type AvatarProps = ComponentProps<"div"> & VariantProps<typeof avatarStyles>;
-
-export const Avatar: React.FC<AvatarProps> = ({ children, size, className, ...props }) => {
-  return (
-    <div className={cn(avatarStyles({ size }), className)} {...props}>
-      {children}
-    </div>
-  );
+type BaseProps = {
+  css?: SerializedStyles | CSSObject;
+  className?: string;
 };
-Avatar.displayName = "Avatar";
 
-// Avatar Image
-
-type CustomAvatarImageProps = {
-  src: string;
-  alt?: string;
-  fallback?: React.ReactNode;
-};
+export type AvatarProps = ComponentProps<"div"> &
+  BaseProps & {
+    size?: keyof ReturnType<typeof sizeStyle>;
+    shape?: keyof ReturnType<typeof shapeStyle>;
+  };
 
 export type AvatarImageProps = ComponentProps<"img"> &
-  CustomAvatarImageProps &
-  VariantProps<typeof avatarImageStyle>;
-
-export const AvatarImage: React.FC<AvatarImageProps> = ({
-  src,
-  alt = "Alternative Text",
-  fallback,
-  className,
-  ...props
-}) => {
-  const [isValidImage, setIsValidImage] = useState(false);
-
-  useEffect(() => {
-    console.log("AvatarImage useEffect");
-    let isMounted = true;
-    const validateSrc = async () => {
-      if (src && src.trim() !== "") {
-        const isValid = await validateImage(src);
-        if (isMounted) {
-          setIsValidImage(isValid);
-        }
-      } else {
-        setIsValidImage(false);
-      }
-    };
-
-    validateSrc();
-    return () => {
-      isMounted = false;
-    };
-  }, [src]);
-
-  if (!isValidImage) {
-    return <AvatarFallback alt={alt} fallback={fallback} />;
-  }
-
-  return <img src={src} alt={alt} className={cn(avatarImageStyle({}), className)} {...props} />;
-};
-AvatarImage.displayName = "AvatarImage";
-
-// Avatar Fallback
-
-type CustomAvatarFallbackProps = {
-  alt?: string;
-  fallback?: React.ReactNode;
-};
+  BaseProps & {
+    src?: string;
+    alt?: string;
+    fallback?: React.ReactNode;
+  };
 
 export type AvatarFallbackProps = ComponentProps<"div"> &
-  CustomAvatarFallbackProps &
-  VariantProps<typeof avatarFallbackStyle>;
+  BaseProps & {
+    alt?: string;
+    fallback?: React.ReactNode;
+  };
 
+export const Avatar: React.FC<AvatarProps> = React.memo(
+  ({ children, size = "md", shape = "circular", className, css, ...props }) => {
+    const theme = useEvokeTheme();
+
+    return (
+      <div
+        aria-label="avatar"
+        css={[avatarStyles(theme, size, shape), css]}
+        className={className}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+// Avatar Image
+export const AvatarImage: React.FC<AvatarImageProps> = React.memo(
+  ({ src, alt = "Image", fallback, css, ...props }) => {
+    const theme = useEvokeTheme();
+    const [isValidImage, setIsValidImage] = useState(false);
+
+    useEffect(() => {
+      const controller = new AbortController();
+      const validate = async () => {
+        if (src?.trim()) {
+          const isValid = await validateImage(src);
+          if (!controller.signal.aborted) setIsValidImage(isValid);
+        }
+      };
+      validate();
+
+      return () => controller.abort();
+    }, [src]);
+
+    return isValidImage ? (
+      <img src={src} alt={alt} css={[avatarImageStyle(theme), css]} {...props} />
+    ) : (
+      <AvatarFallback alt={alt} fallback={fallback} />
+    );
+  }
+);
+
+// Avatar Fallback
 export const AvatarFallback: React.FC<AvatarFallbackProps> = React.memo(
-  ({ alt, fallback, className, ...props }) => {
-    const content = React.useMemo(() => {
+  ({ alt, fallback, className, css, ...props }) => {
+    const theme = useEvokeTheme();
+
+    const fallbackContent = React.useMemo(() => {
       if (fallback) return fallback;
       if (alt) return getInitials(alt);
       return "?";
     }, [fallback, alt]);
 
     return (
-      <div className={cn(avatarFallbackStyle({}), className)} {...props}>
-        {content}
+      <div
+        role="img"
+        aria-label="avatar-fallback"
+        css={[avatarFallbackStyle(theme), css]}
+        className={className}
+        {...props}
+      >
+        {fallbackContent}
       </div>
     );
   }
 );
+
+// Always set displayName explicitly for reusable or exported memoized components.
+Avatar.displayName = "Avatar";
+AvatarImage.displayName = "AvatarImage";
 AvatarFallback.displayName = "AvatarFallback";
+
 // Function use in Avatar component
 
 // Extract initials from a full name
@@ -136,9 +150,10 @@ async function validateImage(source: string): Promise<boolean> {
     });
   };
 
-  const isImagePath = (path: string): boolean => {
+  const isImagePath = async (path: string): Promise<boolean> => {
     const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
-    return imageExtensions.some(ext => path.toLowerCase().endsWith(ext));
+    const isValid = await validUrl(path);
+    return imageExtensions.some(ext => path.toLowerCase().endsWith(ext)) && isValid;
   };
 
   if (isUrl(source)) {
