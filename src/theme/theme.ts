@@ -15,13 +15,13 @@ import {
 
 const spacing: SpacingObject = {
   none: 0,
-  xxsmall: "4px", // Base spacing * 1
-  xsmall: "8px", // Base spacing * 2
-  small: "12px", // Base spacing * 3
-  medium: "16px", // Base spacing * 4
-  large: "24px", // Base spacing * 6
-  xlarge: "32px", // Base spacing * 8
-  xxlarge: "64px", // Base spacing * 16
+  xxsmall: "0.25rem", // 4px / 16 = 0.25rem
+  xsmall: "0.5rem", // 8px / 16 = 0.5rem
+  small: "0.75rem", // 12px / 16 = 0.75rem
+  medium: "1rem", // 16px / 16 = 1rem
+  large: "1.5rem", // 24px / 16 = 1.5rem
+  xlarge: "2rem", // 32px / 16 = 2rem
+  xxlarge: "4rem", // 64px / 16 = 4rem
 };
 
 const size = {
@@ -92,11 +92,11 @@ const colors: ColorsObject = {
     white: "#ffffff",
   },
   neutral: {
-    background: pallete.gray["0"], // "#f8f9fa"
-    foreground: pallete.gray["100"], // "#f1f3f5"
-    border: pallete.gray["400"], // "#ced4da"
-    text: pallete.gray["900"], // "#868e96"
-    shadow: pallete.gray["900"], // "#212529"
+    border: pallete.gray["300"],
+    background: pallete.gray["100"],
+    text: pallete.gray["900"],
+    foreground: pallete.gray["800"],
+    shadow: pallete.gray["400"],
   },
   variants: {
     primary: {
