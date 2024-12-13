@@ -15,20 +15,35 @@ const meta: Meta<typeof Modal> = {
     show: {
       control: { type: "boolean" },
       description: "Controls the visibility of the modal.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     closeOnOverlayClick: {
       control: { type: "boolean" },
       description: "Close the modal when clicking outside of it.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
+      },
     },
     showCloseButton: {
       control: { type: "boolean" },
       description: "Determines whether the cross button inside the modal should be present.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
+      },
     },
     size: {
       control: { type: "select" },
       options: ["sm", "md", "lg", "full"],
       description: "Size of the modal.",
-      defaultValue: "md",
+      table: {
+        type: { summary: "sm|md|lg|full" },
+        defaultValue: { summary: "md" },
+      },
     },
     css: {
       control: "text",
@@ -50,7 +65,6 @@ const meta: Meta<typeof Modal> = {
     },
   ],
 };
-
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -170,7 +184,7 @@ export const CustomStyleModal: Story = {
               <Button onClick={toggleModal} className="w-fit">
                 Accept
               </Button>
-              <Button variant="destructive" onClick={toggleModal} className="w-fit">
+              <Button color="error" onClick={toggleModal} className="w-fit">
                 Reject
               </Button>
             </Stack>
@@ -241,7 +255,7 @@ export const Size: Story = {
               <Button onClick={toggleModal} className="w-fit">
                 Accept
               </Button>
-              <Button variant="destructive" onClick={toggleModal} className="w-fit">
+              <Button color="error" onClick={toggleModal} className="w-fit">
                 Reject
               </Button>
             </Stack>
