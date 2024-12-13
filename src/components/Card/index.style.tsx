@@ -26,7 +26,7 @@ export const variantStyle = (theme: EvokeTheme) => ({
 });
 
 // Card Style
-export const cardStyle = (theme: any, variant: keyof ReturnType<typeof variantStyle>) => {
+export const cardStyle = (theme: EvokeTheme, variant: keyof ReturnType<typeof variantStyle>) => {
   return css([baseStyle(theme), variantStyle(theme)[variant]]);
 };
 
