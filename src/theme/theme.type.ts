@@ -64,7 +64,8 @@ type ZIndexValue = "default" | "low" | "medium" | "high" | "higher" | "highest" 
 
 type ColorVariants = "main" | "contrastText";
 type CommonColors = { white: string; black: string };
-type NeutralColors = Record<string, string>; // Allows flexibility for neutral color keys
+type NeutralColorCategories = "border" | "background" | "text" | "foreground" | "shadow";
+type NeutralColors = Record<NeutralColorCategories, string>; // Allows flexibility for neutral color keys
 type ColorCategories = "primary" | "secondary" | "success" | "error" | "warning" | "info";
 type ThematicColors = Record<ColorVariants, string>;
 
@@ -143,6 +144,7 @@ export type OpacityScale =
 
 // Component-Specific Types
 export type SizeObject = Record<SizeKey, string>;
+// export type SpacingObject = NoneField & Record<Exclude<Units, "full">, string>;
 export type SpacingObject = NoneField & Record<Exclude<Units, "full">, string>;
 export type BorderRadiusObject = NoneField & Record<Exclude<Units, "xxsmall"> | "full", string>;
 export type ShadowsObject = NoneField &
@@ -169,3 +171,19 @@ export interface EvokeTheme {
 export type CreateTheme = <CustomTheme extends DeepPartial<EvokeTheme>>(
   customTheme: CustomTheme
 ) => EvokeTheme & CustomTheme;
+
+export type JustifyContentValues =
+  | "start"
+  | "end"
+  | "center"
+  | "space-between"
+  | "space-around"
+  | "space-evenly";
+
+export type AlignItemsValues = "start" | "end" | "center" | "stretch" | "baseline";
+
+export type FlexDirectionValues = "row" | "row-reverse" | "column" | "column-reverse";
+
+export type FlexWrapValues = "nowrap" | "wrap" | "wrap-reverse";
+
+export type ResponsiveValue<T> = T | { [key in keyof BreakpointsObject]?: T };
