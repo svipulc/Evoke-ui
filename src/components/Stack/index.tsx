@@ -1,30 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import {
-  AlignType,
-  Direction,
-  JustifyType,
+  AlignItemsValues,
+  FlexDirectionValues,
+  FlexWrapValues,
+  JustifyContentValues,
   ResponsiveValue,
-  SpacingOptions,
-  WrapType,
-} from "@/theme";
-import { css } from "@emotion/react";
+  SpacingObject,
+} from "@/theme/theme.type";
 import { ComponentProps, useMemo } from "react";
-import { stackResponsiveStyle } from "./index.style";
+import { baseStyle, stackResponsiveStyle } from "./index.style";
 
 export type StackProps = ComponentProps<"div"> & {
-  spacing?: ResponsiveValue<SpacingOptions>;
-  direction?: ResponsiveValue<Direction>;
-  align?: ResponsiveValue<AlignType>;
-  justify?: ResponsiveValue<JustifyType>;
-  wrap?: ResponsiveValue<WrapType>;
+  spacing?: ResponsiveValue<SpacingObject>;
+  direction?: ResponsiveValue<FlexDirectionValues>;
+  align?: ResponsiveValue<AlignItemsValues>;
+  justify?: ResponsiveValue<JustifyContentValues>;
+  wrap?: ResponsiveValue<FlexWrapValues>;
 };
 
 export const Stack: React.FC<StackProps> = ({
   children,
   className,
-  direction,
-  align,
-  justify,
+  direction = "row",
+  align = "start",
+  justify = "start",
   spacing,
   wrap,
   ...props
@@ -36,10 +35,9 @@ export const Stack: React.FC<StackProps> = ({
 
   return (
     <div
-      css={css`
-        display: flex;
-        ${responsiveStyle}
-      `}
+      aria-label="stack"
+      role="group"
+      css={[baseStyle, responsiveStyle]}
       className={className}
       {...props}
     >
