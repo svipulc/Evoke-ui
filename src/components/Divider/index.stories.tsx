@@ -1,42 +1,42 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Divider } from "../Divider/index";
+import React from "react";
+import { Avatar, AvatarImage } from "../Avatar";
 import { Card } from "../Card";
-import { TiHome } from "react-icons/ti";
-import { BsChatSquareText } from "react-icons/bs";
+import { Divider } from "../Divider/index";
 
 const meta: Meta<typeof Divider> = {
   title: "Layouts/Divider",
   component: Divider,
   argTypes: {
-    variant: {
-      control: {
-        type: "select",
-      },
-      options: ["fullWidth", "inset", "middle"],
-      description: "Controls the width and positioning of the divider",
-    },
-    alignment: {
-      control: {
-        type: "select",
-      },
-      options: ["horizontal", "vertical"],
-      description: "Sets the orientation of the divider",
-    },
+    // variant: {
+    //   control: {
+    //     type: "select",
+    //   },
+    //   options: ["fullWidth", "inset", "middle"],
+    //   description: "Controls the width and positioning of the divider",
+    // },
+    // alignment: {
+    //   control: {
+    //     type: "select",
+    //   },
+    //   options: ["horizontal", "vertical"],
+    //   description: "Sets the orientation of the divider",
+    // },
     type: {
       control: {
         type: "select",
       },
       options: ["solid", "dashed", "dotted"],
       description: "Specifies the style of the divider",
+      table: {},
     },
-    textAlign: {
-      control: {
-        type: "select",
-      },
-      options: ["left", "right", "top", "bottom", "center"],
-      description: "Aligns text inside the divider",
-    },
+    // textAlign: {
+    //   control: {
+    //     type: "select",
+    //   },
+    //   options: ["left", "right", "top", "bottom", "center"],
+    //   description: "Aligns text inside the divider",
+    // },
   },
   tags: ["autodocs"],
 };
@@ -45,134 +45,73 @@ export default meta;
 
 type Story = StoryObj<typeof Divider>;
 
+export const Default: Story = {};
+
 export const HorizontalDivider: Story = {
   args: {
-    variant: "fullWidth",
-    textAlign: "center",
-    children: "Horizontal Divider",
+    alignment: "horizontal",
   },
 };
 
 export const VerticalDivider: Story = {
   args: {
     alignment: "vertical",
-    variant: "fullWidth",
-    type: "dotted",
-    textAlign: "center",
-    children: "Vertical Divider",
   },
 
   render: args => {
     return (
       <>
-        <div className="h-[20vh] w-[20vh] flex">
-          <Divider {...args} className="" />
+        <div className="flex gap-2">
+          <Avatar>
+            <AvatarImage fallback="KP" />
+          </Avatar>
+          <Divider {...args} />
+          <Avatar>
+            <AvatarImage fallback="VP" />
+          </Avatar>
         </div>
       </>
     );
   },
 };
 
-export const VerticalDividerExample: Story = {
+export const DividerWithText: Story = {
   args: {
-    alignment: "vertical",
-    variant: "inset",
+    alignment: "horizontal",
+    children: "center",
   },
-  render: args => (
-    <>
-      <div className="h-[10vh] w-[10vh] border-[2px] flex justify-center items-center">
-        <div className="p-2">
-          <TiHome />
-        </div>
-        <Divider {...args} className="my-2" />
-        <div className="p-2">
-          <BsChatSquareText />
-        </div>
-      </div>
-    </>
-  ),
 };
 
-export const VariantDivider: Story = {
-  args: {
-    variant: "fullWidth",
-    alignment: "horizontal",
-    type: "solid",
-  },
+export const TextAlignDivider: Story = {
   render: args => (
-    <>
-      <div className="border-[3px]  flex flex-col items-center">
-        <div className="p-2">Full Width Variant below</div>
-        <Divider {...args} />
-        <div className="p-2">Middle Width Variant below</div>
-        <Divider {...args} variant={"middle"} />
-        <div className="p-2">Inset Width Variant below</div>
-        <Divider {...args} variant={"inset"} />
-        <div className="p-2">Last item</div>
-      </div>
-    </>
-  ),
-};
-
-export const TextDivider: Story = {
-  args: {
-    variant: "fullWidth",
-    alignment: "horizontal",
-    type: "solid",
-    textAlign: "center",
-  },
-  render: args => (
-    <>
-      <div className="border-[3px]  flex flex-col items-center">
-        <div className="p-8">Text center below</div>
-        <Divider {...args} textAlign={"center"}>
-          Text
-        </Divider>
-        <div className="p-8">Text left below</div>
-        <Divider {...args} alignment="horizontal" textAlign={"left"}>
-          Text
-        </Divider>
-        <div className="p-8">Text right below</div>
-        <Divider {...args} alignment="horizontal" textAlign={"right"}>
-          Text
-        </Divider>
-        <div className="p-8">Last item</div>
-      </div>
-      <div className="border-[3px] h-[20vh] flex justify-between">
-        <div className="p-8">Text Top</div>
-        <Divider {...args} alignment="vertical" textAlign={"top"}>
-          Text
-        </Divider>
-        <div className="p-8">Text center</div>
-        <Divider {...args} alignment="vertical" textAlign={"center"}>
-          Text
-        </Divider>
-        <div className="p-8">Text bottom</div>
-        <Divider {...args} alignment="vertical" textAlign={"bottom"}>
-          Text
-        </Divider>
-        <div className="p-8">Last item</div>
-      </div>
-    </>
+    <div className="flex flex-1 gap-8 h-[30vh]">
+      <Divider alignment="vertical" textAlign={"start"}>
+        start
+      </Divider>
+      <Divider alignment="vertical" textAlign={"center"}>
+        center
+      </Divider>
+      <Divider alignment="vertical" textAlign={"end"}>
+        end
+      </Divider>
+    </div>
   ),
 };
 
 export const TypeDivider: Story = {
   args: {
-    variant: "middle",
     alignment: "horizontal",
-    type: "dotted",
     textAlign: "center",
   },
   render: args => (
     <>
-      <div className="border-[3px]  flex flex-col items-center">
+      <div className="">
         <div className="p-8">Solid</div>
-        <Divider {...args} type={"solid"} />
+        <Divider type={"solid"} />
         <div className="p-8">Dotted</div>
-        <Divider {...args} type={"dotted"} className="border-red-600" />
+        <Divider type="dotted" />
         <div className="p-8">Dashed</div>
-        <Divider {...args} type={"dashed"} className="border-green-600" />
+        <Divider type={"dashed"} />
         <div className="p-8">Last item</div>
       </div>
     </>
@@ -181,7 +120,6 @@ export const TypeDivider: Story = {
 
 export const UsingDividerInCard: Story = {
   args: {
-    variant: "fullWidth",
     alignment: "horizontal",
     type: "solid",
     textAlign: "center",

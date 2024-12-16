@@ -1,63 +1,37 @@
-import { cn } from "@/utils";
-import { ComponentProps } from "react";
-import {
-  dividerChildrenStyle,
-  dividerStyles,
-  getTextAlignClass,
-  getVariantClass,
-} from "./index.style";
-import { VariantProps } from "class-variance-authority";
+/** @jsxImportSource @emotion/react */
+import { useEvokeTheme } from "@/hooks/theme";
+import { CSSObject, SerializedStyles } from "@emotion/react";
+import React from "react";
+import { dividerChildrenStyle, dividerStyle, typeStyle } from "./index.style";
 
-type verticalTextAlign = "top" | "center" | "bottom";
-type horizontalTextAlign = "left" | "center" | "right";
-
-export type DividerBaseProps = ComponentProps<"div"> &
-  VariantProps<typeof dividerStyles> &
-  VariantProps<typeof dividerChildrenStyle> & {
-    variant?: "fullWidth" | "inset" | "middle";
-    children?: unknown;
-  };
-
-export type HorizontalDividerProps = DividerBaseProps & {
-  alignment: "horizontal";
-  textAlign?: horizontalTextAlign;
+type DividerProps = {
+  type?: keyof ReturnType<typeof typeStyle>;
+  alignment?: "horizontal" | "vertical";
+  textAlign?: "start" | "center" | "end";
+  css?: SerializedStyles | CSSObject;
+  className?: string;
+  children?: React.ReactNode;
 };
 
-export type VerticalDividerProps = DividerBaseProps & {
-  alignment: "vertical";
-  textAlign?: verticalTextAlign;
-};
-
-export type DividerProps = HorizontalDividerProps | VerticalDividerProps;
-
+// Divider Component
 export const Divider: React.FC<DividerProps> = ({
+  type = "solid",
+  alignment = "horizontal",
+  textAlign = "center",
   children,
   className,
-  alignment = "horizontal",
-  variant = "fullWidth",
-  textAlign = "center",
-  type,
+  css,
 }) => {
-  let border_postion = "";
-  if (alignment === "horizontal") {
-    border_postion = "border-t";
-  } else {
-    border_postion = "border-l";
-  }
+  const theme = useEvokeTheme();
   return (
     <div
-      className={cn(
-        `${border_postion} bg-gray-300 inline-block`,
-        dividerStyles({ alignment, type }),
-        getVariantClass(alignment, variant),
-        className
-      )}
+      aria-label="divider"
+      role="separator"
+      aria-orientation={alignment}
+      css={[dividerStyle(theme, alignment, type), css]}
+      className={className}
     >
-      {children && (
-        <span className={cn(dividerChildrenStyle(), getTextAlignClass(alignment, textAlign))}>
-          {children}
-        </span>
-      )}
+      {children && <span css={dividerChildrenStyle(theme, alignment, textAlign)}>{children}</span>}
     </div>
   );
 };
