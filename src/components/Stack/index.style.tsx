@@ -58,7 +58,6 @@ export const stackResponsiveStyle = (
 export const baseStyle = (theme: EvokeTheme) =>
   css({
     display: "flex",
-    flexWrap: "wrap",
     flexDirection: "row",
     gap: theme.spacing.small,
   });
