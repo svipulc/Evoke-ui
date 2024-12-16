@@ -9,6 +9,8 @@ import {
 } from "@/theme/theme.type";
 import { ComponentProps, useMemo } from "react";
 import { baseStyle, stackResponsiveStyle } from "./index.style";
+import { SerializedStyles } from "@emotion/react";
+import { CSSObject } from "storybook/internal/theming";
 
 export type StackProps = ComponentProps<"div"> & {
   spacing?: ResponsiveValue<SpacingObject>;
@@ -16,6 +18,7 @@ export type StackProps = ComponentProps<"div"> & {
   align?: ResponsiveValue<AlignItemsValues>;
   justify?: ResponsiveValue<JustifyContentValues>;
   wrap?: ResponsiveValue<FlexWrapValues>;
+  css?: SerializedStyles | CSSObject;
 };
 
 export const Stack: React.FC<StackProps> = ({
@@ -26,6 +29,7 @@ export const Stack: React.FC<StackProps> = ({
   justify = "start",
   spacing,
   wrap,
+  css,
   ...props
 }) => {
   const responsiveStyle = useMemo(
@@ -37,7 +41,7 @@ export const Stack: React.FC<StackProps> = ({
     <div
       aria-label="stack"
       role="group"
-      css={[baseStyle, responsiveStyle]}
+      css={[baseStyle, responsiveStyle, css]}
       className={className}
       {...props}
     >
