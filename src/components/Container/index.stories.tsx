@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { Container } from "./index";
+import { Skeleton } from "../Skeleton";
 
 const meta: Meta<typeof Container> = {
   title: "Layouts/Container",
@@ -13,7 +14,7 @@ const meta: Meta<typeof Container> = {
   },
   argTypes: {
     maxWidth: {
-      options: ["full", "sm", "md", "lg", "xl", "2xl", "auto"],
+      options: ["full", "sm", "md", "lg", "xl", "2xl"],
       control: { type: "select" },
     },
   },
@@ -24,7 +25,40 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    children: <div className="bg-sky-300 w-full h-[200px]"></div>,
+  },
+};
+
+export const MaxWidth: Story = {
+  render: ({ ...args }) => {
+    return (
+      <>
+        <Container {...args} maxWidth="sm">
+          <div className="bg-sky-300 w-full h-[50px] text-center">container-sm</div>
+        </Container>
+        <Container {...args} maxWidth="md">
+          <div className="bg-indigo-300 w-full h-[50px] text-center">container-md</div>
+        </Container>
+        <Container {...args} maxWidth="lg">
+          <div className="bg-red-300 w-full h-[50px] text-center">container-lg</div>
+        </Container>
+        <Container {...args} maxWidth="xl">
+          <div className="bg-green-300 w-full h-[50px] text-center">container-xl</div>
+        </Container>
+        <Container {...args} maxWidth="2xl">
+          <div className="bg-yellow-300 w-full h-[50px] text-center">container-2xl</div>
+        </Container>
+      </>
+    );
+  },
+};
+
 export const NavContainer: Story = {
+  args: {
+    maxWidth: "2xl",
+  },
   render: ({ ...args }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -135,4 +169,53 @@ export const LoginContainer: Story = {
       </Card>
     </Container>
   ),
+};
+
+export const PostCotainer: Story = {
+  render: () => {
+    return (
+      <Container className="p-2" maxWidth="sm">
+        <div className="flex gap-2 items-center">
+          <Skeleton variant="circular" width="40px" height="40px" />
+          <div className="flex flex-col gap-2">
+            <Skeleton variant="text" width="40px" />
+            <Skeleton variant="text" width="100px" />
+          </div>
+        </div>
+        <div className="p-2">
+          <Skeleton width="100%" height="200px" />
+        </div>
+        <div className="flex gap-2 items-center">
+          <Skeleton variant="circular" width="40px" height="40px" />
+          <div className="flex flex-col gap-2">
+            <Skeleton variant="text" width="40px" />
+            <Skeleton variant="text" width="100px" />
+          </div>
+        </div>
+        <div className="p-2">
+          <Skeleton width="100%" height="200px" />
+        </div>
+        <div className="flex gap-2 items-center">
+          <Skeleton variant="circular" width="40px" height="40px" />
+          <div className="flex flex-col gap-2">
+            <Skeleton variant="text" width="40px" />
+            <Skeleton variant="text" width="100px" />
+          </div>
+        </div>
+        <div className="p-2">
+          <Skeleton width="100%" height="200px" />
+        </div>
+        <div className="flex gap-2 items-center">
+          <Skeleton variant="circular" width="40px" height="40px" />
+          <div className="flex flex-col gap-2">
+            <Skeleton variant="text" width="40px" />
+            <Skeleton variant="text" width="100px" />
+          </div>
+        </div>
+        <div className="p-2">
+          <Skeleton width="100%" height="200px" />
+        </div>
+      </Container>
+    );
+  },
 };

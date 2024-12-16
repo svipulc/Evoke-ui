@@ -1,18 +1,24 @@
-import { cn } from "@/utils";
-import { VariantProps } from "class-variance-authority";
+/** @jsxImportSource @emotion/react */
 import { ComponentProps } from "react";
-import { containerStyle } from "./index.style";
+import { containerStyle, containerWidthStyle } from "./index.style";
+import { CSSObject, SerializedStyles } from "@emotion/react";
+import { useEvokeTheme } from "@/hooks/theme";
 
-export type ContainerProps = ComponentProps<"div"> & VariantProps<typeof containerStyle>;
+export type ContainerProps = ComponentProps<"div"> & {
+  maxWidth?: keyof ReturnType<typeof containerWidthStyle>;
+  css?: SerializedStyles | CSSObject;
+};
 
 export const Container: React.FC<ContainerProps> = ({
   children,
-  maxWidth,
+  maxWidth = "md",
   className,
+  css,
   ...props
 }) => {
+  const theme = useEvokeTheme();
   return (
-    <div className={cn(containerStyle({ maxWidth }), className)} {...props}>
+    <div css={[containerStyle(maxWidth, theme), css]} className={className} {...props}>
       {children}
     </div>
   );
