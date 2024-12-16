@@ -45,7 +45,7 @@ const CardExample = () => {
         </p>
         <p className="text-xl font-semibold">$450</p>
       </Card.Content>
-      <Card.Footer>
+      <Card.Footer className="flex gap-2">
         <Button>Buy Now</Button>
         <Button variant="ghost">Add to Cart</Button>
       </Card.Footer>
@@ -96,7 +96,7 @@ export const Horizontal: Story = {
               milk.
             </p>
           </Card.Content>
-          <Card.Footer>
+          <Card.Footer className="flex gap-2">
             <Button>Buy Now</Button>
             <Button variant="ghost">Add to Cart</Button>
           </Card.Footer>
