@@ -5,23 +5,17 @@ import { css } from "@emotion/react";
 // Tabs
 export const tabsStyles = ({
   theme,
-  border,
   direction,
 }: {
   theme: EvokeTheme;
-  border: boolean;
   direction: "horizontal" | "vertical";
 }) =>
   css({
     display: "flex",
     width: theme.size.full,
     height: theme.size.full,
-    padding: theme.spacing.small,
     borderRadius: theme.borderRadius.xlarge,
     flexDirection: direction === "horizontal" ? "column" : "row",
-    border: border
-      ? `${theme.size["px"]} solid ${theme.colors.neutral.border}`
-      : theme.borderRadius.none,
   });
 
 // Tabs List
@@ -68,7 +62,6 @@ export const tabsTriggerStyles = ({
     width: isFitted ? theme.size.full : theme.size.fit,
     transition: "color 0.2s, background-color 0.2s",
     border: "none",
-    cursor: disabled ? "not-allowed" : "pointer",
     color: active ? theme.colors.variants.primary.main : theme.colors.neutral.text,
     "&:focus": {
       outline: "none",
@@ -78,6 +71,10 @@ export const tabsTriggerStyles = ({
       inset: "1px",
       borderRadius: theme.borderRadius.medium,
     },
+    ...(disabled && {
+      cursor: "not-allowed",
+      color: theme.pallete.gray[500],
+    }),
     ...(direction === "horizontal"
       ? {
           padding: theme.spacing.xsmall + " " + theme.spacing.small,
@@ -101,7 +98,13 @@ export const tabsContentStyles = ({
   css({
     width: theme.size.full,
     height: theme.size.full,
-    padding: theme.spacing.medium,
     overflow: direction === "vertical" ? "auto" : "hidden",
     color: theme.colors.neutral.text,
+    ...(direction === "horizontal"
+      ? {
+          paddingTop: theme.spacing.medium,
+        }
+      : {
+          paddingLeft: theme.spacing.medium,
+        }),
   });

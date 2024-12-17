@@ -17,7 +17,6 @@ type Story = StoryObj<typeof Tabs>;
 export const Tab: Story = {
   args: {
     defaultValue: "One",
-    border: true,
     direction: "horizontal",
     children: (
       <>
@@ -43,7 +42,6 @@ const tabsData = [
 export const FittedTab: Story = {
   args: {
     defaultValue: "overview",
-    border: true,
     direction: "horizontal",
     isFitted: true,
     children: (
@@ -68,7 +66,6 @@ export const FittedTab: Story = {
 export const DissableTab: Story = {
   args: {
     defaultValue: "One",
-    border: true,
     direction: "horizontal",
     isFitted: true,
     children: (
@@ -91,7 +88,6 @@ export const DissableTab: Story = {
 export const WithoutBorder: Story = {
   args: {
     defaultValue: "One",
-    border: false,
     direction: "horizontal",
     children: (
       <>
@@ -111,7 +107,6 @@ export const WithoutBorder: Story = {
 export const verticalTabs: Story = {
   args: {
     defaultValue: "Tab1",
-    border: true,
     isFitted: false,
     direction: "vertical",
     children: (
@@ -139,7 +134,6 @@ export const verticalTabs: Story = {
 export const LargeTab: Story = {
   args: {
     defaultValue: "Tab1",
-    border: true,
     isFitted: false,
     direction: "vertical",
     children: (

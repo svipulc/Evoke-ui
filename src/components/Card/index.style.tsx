@@ -34,7 +34,7 @@ export const cardStyle = (theme: EvokeTheme, variant: keyof ReturnType<typeof va
 export const cardHeaderStyle = (theme: EvokeTheme) =>
   css({
     width: theme.size.full,
-    padding: theme.spacing.large,
+    padding: theme.spacing.medium,
     paddingBottom: theme.spacing.none,
   });
 
@@ -42,7 +42,7 @@ export const cardHeaderStyle = (theme: EvokeTheme) =>
 export const cardContentStyle = (theme: EvokeTheme) =>
   css({
     display: "flex",
-    gap: theme.spacing.large,
+    gap: theme.spacing.medium,
     flexDirection: "column",
     flexGrow: 1,
     width: theme.size.full,
@@ -53,6 +53,6 @@ export const cardContentStyle = (theme: EvokeTheme) =>
 export const cardFooterStyle = (theme: EvokeTheme) =>
   css({
     width: theme.size.full,
-    padding: theme.spacing.large,
+    padding: theme.spacing.medium,
     paddingTop: theme.spacing.none,
   });

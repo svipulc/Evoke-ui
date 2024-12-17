@@ -8,10 +8,10 @@ export const borderStyle = (theme: EvokeTheme) => ({
 });
 
 export const paddingStyle = (theme: EvokeTheme) => ({
-  none: css({ padding: theme.size[0] }),
-  small: css({ padding: theme.size[6] }),
-  medium: css({ padding: theme.size[8] }),
-  large: css({ padding: theme.size[10] }),
+  none: css({ padding: theme.spacing.none }),
+  small: css({ padding: theme.spacing.small }),
+  medium: css({ padding: theme.spacing.medium }),
+  large: css({ padding: theme.spacing.large }),
 });
 
 export const borderRadiusStyle = (theme: EvokeTheme) => ({

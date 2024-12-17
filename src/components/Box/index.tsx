@@ -22,7 +22,7 @@ export type BoxProps<T extends ElementType = "div"> = ComponentProps<T> & {
 
 export const Box = <T extends ElementType = "div">({
   as: Component = "div",
-  padding = "small",
+  padding = "medium",
   border = "none",
   borderRadius = "none",
   boxShadow = "none",

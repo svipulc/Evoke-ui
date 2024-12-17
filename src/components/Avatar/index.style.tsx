@@ -5,6 +5,7 @@ const baseStyle = css({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  flexShrink: 0,
 });
 
 export const shapeStyle = (theme: EvokeTheme) => ({
@@ -62,12 +63,14 @@ export const avatarImageStyle = (theme: EvokeTheme) =>
     borderRadius: "inherit",
     objectFit: "cover",
     objectPosition: "center",
+    overflow: "hidden",
   });
 
 export const avatarFallbackStyle = (theme: EvokeTheme) =>
   css({
     width: theme.size.full,
     height: theme.size.full,
+    overflow: "hidden",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -14,7 +14,6 @@ type TabsProps = ComponentProps<"div"> & {
   defaultValue: string;
   isFitted?: boolean;
   activeTab?: string;
-  border?: boolean;
   onTabChange?: (value: string) => void;
   direction?: Direction;
   css?: SerializedStyles | CSSObject;
@@ -41,7 +40,6 @@ export const Tabs: React.FC<TabsProps> = ({
   isFitted = false,
   activeTab: controlledActiveTab,
   onTabChange,
-  border = false,
   direction = "horizontal",
   className,
   css,
@@ -51,12 +49,10 @@ export const Tabs: React.FC<TabsProps> = ({
   const { activeTab, setActiveTab } = useTabState(defaultValue, controlledActiveTab, onTabChange);
 
   return (
-    <TabsContext.Provider
-      value={{ activeTab, setActiveTab, defaultValue, isFitted, border, direction }}
-    >
+    <TabsContext.Provider value={{ activeTab, setActiveTab, defaultValue, isFitted, direction }}>
       <div
         aria-label="Tabs"
-        css={[tabsStyles({ theme, border, direction }), css]}
+        css={[tabsStyles({ theme, direction }), css]}
         className={className}
         {...props}
       >
