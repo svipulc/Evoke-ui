@@ -7,6 +7,7 @@ export const componentContainerStyle = (theme: EvokeTheme) =>
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.xxsmall,
+    width: theme.size.full,
   });
 
 export const labelStyle = (theme: EvokeTheme) =>
@@ -33,9 +34,7 @@ export const inputWrapperStyle = (theme: EvokeTheme, error: boolean, disabled: b
       borderWidth: theme.size[0.5],
       borderColor: theme.colors.variants.primary.main,
     },
-    "&:autofill": {
-      backgroundColor: "transparent",
-    },
+
     ...(error && {
       border: `${theme.size["px"]} solid ${theme.colors.variants.error.main}`,
       ":focus-within": {
@@ -81,8 +80,8 @@ export const inputStyle = (theme: EvokeTheme) =>
         borderderColor: theme.colors.neutral.border,
       },
     },
-    "&:autofill": {
-      boxShadow: "0 0 0px 1000px transparent inset",
+    ":autofill": {
+      backgroundColor: "transparent",
     },
   });
 
