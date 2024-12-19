@@ -1,3 +1,9 @@
+## [1.20.2](https://github.com/svipulc/Evoke-ui/compare/v1.20.1...v1.20.2) (2024-12-19)
+
+### Bug Fixes
+
+- **stack:** gap value ([b2c8eb0](https://github.com/svipulc/Evoke-ui/commit/b2c8eb0785b82464ddf5bfd058e6c619349e7d4e))
+
 ## [1.20.1](https://github.com/svipulc/Evoke-ui/compare/v1.20.0...v1.20.1) (2024-12-19)
 
 ### Bug Fixes
