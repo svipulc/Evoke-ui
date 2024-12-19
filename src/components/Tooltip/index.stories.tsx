@@ -1,5 +1,6 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Tooltip from "./index";
+import { Tooltip } from "./index";
 import { Button } from "../Button";
 import { IoMdHome } from "react-icons/io";
 
