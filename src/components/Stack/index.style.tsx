@@ -1,7 +1,7 @@
 import { defaultTheme } from "@/theme/theme";
 import { css } from "@emotion/react";
 import { StackProps } from ".";
-import { BreakpointsObject, EvokeTheme } from "@/theme/theme.type";
+import { BreakpointsObject } from "@/theme/theme.type";
 
 // Helper Function to get the style
 const getStyle = (field: string, value: any) => {
@@ -55,9 +55,8 @@ export const stackResponsiveStyle = (
   return res;
 };
 
-export const baseStyle = (theme: EvokeTheme) =>
-  css({
-    display: "flex",
-    flexDirection: "row",
-    gap: theme.spacing.small,
-  });
+export const baseStyle = css({
+  display: "flex",
+  flexDirection: "row",
+  gap: defaultTheme.spacing.small,
+});
