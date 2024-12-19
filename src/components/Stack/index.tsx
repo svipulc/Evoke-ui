@@ -13,7 +13,7 @@ import { SerializedStyles } from "@emotion/react";
 import { CSSObject } from "storybook/internal/theming";
 
 export type StackProps = ComponentProps<"div"> & {
-  spacing?: ResponsiveValue<SpacingObject>;
+  spacing?: ResponsiveValue<keyof SpacingObject>;
   direction?: ResponsiveValue<FlexDirectionValues>;
   align?: ResponsiveValue<AlignItemsValues>;
   justify?: ResponsiveValue<JustifyContentValues>;
