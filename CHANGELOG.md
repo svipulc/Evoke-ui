@@ -1,3 +1,9 @@
+# [1.20.0](https://github.com/svipulc/Evoke-ui/compare/v1.19.3...v1.20.0) (2024-12-19)
+
+### Features
+
+- migrate components styles to emotion ([#60](https://github.com/svipulc/Evoke-ui/issues/60)) ([16e20a3](https://github.com/svipulc/Evoke-ui/commit/16e20a3459f04bab508ce2ce78bec64b055b9f15))
+
 ## [1.19.3](https://github.com/svipulc/Evoke-ui/compare/v1.19.2...v1.19.3) (2024-12-04)
 
 ### Bug Fixes
