@@ -9,22 +9,40 @@ const meta: Meta<typeof Grid> = {
     columns: {
       options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       control: { type: "select" },
+      table: {
+        type: { summary: "1|2|3|4|5|6|7|8|9|10|11|12" },
+        defaultValue: { summary: "12" },
+      },
     },
     rows: {
       options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       control: { type: "select" },
+      table: {
+        type: { summary: "1|2|3|4|5|6|7|8|9|10|11|12" },
+        defaultValue: { summary: "1" },
+      },
     },
     spacing: {
-      options: ["none", "tiny", "small", "medium", "large", "xlarge", "xxlarge", "huge"],
+      options: ["none", "xxsmall", "xsmall", "small", "medium", "large", "xlarge", "xxlarge"],
       control: { type: "inline-radio" },
+      table: {
+        type: { summary: "none | xxsmall | xsmall |  small|medium|large|xlarge|xxlarge" },
+        defaultValue: { summary: "none" },
+      },
     },
     rowSpacing: {
-      options: ["none", "tiny", "small", "medium", "large", "xlarge", "xxlarge", "huge"],
+      options: ["none", "xxsmall", "xsmall", "small", "medium", "large", "xlarge", "xxlarge"],
       control: { type: "inline-radio" },
+      table: {
+        type: { summary: "none | xxsmall | xsmall |  small|medium|large|xlarge|xxlarge" },
+      },
     },
     columnSpacing: {
-      options: ["none", "tiny", "small", "medium", "large", "xlarge", "xxlarge", "huge"],
+      options: ["none", "xxsmall", "xsmall", "small", "medium", "large", "xlarge", "xxlarge"],
       control: { type: "inline-radio" },
+      table: {
+        type: { summary: "none | xxsmall | xsmall |  small|medium|large|xlarge|xxlarge" },
+      },
     },
   },
   decorators: [
@@ -42,7 +60,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const GridBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex justify-center items-center bg-primary p-8 h-full rounded-lg">
+  <div className="flex justify-center items-center bg-dark-primary p-8 h-full rounded-lg">
     {children}
   </div>
 );
@@ -55,7 +73,7 @@ export const Default: Story = {
   args: {
     columns: 4,
     rows: 3,
-    spacing: "small",
+    spacing: "large",
     children: (
       <>
         <GridBox>1</GridBox>

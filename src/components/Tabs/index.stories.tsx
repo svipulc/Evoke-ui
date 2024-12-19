@@ -1,5 +1,4 @@
 // Tabs component story
-
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from ".";
@@ -8,11 +7,7 @@ import { useTabState } from "../../hooks";
 const metata: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
-  parameters: {
-    // layout: "centered",
-  },
   tags: ["autodocs"],
-  argTypes: {},
 };
 
 export default metata;
@@ -21,26 +16,89 @@ type Story = StoryObj<typeof Tabs>;
 
 export const Tab: Story = {
   args: {
-    defaultValue: "Tab1",
-    border: true,
-    isFitted: true,
+    defaultValue: "One",
     direction: "horizontal",
     children: (
       <>
         <TabsList>
-          <TabsTrigger value={"Tab1"}>Tab1</TabsTrigger>
-          <TabsTrigger value={"Tab2"}>Typescript</TabsTrigger>
-          <TabsTrigger value={"Tab3"}>Long Text</TabsTrigger>
-          <TabsTrigger value={"Tab4"}>Tab4</TabsTrigger>
-          <TabsTrigger value={"Tab5"}>Tab5</TabsTrigger>
+          <TabsTrigger value={"One"}>One</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
         </TabsList>
-        <TabsContent value={"Tab1"}>
-          <div>Hello world from Tab 1</div>
+        <TabsContent value={"One"}>
+          <div>One</div>
         </TabsContent>
-        <TabsContent value={"Tab2"}>Tab 2 content</TabsContent>
-        <TabsContent value={"Tab3"}>Tab 3 content</TabsContent>
-        <TabsContent value={"Tab4"}>Tab 4 content</TabsContent>
-        <TabsContent value={"Tab5"}>Tab 5 content</TabsContent>
+        <TabsContent value={"Two"}>Two</TabsContent>
+      </>
+    ),
+  },
+};
+
+const tabsData = [
+  { value: "overview", label: "Overview", content: "This is the overview content." },
+  { value: "details", label: "Details", content: "Detailed information goes here." },
+  { value: "reviews", label: "Reviews", content: "User reviews are displayed here." },
+];
+
+export const FittedTab: Story = {
+  args: {
+    defaultValue: "overview",
+    direction: "horizontal",
+    isFitted: true,
+    children: (
+      <>
+        <TabsList>
+          {tabsData.map(tab => (
+            <TabsTrigger key={tab.value} value={tab.value}>
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {tabsData.map(tab => (
+          <TabsContent key={tab.value} value={tab.value}>
+            {tab.content}
+          </TabsContent>
+        ))}
+      </>
+    ),
+  },
+};
+
+export const DissableTab: Story = {
+  args: {
+    defaultValue: "One",
+    direction: "horizontal",
+    isFitted: true,
+    children: (
+      <>
+        <TabsList>
+          <TabsTrigger value={"One"}>One</TabsTrigger>
+          <TabsTrigger value={"Two"} disabled>
+            Two
+          </TabsTrigger>
+          <TabsTrigger value={"Three"}>Three</TabsTrigger>
+        </TabsList>
+        <TabsContent value={"One"}>One</TabsContent>
+        <TabsContent value={"Two"}>Two</TabsContent>
+        <TabsContent value={"Three"}>Three</TabsContent>
+      </>
+    ),
+  },
+};
+
+export const WithoutBorder: Story = {
+  args: {
+    defaultValue: "One",
+    direction: "horizontal",
+    children: (
+      <>
+        <TabsList>
+          <TabsTrigger value={"One"}>One</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+        </TabsList>
+        <TabsContent value={"One"}>
+          <div>One</div>
+        </TabsContent>
+        <TabsContent value={"Two"}>Two</TabsContent>
       </>
     ),
   },
@@ -49,12 +107,11 @@ export const Tab: Story = {
 export const verticalTabs: Story = {
   args: {
     defaultValue: "Tab1",
-    border: true,
     isFitted: false,
     direction: "vertical",
     children: (
       <>
-        <TabsList className="w-1/4">
+        <TabsList>
           <TabsTrigger value={"Tab1"}>react</TabsTrigger>
           <TabsTrigger value={"Tab2"}>Vue</TabsTrigger>
           <TabsTrigger value={"Tab3"}>Typescript</TabsTrigger>
@@ -77,7 +134,6 @@ export const verticalTabs: Story = {
 export const LargeTab: Story = {
   args: {
     defaultValue: "Tab1",
-    border: true,
     isFitted: false,
     direction: "vertical",
     children: (
@@ -129,60 +185,5 @@ export const LargeTab: Story = {
         </TabsContent>
       </>
     ),
-  },
-};
-
-export const changeTabs: Story = {
-  render: () => {
-    const { activeTab, setActiveTab } = useTabState("Tab1");
-    const handleTabChange = (value: string) => {
-      setActiveTab(value);
-    };
-    return (
-      <div className="flex-wrap gap-2">
-        <div className="mb-4">
-          <button
-            onClick={() => setActiveTab("Tab1")}
-            className="mr-2 px-2 py-1 bg-blue-500 text-white rounded"
-          >
-            Set to Tab1
-          </button>
-          <button
-            onClick={() => setActiveTab("Tab2")}
-            className="mr-2 px-2 py-1 bg-blue-500 text-white rounded"
-          >
-            Set to Tab2
-          </button>
-          <button
-            onClick={() => setActiveTab("Tab3")}
-            className="px-2 mt-2 md:mt-0 py-1 bg-blue-500 text-white rounded"
-          >
-            Set to Tab3
-          </button>
-        </div>
-        <Tabs
-          defaultValue="Tab1"
-          activeTab={activeTab}
-          onTabChange={handleTabChange}
-          className="w-full"
-          border
-        >
-          <TabsList>
-            <TabsTrigger value="Tab1">Tab1</TabsTrigger>
-            <TabsTrigger value="Tab2">Typescript</TabsTrigger>
-            <TabsTrigger value="Tab3">Long Text</TabsTrigger>
-            <TabsTrigger value="Tab4">Tab4</TabsTrigger>
-            <TabsTrigger value="Tab5">Tab5</TabsTrigger>
-          </TabsList>
-          <TabsContent value="Tab1">
-            <div>Hello world from Tab 1</div>
-          </TabsContent>
-          <TabsContent value="Tab2">Tab 2 content</TabsContent>
-          <TabsContent value="Tab3">Tab 3 content</TabsContent>
-          <TabsContent value="Tab4">Tab 4 content</TabsContent>
-          <TabsContent value="Tab5">Tab 5 content</TabsContent>
-        </Tabs>
-      </div>
-    );
   },
 };

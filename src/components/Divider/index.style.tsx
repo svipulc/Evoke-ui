@@ -1,74 +1,85 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
 
-export const dividerStyles = cva("relative flex", {
-  variants: {
-    alignment: {
-      horizontal: "w-full max-h-[1px]",
-      vertical: "flex-col h-full max-w-[1px]",
+export const typeStyle = () => ({
+  solid: css({
+    "::after": {
+      borderStyle: "solid",
     },
-    type: {
-      solid: "border-solid",
-      dashed: "border-dashed",
-      dotted: "border-dotted",
+  }),
+  dashed: css({
+    "::after": {
+      borderStyle: "dashed",
     },
-  },
-
-  defaultVariants: {
-    alignment: "horizontal",
-  },
+  }),
+  dotted: css({
+    "::after": {
+      borderStyle: "dotted",
+    },
+  }),
 });
 
-export const dividerChildrenStyle = cva("absolute bg-white px-2 text-gray-500 legend-text");
+export const baseStyle = (theme: EvokeTheme, alignment: "horizontal" | "vertical") =>
+  css({
+    position: "relative",
+    backgroundColor: "inherit",
+    "::after": {
+      content: '""',
+      display: "block",
+      ...(alignment === "vertical"
+        ? {
+            borderLeft: `${theme.size["px"]} solid ${theme.colors.neutral.border}`,
+            height: "100%",
+            width: theme.size["0.5"],
+            flex: "col",
+            margin: ` 0 ${theme.spacing.xxsmall}`,
+          }
+        : {
+            width: "100%",
+            height: theme.size.px,
+            borderTop: `${theme.size["px"]} solid ${theme.colors.neutral.border}`,
+          }),
+    },
+  });
 
-export const getVariantClass = (alignment: string, variant: string): string => {
-  if (alignment === "horizontal") {
-    switch (variant) {
-      case "fullWidth":
-        return "w-full";
-      case "inset":
-        return "w-[calc(100%-32px)] ml-8";
-      case "middle":
-        return "mx-auto w-3/4";
-      default:
-        return "";
-    }
-  } else {
-    switch (variant) {
-      case "fullWidth":
-        return "h-full";
-      case "inset":
-        return "h-[calc(100%-32px)] mt-8";
-      case "middle":
-        return "my-auto h-3/4";
-      default:
-        return "";
-    }
-  }
+export const dividerStyle = (
+  theme: EvokeTheme,
+  alignment: "horizontal" | "vertical",
+  type: keyof ReturnType<typeof typeStyle>
+) => {
+  return css([baseStyle(theme, alignment), typeStyle()[type]]);
 };
 
-export const getTextAlignClass = (alignment: string, position: string): string => {
-  if (alignment === "horizontal") {
-    switch (position) {
-      case "left":
-        return "top-[-0.6rem] left-4 left";
-      case "center":
-        return "top-[-0.6rem] left-1/2 transform -translate-x-1/2  center";
-      case "right":
-        return "top-[-0.6rem] right-4 right";
-      default:
-        return "";
-    }
-  } else if (alignment === "vertical") {
-    switch (position) {
-      case "top":
-        return "top-4 left-[-1rem] top-vertical";
-      case "center":
-        return "top-1/2 left-[-1rem] transform -translate-y-1/2 center-vertical";
-      case "bottom":
-        return "bottom-4 left-[-1rem] bottom-vertical";
-      default:
-        return "";
-    }
-  }
-  return "";
-};
+// Children styling with text alignment
+export const dividerChildrenStyle = (
+  theme: EvokeTheme,
+  alignment: "horizontal" | "vertical",
+  textAlign: "start" | "center" | "end"
+) =>
+  css({
+    position: "absolute",
+    backgroundColor: theme.colors.neutral.border,
+    borderRadius: theme.borderRadius.medium,
+    padding: `0 ${theme.spacing.xsmall}`,
+    fontSize: theme.typography.fontSizes.small,
+    whiteSpace: "nowrap",
+    ...(alignment === "horizontal"
+      ? {
+          top: "50%",
+          transform: "translateY(-50%)",
+          ...(textAlign === "start"
+            ? { left: theme.spacing.none }
+            : textAlign === "end"
+              ? { right: theme.spacing.none }
+              : { left: "50%", transform: "translate(-50%, -50%)" }),
+        }
+      : {
+          left: "50%",
+          transform: "translateX(-50%)",
+          ...(textAlign === "start"
+            ? { top: theme.spacing.none }
+            : textAlign === "end"
+              ? { bottom: theme.spacing.none }
+              : { top: "50%", transform: "translate(-50%, -50%)" }),
+        }),
+  });

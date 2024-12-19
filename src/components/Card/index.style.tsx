@@ -1,28 +1,58 @@
-import { cva } from "class-variance-authority";
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
 
-export const cardStyle = cva([
-  // css
-  "flex flex-col justify-center",
-  "w-full",
-  "rounded-lg",
-  "bg-white dark:bg-dark-primary dark:text-white ",
-]);
+const baseStyle = (theme: EvokeTheme) =>
+  css({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    color: theme.colors.neutral.text,
+    width: theme.size.full,
+    borderRadius: theme.borderRadius.medium,
+  });
 
-export const cardHeaderStyle = cva([
-  // css
-  "w-full",
-  "p-6 pb-0",
-]);
+export const variantStyle = (theme: EvokeTheme) => ({
+  subtle: css({
+    backgroundColor: theme.colors.neutral.border + theme.opacity.mediumDark,
+  }),
+  outline: css({
+    backgroundColor: theme.colors.neutral.background,
+    border: `${theme.size["px"]} solid  ${theme.colors.neutral.border}`,
+  }),
+  elevated: css({
+    backgroundColor: theme.colors.neutral.background,
+    boxShadow: theme.shadows.medium,
+  }),
+});
 
-export const cardContentStyle = cva([
-  // css
-  "flex-grow",
-  "w-full",
-  "p-6",
-]);
+// Card Style
+export const cardStyle = (theme: EvokeTheme, variant: keyof ReturnType<typeof variantStyle>) => {
+  return css([baseStyle(theme), variantStyle(theme)[variant]]);
+};
 
-export const cardFooterStyle = cva([
-  // css
-  "w-full",
-  "p-6 pt-0",
-]);
+// Card Header Style
+export const cardHeaderStyle = (theme: EvokeTheme) =>
+  css({
+    width: theme.size.full,
+    padding: theme.spacing.medium,
+    paddingBottom: theme.spacing.none,
+  });
+
+// Card Content Style
+export const cardContentStyle = (theme: EvokeTheme) =>
+  css({
+    display: "flex",
+    gap: theme.spacing.medium,
+    flexDirection: "column",
+    flexGrow: 1,
+    width: theme.size.full,
+    padding: theme.spacing.large,
+  });
+
+// Card Footer Style
+export const cardFooterStyle = (theme: EvokeTheme) =>
+  css({
+    width: theme.size.full,
+    padding: theme.spacing.medium,
+    paddingTop: theme.spacing.none,
+  });

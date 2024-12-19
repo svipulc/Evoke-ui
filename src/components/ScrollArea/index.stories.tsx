@@ -2,26 +2,22 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { ScrollArea } from ".";
 import { people } from "../../data";
-import { ThemeProvider } from "@emotion/react";
-import { lightTheme } from "../../evoke-theme-config";
 
 const meta: Meta<typeof ScrollArea> = {
   title: "Components/ScrollArea",
   component: ScrollArea,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
-
-  decorators: [
-    Story => {
-      return (
-        <ThemeProvider theme={lightTheme}>
-          <Story />
-        </ThemeProvider>
-      );
+  argTypes: {
+    orientation: {
+      options: ["vertical", "horizontal", "both"],
+      control: { type: "radio" },
+      defaultValue: "vertical",
+      table: {
+        type: { summary: "vertical | horizontal | both" },
+        defaultValue: { summary: "vertical" },
+      },
     },
-  ],
+  },
 };
 export default meta;
 type Story = StoryObj<typeof ScrollArea>;
@@ -31,7 +27,7 @@ export const VerticalScrolling: Story = {
     orientation: "vertical",
     css: { height: "350px" },
     className:
-      "h-[350px] bg-white dark:bg-dark-primary dark:highlight-white/5 shadow-lg rounded-xl flex flex-col divide-y dark:divide-dark-secondary/10",
+      "bg-white dark:bg-dark-primary dark:highlight-white/5 shadow-lg rounded-xl flex flex-col divide-y dark:divide-dark-secondary/10",
     children: people.map(person => (
       <div key={person.id} className="flex items-center gap-4 p-4" tabIndex={0}>
         <img className="w-12 h-12 rounded-full" src={person.image} alt={person.name} />

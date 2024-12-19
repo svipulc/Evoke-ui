@@ -1,24 +1,39 @@
+/** @jsxImportSource @emotion/react */
 import { ComponentProps } from "react";
-import { VariantProps } from "class-variance-authority";
+import {
+  componentContainerStyle,
+  errorMessageStyle,
+  helperTextStyle,
+  iconStyle,
+  inputStyle,
+  inputWrapperStyle,
+  labelStyle,
+} from "./index.style";
+import { useEvokeTheme } from "@/hooks/theme";
+import { SerializedStyles, CSSObject } from "@emotion/react";
+import { EvokeTheme } from "@/theme/theme.type";
 
-import { cn } from "@/utils";
-import { iconStyle, inputStyle, inputWrapperStyle } from "./index.style";
+export type IconPosition = "left" | "right";
 
-type InputProps = ComponentProps<"input"> &
-  VariantProps<typeof inputStyle> &
-  VariantProps<typeof iconStyle> & {
-    name: string;
-    type: string;
-    label?: string;
-    helperText?: string;
-    error?: boolean;
-    errorMessage?: string;
-    required?: boolean;
-    icon?: React.ReactNode;
-  };
+type InputProps = ComponentProps<"input"> & {
+  name: string;
+  type: string;
+  label?: string;
+  helperText?: string;
+  error?: boolean;
+  errorMessage?: string;
+  required?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: IconPosition;
+  css?: SerializedStyles | CSSObject;
+};
 
-const renderIcon = (icon: React.ReactNode, position: "left" | "right") => {
-  return icon ? <span className={cn(iconStyle({ iconPosition: position }))}>{icon}</span> : null;
+const renderIcon = (theme: EvokeTheme, icon: React.ReactNode, position: IconPosition) => {
+  return icon ? (
+    <span aria-label="input-icon" css={iconStyle(theme, position)}>
+      {icon}
+    </span>
+  ) : null;
 };
 
 export const Input = ({
@@ -31,36 +46,49 @@ export const Input = ({
   required = false,
   iconPosition = "right",
   icon,
+  className,
+  css,
+  disabled = false,
   ...props
 }: InputProps) => {
+  const theme = useEvokeTheme();
   return (
-    <div className="flex flex-col gap-2">
+    <div css={componentContainerStyle(theme)} aria-label="input-container">
+      {/* Label */}
       {label && (
-        <label htmlFor={name} className="text-sm text-light-silverSteel dark:text-dark-silverSteel">
+        <label aria-label={label} htmlFor={name} css={labelStyle(theme)}>
           {label}
-          {required && <span className="text-red-500"> *</span>}
+          {required && <span css={{ color: theme.colors.variants.error.main }}> *</span>}
         </label>
       )}
-      <div className="flex flex-col gap-1 relative">
-        <div className={cn(inputWrapperStyle())}>
-          {iconPosition === "left" && renderIcon(icon, iconPosition)}
-          <input
-            id={name}
-            name={name}
-            type={type}
-            {...props}
-            className={cn(inputStyle({ type, error }))}
-            required={required}
-          />
-          {iconPosition === "right" && renderIcon(icon, iconPosition)}
-        </div>
-        {error && <span className="text-sm text-red-600 dark:text-red-400 ">{errorMessage}</span>}
-        {helperText && !error && (
-          <span className="text-sm text-light-silverSteel dark:text-dark-silverSteel">
-            {helperText}
-          </span>
-        )}
+      {/* Input */}
+      <div aria-label="input-with-icon" css={inputWrapperStyle(theme, error, disabled)}>
+        {iconPosition === "left" && renderIcon(theme, icon, iconPosition)}
+        <input
+          aria-label="input-field"
+          aria-labelledby={label}
+          id={name}
+          name={name}
+          type={type}
+          css={inputStyle(theme)}
+          required={required}
+          disabled={disabled}
+          {...props}
+        />
+        {iconPosition === "right" && renderIcon(theme, icon, iconPosition)}
       </div>
+      {/* Error Message if error is true */}
+      {error && (
+        <span aria-label="input-validation-error-message" css={errorMessageStyle(theme)}>
+          {errorMessage}
+        </span>
+      )}
+      {/* Helper Text if helperText is provided and error is false */}
+      {helperText && !error && (
+        <span aria-label="input-helper-text" css={helperTextStyle(theme)}>
+          {helperText}
+        </span>
+      )}
     </div>
   );
 };

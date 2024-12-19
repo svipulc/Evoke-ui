@@ -1,17 +1,37 @@
-import { cva } from "class-variance-authority";
-export const containerStyle = cva(["container", "mx-auto"], {
-  variants: {
-    maxWidth: {
-      full: ["max-w-full"],
-      auto: ["w-auto"],
-      sm: ["max-w-screen-sm"],
-      md: ["max-w-screen-md"],
-      lg: ["max-w-screen-lg"],
-      xl: ["max-w-screen-xl"],
-      "2xl": ["max-w-screen-2xl"],
-    },
-  },
-  defaultVariants: {
-    maxWidth: "auto",
-  },
+import { EvokeTheme } from "@/theme/theme.type";
+import { css } from "@emotion/react";
+
+export const containerWidthStyle = () => ({
+  full: css({
+    maxWidth: "100%",
+  }),
+  sm: css({
+    maxWidth: "40vw",
+  }),
+  md: css({
+    maxWidth: "50vw",
+  }),
+  lg: css({
+    maxWidth: "60vw",
+  }),
+  xl: css({
+    maxWidth: "70vw",
+  }),
+  "2xl": css({
+    maxWidth: "85vw",
+  }),
 });
+
+export const baseStyle = (theme: EvokeTheme) =>
+  css({
+    marginLeft: "auto",
+    marginRight: "auto",
+    [`@media (max-width: ${theme.breakpoints.sm})`]: {
+      maxWidth: "100vw",
+    },
+  });
+
+export const containerStyle = (
+  maxWidth: keyof ReturnType<typeof containerWidthStyle>,
+  theme: EvokeTheme
+) => css([baseStyle(theme), containerWidthStyle()[maxWidth]]);

@@ -1,11 +1,51 @@
-import { SpacingOptions, breakpoints, spacing } from "@/theme";
 import { css } from "@emotion/react";
 import { GridItemProps, GridProps } from ".";
+import { defaultTheme } from "@/index";
+import { BreakpointsObject } from "@/theme/theme.type";
+
+export const gridBaseStyle = css({
+  display: "grid",
+});
+
+// Helper function to get CSS styles based on field and value
+const getGridStyle = (field: string, value: any, spacing: any) => {
+  switch (field) {
+    case "columns":
+      return `grid-template-columns: repeat(${value}, 1fr);`;
+    case "rows":
+      return `grid-template-rows: repeat(${value}, 1fr);`;
+    case "rowSpacing":
+      return `grid-row-gap: ${spacing[value as keyof typeof spacing]};`;
+    case "columnSpacing":
+      return `grid-column-gap: ${spacing[value as keyof typeof spacing]};`;
+    case "spacing":
+      return `grid-gap: ${spacing[value as keyof typeof spacing]}`;
+    default:
+      return "";
+  }
+};
+
+// Helper function to get CSS styles for grid items based on field and value
+const getGridItemStyle = (field: string, value: any) => {
+  switch (field) {
+    case "columnSpan":
+      return `grid-column: span ${value};`;
+    case "rowSpan":
+      return `grid-row: span ${value};`;
+    case "columnOffset":
+      return `grid-column-start: ${value};`;
+    case "rowOffset":
+      return `grid-row-start: ${value};`;
+    default:
+      return "";
+  }
+};
 
 // Function to generate responsive grid styles
 export const gridResponsiveStyle = (
   input: Pick<GridProps, "columns" | "rows" | "spacing" | "rowSpacing" | "columnSpacing">
 ) => {
+  const { spacing, breakpoints } = defaultTheme;
   // Initialize an empty css object
   let res = css``;
 
@@ -14,16 +54,11 @@ export const gridResponsiveStyle = (
       // Handle responsive object values
       if (typeof value === "object") {
         Object.entries(value).forEach(([breakpoint, val]) => {
-          const minWidth = breakpoints[breakpoint as keyof typeof breakpoints];
+          const minWidth = breakpoints[breakpoint as keyof BreakpointsObject];
           res = css`
             ${res}
             @media (min-width: ${minWidth}) {
-              ${field === "columns" && `grid-template-columns: repeat(${val}, 1fr);`}
-              ${field === "rows" && `grid-template-rows: repeat(${val}, 1fr);`}
-                ${field === "rowSpacing" && `grid-row-gap: ${spacing[val as SpacingOptions]};`}
-                ${field === "columnSpacing" &&
-              `grid-column-gap: ${spacing[val as SpacingOptions]};`}
-                ${field === "spacing" && `grid-gap: ${spacing[val as SpacingOptions]};`}
+              ${getGridStyle(field, val, spacing)}
             }
           `;
         });
@@ -31,16 +66,11 @@ export const gridResponsiveStyle = (
         // Handle non-responsive values
         res = css`
           ${res}
-          ${field === "columns" && `grid-template-columns: repeat(${value}, 1fr);`}
-            ${field === "rows" && `grid-template-rows: repeat(${value}, 1fr);`}
-            ${field === "rowSpacing" && `grid-row-gap: ${spacing[value as SpacingOptions]};`}
-            ${field === "columnSpacing" && `grid-column-gap: ${spacing[value as SpacingOptions]};`}
-            ${field === "spacing" && `grid-gap: ${spacing[value as SpacingOptions]};`}
+          ${getGridStyle(field, value, spacing)}
         `;
       }
     }
   });
-
   return res;
 };
 
@@ -50,6 +80,7 @@ export const gridItemResponsiveStyle = (
 ) => {
   // Initialize an empty css object
   let res = css``;
+  const { breakpoints } = defaultTheme;
 
   Object.entries(input).forEach(([field, value]) => {
     if (value !== undefined) {
@@ -61,10 +92,7 @@ export const gridItemResponsiveStyle = (
           res = css`
             ${res}
             @media (min-width: ${minWidth}) {
-              ${field === "columnSpan" && `grid-column: span ${val};`}
-              ${field === "rowSpan" && `grid-row: span ${val};`}
-              ${field === "columnOffset" && `grid-column-start: ${val};`}
-              ${field === "rowOffset" && `grid-row-start: ${val};`}
+              ${getGridItemStyle(field, val)}
             }
           `;
         });
@@ -72,10 +100,7 @@ export const gridItemResponsiveStyle = (
         // Handle non-responsive values
         res = css`
           ${res}
-          ${field === "columnSpan" && `grid-column: span ${value};`}
-          ${field === "rowSpan" && `grid-row: span ${value};`}
-          ${field === "columnOffset" && `grid-column-start: ${value};`}
-          ${field === "rowOffset" && `grid-row-start: ${value};`}
+          ${getGridItemStyle(field, value)}
         `;
       }
     }

@@ -1,118 +1,106 @@
-// Tabs Component
-
+/** @jsxImportSource @emotion/react */
 import { TabsContext } from "@/context";
 import { useTabs, useTabState } from "@/hooks";
-import { cn } from "@/utils";
-import { VariantProps } from "class-variance-authority";
-import { ComponentProps, MouseEvent, useEffect, useRef, useState } from "react";
-import {
-  tabsContentStyles,
-  tabsIndicatorStyles,
-  tabsListStyles,
-  tabsStyles,
-  tabsTriggerStyles,
-} from "./index.styles";
+import { ComponentProps, MouseEvent, useRef } from "react";
+import { tabsContentStyles, tabsListStyles, tabsStyles, tabsTriggerStyles } from "./index.styles";
+import { useEvokeTheme } from "@/hooks/theme";
+import { CSSObject, SerializedStyles } from "@emotion/react";
 
-// Tabs
-
+// Types
 type Direction = "horizontal" | "vertical";
 
-type CustomTabsProps = {
+type TabsProps = ComponentProps<"div"> & {
   children?: React.ReactNode;
   defaultValue: string;
   isFitted?: boolean;
   activeTab?: string;
-  border?: boolean;
   onTabChange?: (value: string) => void;
   direction?: Direction;
+  css?: SerializedStyles | CSSObject;
 };
 
-type TabsProps = ComponentProps<"div"> & CustomTabsProps & VariantProps<typeof tabsStyles>;
+type TabListProps = ComponentProps<"div"> & {
+  css?: SerializedStyles | CSSObject;
+};
 
+type TabTriggerProps = ComponentProps<"button"> & {
+  value: string;
+  disabled?: boolean;
+  css?: SerializedStyles | CSSObject;
+};
+type TabContentProps = ComponentProps<"div"> & {
+  value: string;
+  css?: SerializedStyles | CSSObject;
+};
+
+// Tabs Component
 export const Tabs: React.FC<TabsProps> = ({
   children,
   defaultValue,
   isFitted = false,
   activeTab: controlledActiveTab,
   onTabChange,
-  border = false,
   direction = "horizontal",
   className,
+  css,
   ...props
 }) => {
+  const theme = useEvokeTheme();
   const { activeTab, setActiveTab } = useTabState(defaultValue, controlledActiveTab, onTabChange);
 
   return (
-    <TabsContext.Provider
-      value={{ activeTab, setActiveTab, defaultValue, isFitted, border, direction }}
-    >
-      <div className={cn(tabsStyles({ border, direction }), className)} {...props}>
+    <TabsContext.Provider value={{ activeTab, setActiveTab, defaultValue, isFitted, direction }}>
+      <div
+        aria-label="Tabs"
+        css={[tabsStyles({ theme, direction }), css]}
+        className={className}
+        {...props}
+      >
         {children}
       </div>
     </TabsContext.Provider>
   );
 };
 
-// TabsList
-
-type TabListProps = ComponentProps<"div"> & VariantProps<typeof tabsListStyles>;
-
-export const TabsList: React.FC<TabListProps> = ({ children, className, ...props }) => {
-  const { isFitted, direction, activeTab } = useTabs();
-  const [indicatorStyle, setIndicatorStyle] = useState({});
+// TabsList Component
+export const TabsList: React.FC<TabListProps> = ({ children, className, css, ...props }) => {
+  const theme = useEvokeTheme();
+  const { isFitted = false, direction = "horizontal" } = useTabs();
   const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const updateIndicator = () => {
-      const activeTab = listRef.current?.querySelector('[aria-selected="true"]');
-      if (activeTab) {
-        const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = activeTab as HTMLElement;
-        setIndicatorStyle(
-          direction === "horizontal"
-            ? { left: `${offsetLeft}px`, width: `${offsetWidth}px` }
-            : { top: `${offsetTop}px`, height: `${offsetHeight}px` }
-        );
-      }
-    };
-
-    updateIndicator();
-    window.addEventListener("resize", updateIndicator);
-    return () => window.removeEventListener("resize", updateIndicator);
-  }, [direction, activeTab, isFitted]);
   return (
     <div
       ref={listRef}
-      className={cn(tabsListStyles({ isFitted, direction }), className)}
+      css={[tabsListStyles({ theme, isFitted, direction }), css]}
+      className={className}
       role="tablist"
+      aria-label="Tabs List"
       aria-orientation={direction}
       {...props}
     >
       {children}
-      <span className={cn(tabsIndicatorStyles({ direction }))} style={indicatorStyle} />
     </div>
   );
 };
 
-// TabTrigger
-
-type CustomTabsTriggerProps = {
-  value: string;
-  disabled?: boolean;
-};
-
-type TabTriggerProps = ComponentProps<"button"> &
-  CustomTabsTriggerProps &
-  VariantProps<typeof tabsTriggerStyles>;
-
+// TabsTrigger Component
 export const TabsTrigger: React.FC<TabTriggerProps> = ({
   children,
   value,
   disabled = false,
   className,
   onClick,
+  css,
   ...props
 }) => {
-  const { activeTab, setActiveTab, defaultValue, isFitted, direction } = useTabs();
+  const theme = useEvokeTheme();
+  const {
+    activeTab,
+    setActiveTab,
+    defaultValue,
+    isFitted = true,
+    direction = "horizontal",
+  } = useTabs();
   const isActive = activeTab === value;
   const isDefault = defaultValue === value;
   const isDisabled = isDefault ? false : disabled;
@@ -129,16 +117,56 @@ export const TabsTrigger: React.FC<TabTriggerProps> = ({
       }
     }
   };
+
+  // Accessibility: Keyboard Navigation
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "ArrowRight" && direction === "horizontal") {
+      focusNextTab(e.currentTarget);
+    } else if (e.key === "ArrowLeft" && direction === "horizontal") {
+      focusPrevTab(e.currentTarget);
+    } else if (e.key === "ArrowDown" && direction === "vertical") {
+      focusNextTab(e.currentTarget);
+    } else if (e.key === "ArrowUp" && direction === "vertical") {
+      focusPrevTab(e.currentTarget);
+    }
+  };
+
+  const focusNextTab = (currentTab: HTMLElement) => {
+    const allTabs = Array.from(
+      currentTab.parentElement?.querySelectorAll<HTMLElement>('[role="tab"]') || []
+    );
+    const currentIndex = allTabs.indexOf(currentTab);
+    const nextTab = allTabs[(currentIndex + 1) % allTabs.length];
+    nextTab?.focus();
+  };
+
+  const focusPrevTab = (currentTab: HTMLElement) => {
+    const allTabs = Array.from(
+      currentTab.parentElement?.querySelectorAll<HTMLElement>('[role="tab"]') || []
+    );
+    const currentIndex = allTabs.indexOf(currentTab);
+    const prevTab = allTabs[(currentIndex - 1 + allTabs.length) % allTabs.length];
+    prevTab?.focus();
+  };
+
   return (
     <button
       onClick={handleClick}
-      className={cn(
-        tabsTriggerStyles({ active: isActive, disabled: isDisabled, isFitted, direction }),
-        className
-      )}
+      onKeyDown={handleKeyDown}
+      css={[
+        tabsTriggerStyles({
+          theme,
+          active: isActive,
+          disabled: isDisabled,
+          isFitted,
+          direction,
+        }),
+        css,
+      ]}
       disabled={isDisabled}
       role="tab"
       aria-selected={isActive}
+      tabIndex={isActive ? 0 : -1}
       {...props}
     >
       {children}
@@ -146,33 +174,27 @@ export const TabsTrigger: React.FC<TabTriggerProps> = ({
   );
 };
 
-// TabContent
-
-type CustomTabsContentProps = {
-  value: string;
-};
-
-type TabContentProps = ComponentProps<"div"> & CustomTabsContentProps;
-
+// TabsContent Component
 export const TabsContent: React.FC<TabContentProps> = ({
   children,
   className,
   value,
   ...props
 }) => {
-  const { activeTab, direction } = useTabs();
+  const theme = useEvokeTheme();
+  const { activeTab, direction = "horizontal" } = useTabs();
   const isActive = activeTab === value;
   return (
     <>
       {isActive && (
         <div
           role="tabpanel"
-          id={`panel-${value}`}
+          css={tabsContentStyles({ theme, direction })}
           hidden={!isActive}
-          className={cn(tabsContentStyles({ direction }), className)}
+          aria-labelledby={`tab-${value}`}
           {...props}
         >
-          {isActive && children}
+          {children}
         </div>
       )}
     </>

@@ -1,51 +1,48 @@
+/** @jsxImportSource @emotion/react */
 import React, { ReactNode } from "react";
-import { cn } from "@/utils";
-import { VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
-import { tooltipParentStyle, tooltipStyle } from "./index.style";
+import { positionStyle, tooltipParentStyle, tooltipStyle } from "./index.style";
+import { useEvokeTheme } from "@/hooks/theme";
+import { CSSObject, SerializedStyles } from "@emotion/react";
 
-export type TooltipProps = ComponentProps<"div"> &
-  VariantProps<typeof tooltipParentStyle> & {
-    text?: string;
-    children: ReactNode;
-    position?:
-      | "top"
-      | "bottom"
-      | "left"
-      | "right"
-      | "topStart"
-      | "topEnd"
-      | "bottomStart"
-      | "bottomEnd"
-      | "leftStart"
-      | "leftEnd"
-      | "rightStart"
-      | "rightEnd";
-  };
+export type TooltipProps = ComponentProps<"div"> & {
+  content: string;
+  children: ReactNode;
+  position?: keyof ReturnType<typeof positionStyle>;
+  css?: SerializedStyles | CSSObject;
+};
 
 const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
   content,
   className,
   children,
+  css,
   ...props
 }) => {
+  const theme = useEvokeTheme();
+  // state for tooltip visibility
+  const [isVisible, setIsVisible] = React.useState(false);
   return (
-    <>
-      <div className={cn(tooltipParentStyle({ className }))} {...props}>
-        {children}
-        <span
-          className={cn(
-            tooltipStyle({
-              position,
-              className,
-            })
-          )}
-        >
-          {content}
-        </span>
-      </div>
-    </>
+    <div
+      css={tooltipParentStyle}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+      onFocus={() => setIsVisible(true)}
+      onBlur={() => setIsVisible(false)}
+      {...props}
+    >
+      {children}
+      <span
+        id="tooltip"
+        role="tooltip"
+        aria-hidden={!isVisible}
+        css={[tooltipStyle(theme, position), css]}
+        className={`tooltip ${className}`}
+      >
+        {content}
+      </span>
+    </div>
   );
 };
 
