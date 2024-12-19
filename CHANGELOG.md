@@ -1,3 +1,9 @@
+## [1.20.1](https://github.com/svipulc/Evoke-ui/compare/v1.20.0...v1.20.1) (2024-12-19)
+
+### Bug Fixes
+
+- **stack:** spacing props types ([c5f7dc8](https://github.com/svipulc/Evoke-ui/commit/c5f7dc82a133abd03795638fbd5ebcfe5f9d449b))
+
 # [1.20.0](https://github.com/svipulc/Evoke-ui/compare/v1.19.3...v1.20.0) (2024-12-19)
 
 ### Features
