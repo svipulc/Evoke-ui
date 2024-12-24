@@ -1,3 +1,9 @@
+# [1.21.0](https://github.com/svipulc/Evoke-ui/compare/v1.20.2...v1.21.0) (2024-12-24)
+
+### Features
+
+- allow responsive props value for components ([#62](https://github.com/svipulc/Evoke-ui/issues/62)) ([48697d6](https://github.com/svipulc/Evoke-ui/commit/48697d6d21fa7d5131a48b8a9bae3e3ac9596d52))
+
 ## [1.20.2](https://github.com/svipulc/Evoke-ui/compare/v1.20.1...v1.20.2) (2024-12-19)
 
 ### Bug Fixes
