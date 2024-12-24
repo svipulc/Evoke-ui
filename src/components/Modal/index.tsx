@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { createPortal } from "react-dom";
 import {
-  modalBodyBaseStyles,
+  modalBodyStyles,
   modalContentStyles,
   modalFooterStyles,
   modalHeaderStyles,
@@ -12,6 +12,7 @@ import { CSSObject, SerializedStyles, useTheme } from "@emotion/react";
 import { Button } from "..";
 import { IoMdClose } from "react-icons/io";
 import { ModalContext, ModalContextProvider } from "@/context";
+import { ResponsiveValue } from "@/theme/theme.type";
 
 type ModalHeader = ComponentProps<"div"> & {
   children: React.ReactNode;
@@ -33,7 +34,7 @@ type ModalFooter = ComponentProps<"div"> & {
 
 type ModalProps = ComponentProps<"div"> & {
   show: boolean;
-  size?: "sm" | "md" | "lg" | "full";
+  size?: ResponsiveValue<"sm" | "md" | "lg" | "full">;
   children: React.ReactNode;
   showCloseButton?: boolean;
   closeOnOverlayClick?: boolean;
@@ -102,7 +103,7 @@ export const Modal: React.FC<ModalProps> & {
         onClick={handleOverlayClick}
       >
         <div
-          css={modalBodyBaseStyles(theme, size)}
+          css={modalBodyStyles(theme, size)}
           className={bodyClassName}
           role="dialog"
           aria-label="modal-body"
@@ -157,11 +158,9 @@ export const ModalContent: React.FC<ModalContent> = ({ children, className, css:
     return null; // Prevents runtime crashes
   }
 
-  const { size } = context;
-
   return (
     <div
-      css={[modalContentStyles(theme, size), customCss]} // Merge default and custom CSS
+      css={[modalContentStyles(theme), customCss]} // Merge default and custom CSS
       className={className}
       aria-label="modal-content"
     >

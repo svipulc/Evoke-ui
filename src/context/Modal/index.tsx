@@ -1,8 +1,9 @@
+import { ResponsiveValue } from "@/theme/theme.type";
 import React, { ComponentProps, createContext } from "react";
 
 export type ModalContextProps = ComponentProps<"div"> & {
   showCloseButton?: boolean;
-  size: "sm" | "md" | "lg" | "full";
+  size: ResponsiveValue<"sm" | "md" | "lg" | "full">;
   onClose: () => void;
 };
 
