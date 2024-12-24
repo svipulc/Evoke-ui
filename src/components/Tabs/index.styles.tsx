@@ -1,5 +1,6 @@
 // Tabs component styles
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 // Tabs
@@ -14,33 +15,35 @@ export const tabsStyles = ({
     display: "flex",
     width: theme.size.full,
     height: theme.size.full,
-    borderRadius: theme.borderRadius.xlarge,
     flexDirection: direction === "horizontal" ? "column" : "row",
   });
 
 // Tabs List
 export const tabsListStyles = ({
   theme,
-  isFitted,
   direction,
 }: {
   theme: EvokeTheme;
-  isFitted: boolean;
   direction: "horizontal" | "vertical";
 }) =>
   css({
-    display: isFitted ? "flex" : "block",
+    display: "flex",
     borderBottom: `${theme.size["px"]} solid ${theme.colors.neutral.border}`,
     flexDirection: direction === "horizontal" ? "row" : "column",
-    overflow: direction === "horizontal" ? "hidden auto" : "auto hidden",
+    Width: theme.size.full,
+    overflowX: "scroll",
+    overflowY: "hidden",
+    "::-webkit-scrollbar": {
+      display: "none",
+    },
     ...(direction === "vertical" && {
-      display: "flex",
-      // flex: 1,
       height: "fit-content",
       minWidth: "max-content",
       flexDirection: "column",
       width: "max-content",
       borderBottom: theme.size[0],
+      overflowY: "scroll",
+      overflowX: "hidden",
     }),
   });
 // Tabs Trigger
@@ -54,39 +57,48 @@ export const tabsTriggerStyles = ({
   theme: EvokeTheme;
   active: boolean;
   disabled: boolean;
-  isFitted: boolean;
+  isFitted: ResponsiveValue<boolean>;
   direction: "horizontal" | "vertical";
 }) =>
-  css({
-    boxSizing: "content-box",
-    width: isFitted ? theme.size.full : theme.size.fit,
-    transition: "color 0.2s, background-color 0.2s",
-    border: "none",
-    color: active ? theme.colors.variants.primary.main : theme.colors.neutral.text,
-    "&:focus": {
-      outline: "none",
-    },
-    "&:focus-visible": {
-      boxShadow: ` inset 0 0 0 2px ${theme.colors.variants.primary.main}`,
-      inset: "1px",
-      borderRadius: theme.borderRadius.medium,
-    },
-    ...(disabled && {
-      cursor: "not-allowed",
-      color: theme.pallete.gray[500],
+  css([
+    responsiveCss(theme, isFitted, val =>
+      css({
+        width: val ? theme.size.full : theme.size.fit,
+      })
+    ),
+    css({
+      boxSizing: "content-box",
+      transition: "color 0.2s, background-color 0.2s",
+      border: "none",
+      color: active ? theme.colors.variants.primary.main : theme.colors.neutral.text,
+      "&:focus": {
+        outline: "none",
+      },
+      "&:focus-visible": {
+        borderRadius: `${theme.borderRadius.medium} ${theme.borderRadius.medium} 0px 0px`,
+        backgroundColor: theme.colors.variants.primary.main + theme.opacity.light,
+      },
+      ...(disabled && {
+        cursor: "not-allowed",
+        color: theme.pallete.gray[500],
+      }),
+      ...(direction === "horizontal"
+        ? {
+            padding: theme.spacing.xsmall + " " + theme.spacing.small,
+            borderBottom: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
+          }
+        : {
+            padding: theme.spacing.small + " " + theme.spacing.xsmall,
+            height: theme.size.fit,
+            borderLeft: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
+          }),
+      ":active": {
+        backgroundColor: theme.colors.variants.primary.main + theme.opacity.light,
+        transition: "background-color 0.02s",
+        borderRadius: `${theme.borderRadius.medium} ${theme.borderRadius.medium} 0px 0px`,
+      },
     }),
-    ...(direction === "horizontal"
-      ? {
-          padding: theme.spacing.xsmall + " " + theme.spacing.small,
-          borderBottom: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
-        }
-      : {
-          padding: theme.spacing.small + " " + theme.spacing.xsmall,
-          height: theme.size.fit,
-          borderLeft: active ? `2px solid ${theme.colors.variants.primary.main}` : "none",
-        }),
-  });
-
+  ]);
 // Tabs Content
 export const tabsContentStyles = ({
   theme,
