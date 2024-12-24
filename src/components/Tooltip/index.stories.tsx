@@ -1,6 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Tooltip from "./index";
+import { Tooltip } from "./index";
 import { Button } from "../Button";
 
 const meta: Meta<typeof Tooltip> = {
@@ -41,6 +41,7 @@ type Story = StoryObj<typeof Tooltip>;
 export const Usage: Story = {
   args: {
     content: "This is a tooltip content",
+    position: { xs: "top", sm: "right", md: "left", lg: "bottom" },
     className: "p-6",
     children: (
       <Button variant="subtle" aria-describedby="tooltip">
