@@ -1,4 +1,5 @@
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue, SpacingObject } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 const baseStyle = (theme: EvokeTheme) =>
@@ -31,28 +32,50 @@ export const cardStyle = (theme: EvokeTheme, variant: keyof ReturnType<typeof va
 };
 
 // Card Header Style
-export const cardHeaderStyle = (theme: EvokeTheme) =>
-  css({
-    width: theme.size.full,
-    padding: theme.spacing.medium,
-    paddingBottom: theme.spacing.none,
-  });
+export const cardHeaderStyle = (theme: EvokeTheme, padding: ResponsiveValue<keyof SpacingObject>) =>
+  css([
+    responsiveCss(theme, padding, val =>
+      css({
+        padding: theme.spacing[val],
+      })
+    ),
+    css({
+      width: theme.size.full,
+      paddingBottom: theme.spacing.none,
+    }),
+  ]);
 
 // Card Content Style
-export const cardContentStyle = (theme: EvokeTheme) =>
-  css({
-    display: "flex",
-    gap: theme.spacing.medium,
-    flexDirection: "column",
-    flexGrow: 1,
-    width: theme.size.full,
-    padding: theme.spacing.large,
-  });
+export const cardContentStyle = (
+  theme: EvokeTheme,
+  padding: ResponsiveValue<keyof SpacingObject>
+) =>
+  css([
+    responsiveCss(theme, padding, val =>
+      css({
+        padding: theme.spacing[val],
+      })
+    ),
+    css({
+      display: "flex",
+      gap: theme.spacing.medium,
+      flexDirection: "column",
+      flexGrow: 1,
+      width: theme.size.full,
+      padding: theme.spacing.large,
+    }),
+  ]);
 
 // Card Footer Style
-export const cardFooterStyle = (theme: EvokeTheme) =>
-  css({
-    width: theme.size.full,
-    padding: theme.spacing.medium,
-    paddingTop: theme.spacing.none,
-  });
+export const cardFooterStyle = (theme: EvokeTheme, padding: ResponsiveValue<keyof SpacingObject>) =>
+  css([
+    responsiveCss(theme, padding, val =>
+      css({
+        padding: theme.spacing[val],
+      })
+    ),
+    css({
+      width: theme.size.full,
+      paddingTop: theme.spacing.none,
+    }),
+  ]);

@@ -10,6 +10,7 @@ import {
   cardStyle,
   variantStyle,
 } from "./index.style";
+import { ResponsiveValue, SpacingObject } from "@/theme/theme.type";
 
 export type CardProps = ComponentProps<"div"> & {
   variant?: keyof ReturnType<typeof variantStyle>;
@@ -40,9 +41,16 @@ export const Card: React.FC<CardProps> & {
 // Card Header Component
 export type CardHeaderProps = ComponentProps<"div"> & {
   css?: SerializedStyles | CSSObject;
+  padding?: ResponsiveValue<keyof SpacingObject>;
 };
 
-const CardHeader: React.FC<CardHeaderProps> = ({ children, className, css, ...props }) => {
+const CardHeader: React.FC<CardHeaderProps> = ({
+  children,
+  padding = "medium",
+  className,
+  css,
+  ...props
+}) => {
   const theme = useEvokeTheme();
   const isInsideCard = useContext(CardContext);
 
@@ -53,7 +61,7 @@ const CardHeader: React.FC<CardHeaderProps> = ({ children, className, css, ...pr
   return (
     <div
       aria-label="card-header"
-      css={[cardHeaderStyle(theme), css]}
+      css={[cardHeaderStyle(theme, padding), css]}
       className={className}
       {...props}
     >
@@ -65,9 +73,16 @@ const CardHeader: React.FC<CardHeaderProps> = ({ children, className, css, ...pr
 // Card Content Component
 export type CardContentProps = ComponentProps<"div"> & {
   css?: SerializedStyles | CSSObject;
+  padding?: ResponsiveValue<keyof SpacingObject>;
 };
 
-const CardContent: React.FC<CardContentProps> = ({ children, className, css, ...props }) => {
+const CardContent: React.FC<CardContentProps> = ({
+  children,
+  padding = "medium",
+  className,
+  css,
+  ...props
+}) => {
   const theme = useEvokeTheme();
   const isInsideCard = useContext(CardContext);
 
@@ -78,7 +93,7 @@ const CardContent: React.FC<CardContentProps> = ({ children, className, css, ...
   return (
     <div
       aria-label="card-content"
-      css={[cardContentStyle(theme), css]}
+      css={[cardContentStyle(theme, padding), css]}
       className={className}
       {...props}
     >
@@ -90,9 +105,16 @@ const CardContent: React.FC<CardContentProps> = ({ children, className, css, ...
 // Card Footer Component
 export type CardFooterProps = ComponentProps<"div"> & {
   css?: SerializedStyles | CSSObject;
+  padding?: ResponsiveValue<keyof SpacingObject>;
 };
 
-const CardFooter: React.FC<CardFooterProps> = ({ children, className, css, ...props }) => {
+const CardFooter: React.FC<CardFooterProps> = ({
+  children,
+  padding = "medium",
+  className,
+  css,
+  ...props
+}) => {
   const theme = useEvokeTheme();
   const isInsideCard = useContext(CardContext);
 
@@ -103,7 +125,7 @@ const CardFooter: React.FC<CardFooterProps> = ({ children, className, css, ...pr
   return (
     <div
       aria-label="card-footer"
-      css={[cardFooterStyle(theme), css]}
+      css={[cardFooterStyle(theme, padding), css]}
       className={className}
       {...props}
     >
