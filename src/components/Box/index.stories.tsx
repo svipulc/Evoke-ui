@@ -62,6 +62,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Usage: Story = {
   args: {
+    padding: { md: "small", lg: "medium" },
+    border: { md: "thin", lg: "thick" },
     children: "This is a Box component.",
   },
 };
