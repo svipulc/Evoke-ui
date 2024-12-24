@@ -1,4 +1,5 @@
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 const baseStyle = css({
@@ -50,10 +51,14 @@ export const sizeStyle = (theme: EvokeTheme) => ({
 
 export const avatarStyles = (
   theme: EvokeTheme,
-  size: keyof ReturnType<typeof sizeStyle>,
-  shape: keyof ReturnType<typeof shapeStyle>
+  size: ResponsiveValue<keyof ReturnType<typeof sizeStyle>>,
+  shape: ResponsiveValue<keyof ReturnType<typeof shapeStyle>>
 ) => {
-  return css([baseStyle, sizeStyle(theme)[size], shapeStyle(theme)[shape]]);
+  return css([
+    baseStyle,
+    responsiveCss(theme, size, val => sizeStyle(theme)[val]),
+    responsiveCss(theme, shape, val => shapeStyle(theme)[val]),
+  ]);
 };
 
 export const avatarImageStyle = (theme: EvokeTheme) =>

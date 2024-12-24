@@ -165,7 +165,7 @@ export const MultipleAvatars: Story = {
   render: () => (
     <Stack align={"center"} spacing={"small"}>
       {Array.from({ length: 5 }).map((_, index) => (
-        <Avatar key={index} size="md">
+        <Avatar key={index} size={{ xs: "xs", sm: "lg" }}>
           <AvatarImage
             src={`https://mui.com/static/images/avatar/${index + 1}.jpg`}
             alt={`Avatar ${index + 1}`}

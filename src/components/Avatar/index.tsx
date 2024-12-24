@@ -9,6 +9,7 @@ import {
 } from "./index.style";
 import { CSSObject, SerializedStyles } from "@emotion/react";
 import { useEvokeTheme } from "@/hooks/theme";
+import { ResponsiveValue } from "@/theme/theme.type";
 
 type BaseProps = {
   css?: SerializedStyles | CSSObject;
@@ -17,8 +18,8 @@ type BaseProps = {
 
 export type AvatarProps = ComponentProps<"div"> &
   BaseProps & {
-    size?: keyof ReturnType<typeof sizeStyle>;
-    shape?: keyof ReturnType<typeof shapeStyle>;
+    size?: ResponsiveValue<keyof ReturnType<typeof sizeStyle>>;
+    shape?: ResponsiveValue<keyof ReturnType<typeof shapeStyle>>;
   };
 
 export type AvatarImageProps = ComponentProps<"img"> &
