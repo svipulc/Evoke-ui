@@ -1,4 +1,5 @@
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 export const borderStyle = (theme: EvokeTheme) => ({
@@ -30,15 +31,15 @@ export const boxShadowStyle = (theme: EvokeTheme) => ({
 
 export const boxStyle = (
   theme: EvokeTheme,
-  padding: keyof ReturnType<typeof paddingStyle>,
+  padding: ResponsiveValue<keyof ReturnType<typeof paddingStyle>>,
   border: keyof ReturnType<typeof borderStyle>,
   borderRadius: keyof ReturnType<typeof borderRadiusStyle>,
   boxShadow: keyof ReturnType<typeof boxShadowStyle>
 ) => {
   return css([
-    paddingStyle(theme)[padding],
-    borderStyle(theme)[border],
-    borderRadiusStyle(theme)[borderRadius],
-    boxShadowStyle(theme)[boxShadow],
+    responsiveCss(theme, padding, val => paddingStyle(theme)[val]),
+    responsiveCss(theme, border, val => borderStyle(theme)[val]),
+    responsiveCss(theme, borderRadius, val => borderRadiusStyle(theme)[val]),
+    responsiveCss(theme, boxShadow, val => boxShadowStyle(theme)[val]),
   ]);
 };

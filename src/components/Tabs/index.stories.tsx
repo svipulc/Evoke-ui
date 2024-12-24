@@ -2,12 +2,44 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from ".";
-import { useTabState } from "../../hooks";
 
 const metata: Meta<typeof Tabs> = {
   title: "Components/Tabs",
   component: Tabs,
   tags: ["autodocs"],
+  argTypes: {
+    defaultValue: {
+      control: "text",
+      description: "Default active tab",
+      table: {
+        type: {
+          summary: "string",
+        },
+        defaultValue: { summary: "One" },
+      },
+    },
+    direction: {
+      control: "inline-radio",
+      options: ["horizontal", "vertical"],
+      description: "Tabs direction",
+      table: {
+        type: {
+          summary: "horizontal | vertical",
+        },
+        defaultValue: { summary: "horizontal" },
+      },
+    },
+    isFitted: {
+      control: "boolean",
+      description: "Tabs width",
+      table: {
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: { summary: "false" },
+      },
+    },
+  },
 };
 
 export default metata;
@@ -23,6 +55,23 @@ export const Tab: Story = {
         <TabsList>
           <TabsTrigger value={"One"}>One</TabsTrigger>
           <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
         </TabsList>
         <TabsContent value={"One"}>
           <div>One</div>
@@ -30,6 +79,25 @@ export const Tab: Story = {
         <TabsContent value={"Two"}>Two</TabsContent>
       </>
     ),
+  },
+  render: () => {
+    return (
+      <Tabs defaultValue="One" direction="horizontal" isFitted={{ xs: false, md: true }}>
+        <TabsList>
+          <TabsTrigger value={"One"}>One</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Two"}>Two</TabsTrigger>
+          <TabsTrigger value={"Three"}>Three</TabsTrigger>
+          <TabsTrigger value={"Four"}>Four</TabsTrigger>
+          <TabsTrigger value={"Five"}>Five</TabsTrigger>
+        </TabsList>
+        <TabsContent value={"One"}>One</TabsContent>
+        <TabsContent value={"Two"}>Two</TabsContent>
+        <TabsContent value={"Three"}>Three</TabsContent>
+        <TabsContent value={"Four"}>Four</TabsContent>
+        <TabsContent value={"Five"}>Five</TabsContent>
+      </Tabs>
+    );
   },
 };
 

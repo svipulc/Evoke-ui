@@ -159,6 +159,7 @@ export const CustomStyleModal: Story = {
           onClose={toggleModal}
           closeOnOverlayClick
           bodyClassName="bg-white"
+          size={{ xs: "full", md: "sm" }}
         >
           <Modal.Header css={customStyle}>
             <h1 className="text-xl font-semibold">Terms of Service</h1>
@@ -233,7 +234,7 @@ export const Size: Story = {
             <h1 className="text-xl font-semibold">Terms of Service</h1>
           </Modal.Header>
           <Modal.Content>
-            <div className="space-y-6 p-4 pt-0">
+            <div className="space-y-6">
               <p>
                 With less than a month to go before the European Union enacts new consumer privacy
                 laws for its citizens, companies around the world are updating their terms of
@@ -251,7 +252,7 @@ export const Size: Story = {
             </div>
           </Modal.Content>
           <Modal.Footer>
-            <Stack spacing="small" className="p-4 ">
+            <Stack spacing="small">
               <Button onClick={toggleModal} className="w-fit">
                 Accept
               </Button>

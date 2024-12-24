@@ -9,9 +9,10 @@ import {
   boxStyle,
   paddingStyle,
 } from "./index.style";
+import { ResponsiveValue } from "@/theme/theme.type";
 
 export type BoxProps<T extends ElementType = "div"> = ComponentProps<T> & {
-  padding?: keyof ReturnType<typeof paddingStyle>;
+  padding?: ResponsiveValue<keyof ReturnType<typeof paddingStyle>>;
   border?: keyof ReturnType<typeof borderStyle>;
   borderRadius?: keyof ReturnType<typeof borderRadiusStyle>;
   boxShadow?: keyof ReturnType<typeof boxShadowStyle>;

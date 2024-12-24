@@ -4,15 +4,16 @@ import { ComponentProps } from "react";
 import { positionStyle, tooltipParentStyle, tooltipStyle } from "./index.style";
 import { useEvokeTheme } from "@/hooks/theme";
 import { CSSObject, SerializedStyles } from "@emotion/react";
+import { ResponsiveValue } from "@/theme/theme.type";
 
 export type TooltipProps = ComponentProps<"div"> & {
   content: string;
   children: ReactNode;
-  position?: keyof ReturnType<typeof positionStyle>;
+  position?: ResponsiveValue<keyof ReturnType<typeof positionStyle>>;
   css?: SerializedStyles | CSSObject;
 };
 
-const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip: React.FC<TooltipProps> = ({
   position = "top",
   content,
   className,
@@ -45,5 +46,3 @@ const Tooltip: React.FC<TooltipProps> = ({
     </div>
   );
 };
-
-export default Tooltip;

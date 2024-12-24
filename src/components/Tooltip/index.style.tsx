@@ -1,4 +1,5 @@
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 export const positionStyle = (theme: EvokeTheme) => ({
@@ -81,7 +82,7 @@ export const baseStyle = (theme: EvokeTheme) =>
     position: "absolute",
     visibility: "hidden",
     opacity: 0,
-    zIndex: theme.zIndex.high,
+    zIndex: theme.zIndex.higher,
     transition: "opacity 0.3s",
     transitionDelay: "1s",
     whiteSpace: "normal",
@@ -112,7 +113,7 @@ export const tooltipParentStyle = css({
 
 export const tooltipStyle = (
   theme: EvokeTheme,
-  position: keyof ReturnType<typeof positionStyle>
+  position: ResponsiveValue<keyof ReturnType<typeof positionStyle>>
 ) => {
-  return css([baseStyle(theme), positionStyle(theme)[position]]);
+  return css([baseStyle(theme), responsiveCss(theme, position, val => positionStyle(theme)[val])]);
 };

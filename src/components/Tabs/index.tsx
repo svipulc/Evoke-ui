@@ -5,6 +5,7 @@ import { ComponentProps, MouseEvent, useRef } from "react";
 import { tabsContentStyles, tabsListStyles, tabsStyles, tabsTriggerStyles } from "./index.styles";
 import { useEvokeTheme } from "@/hooks/theme";
 import { CSSObject, SerializedStyles } from "@emotion/react";
+import { ResponsiveValue } from "@/theme/theme.type";
 
 // Types
 type Direction = "horizontal" | "vertical";
@@ -12,7 +13,7 @@ type Direction = "horizontal" | "vertical";
 type TabsProps = ComponentProps<"div"> & {
   children?: React.ReactNode;
   defaultValue: string;
-  isFitted?: boolean;
+  isFitted?: ResponsiveValue<boolean>;
   activeTab?: string;
   onTabChange?: (value: string) => void;
   direction?: Direction;
@@ -65,13 +66,13 @@ export const Tabs: React.FC<TabsProps> = ({
 // TabsList Component
 export const TabsList: React.FC<TabListProps> = ({ children, className, css, ...props }) => {
   const theme = useEvokeTheme();
-  const { isFitted = false, direction = "horizontal" } = useTabs();
+  const { direction = "horizontal" } = useTabs();
   const listRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={listRef}
-      css={[tabsListStyles({ theme, isFitted, direction }), css]}
+      css={[tabsListStyles({ theme, direction }), css]}
       className={className}
       role="tablist"
       aria-label="Tabs List"

@@ -1,6 +1,7 @@
-import { EvokeTheme } from "@/theme/theme.type";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
 import { css } from "@emotion/react";
-import { ButtonColor, ButtonSize, ButtonVariant } from ".";
+import { ButtonColor } from ".";
+import { responsiveCss } from "@/utils";
 
 const baseStyle = (theme: EvokeTheme, color: ButtonColor) =>
   css({
@@ -8,14 +9,14 @@ const baseStyle = (theme: EvokeTheme, color: ButtonColor) =>
     height: "fit-content",
     display: "flex",
     alignItems: "center",
-    justifyItems: "center",
+    justifyContent: "center",
     gap: theme.spacing.xsmall,
     borderRadius: theme.borderRadius.small,
     fontWeight: theme.typography.fontWeight.medium,
     fontSize: theme.typography.fontSizes.base,
     "&:focus-visible": {
       outline: "none",
-      boxShadow: `0 0 0 2px ${theme.colors.common.white}, 0 0 0 4px ${theme.colors.variants[`${color}`].main}`,
+      boxShadow: `0 0 0 2px ${theme.colors.neutral.background}, 0 0 0 4px ${theme.colors.variants[`${color}`].main}`,
     },
     "&:hover": {
       opacity: 0.9,
@@ -26,7 +27,7 @@ const baseStyle = (theme: EvokeTheme, color: ButtonColor) =>
     },
   });
 
-const sizeStyle = (theme: EvokeTheme) => ({
+export const sizeStyle = (theme: EvokeTheme) => ({
   xs: css({
     fontSize: theme.typography.fontSizes.xsmall,
     padding: `${theme.spacing.none} ${theme.spacing.xsmall}`,
@@ -58,7 +59,7 @@ const sizeStyle = (theme: EvokeTheme) => ({
   }),
 });
 
-const variantStyle = (theme: EvokeTheme, color: ButtonColor) => ({
+export const variantStyle = (theme: EvokeTheme, color: ButtonColor) => ({
   solid: css({
     backgroundColor: theme.colors.variants[`${color}`].main,
     color: theme.colors.variants[`${color}`].contrastText || theme.colors.common.white,
@@ -114,14 +115,14 @@ const colorStyle = (themes: EvokeTheme, color: ButtonColor) =>
 
 export const buttonStyles = (
   theme: EvokeTheme,
-  variant: ButtonVariant,
-  size: ButtonSize,
+  variant: ResponsiveValue<keyof ReturnType<typeof variantStyle>>,
+  size: ResponsiveValue<keyof ReturnType<typeof sizeStyle>>,
   color: ButtonColor
 ) => {
   return css([
     baseStyle(theme, color),
-    sizeStyle(theme)[size],
+    responsiveCss(theme, size, val => sizeStyle(theme)[val]),
     colorStyle(theme, color),
-    variantStyle(theme, color)[variant],
+    responsiveCss(theme, variant, val => variantStyle(theme, color)[val]),
   ]);
 };

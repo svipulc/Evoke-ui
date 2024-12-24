@@ -32,7 +32,6 @@ export const baseStyle = (theme: EvokeTheme, alignment: "horizontal" | "vertical
             height: "100%",
             width: theme.size["0.5"],
             flex: "col",
-            margin: ` 0 ${theme.spacing.xxsmall}`,
           }
         : {
             width: "100%",

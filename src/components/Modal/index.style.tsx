@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { CustomTheme } from "@/evoke-theme-config";
+import { EvokeTheme, ResponsiveValue } from "@/theme/theme.type";
+import { responsiveCss } from "@/utils";
 import { css } from "@emotion/react";
 
 type Size = "sm" | "md" | "lg" | "full";
 
-export const modalOverlayStyles = (theme: CustomTheme) =>
+export const modalOverlayStyles = (theme: EvokeTheme) =>
   css({
     position: "fixed",
     inset: 0,
@@ -17,7 +18,32 @@ export const modalOverlayStyles = (theme: CustomTheme) =>
     width: "100%",
   });
 
-export const modalBodyBaseStyles = (theme: CustomTheme, size: Size) =>
+const modalSizeVariants = (theme: EvokeTheme) => ({
+  sm: css({
+    width: "32rem",
+    maxHeight: `calc(100vh - ${theme.spacing.xxlarge})`,
+    height: "auto",
+  }),
+  md: css({
+    width: "48rem",
+    maxHeight: `calc(100vh - ${theme.spacing.xxlarge})`,
+    height: "auto",
+  }),
+  lg: css({
+    width: "72rem",
+    maxHeight: `calc(100vh - ${theme.spacing.xxlarge})`,
+    height: "auto",
+  }),
+  full: css({
+    height: "100%",
+    maxHeight: "100%",
+    width: "100%",
+    margin: theme.spacing.none,
+    borderRadius: theme.borderRadius.none,
+  }),
+});
+
+const modalBodyBaseStyles = (theme: EvokeTheme) =>
   css({
     backgroundColor: theme.colors.variants.modalColor.main,
     borderRadius: theme.borderRadius.medium,
@@ -26,53 +52,38 @@ export const modalBodyBaseStyles = (theme: CustomTheme, size: Size) =>
     display: "flex",
     flexDirection: "column",
     margin: theme.spacing.medium,
-    maxHeight: "100%",
-    height: "auto",
-    ...{
-      sm: { width: "32rem" },
-      md: { width: "48rem" },
-      lg: { width: "72rem" },
-      full: {
-        height: "100%",
-        width: "100%",
-        margin: theme.spacing.none,
-        borderRadius: theme.borderRadius.none,
-      },
-    }[size],
-
-    [`@media (max-width: ${theme.breakpoints.md})`]: {
-      margin: size === "full" ? theme.spacing.none : theme.spacing.small,
-    },
   });
 
-export const modalHeaderStyles = (theme: CustomTheme) =>
+export const modalBodyStyles = (theme: EvokeTheme, size: ResponsiveValue<Size>) => {
+  return css([
+    modalBodyBaseStyles(theme),
+    responsiveCss(theme, size, val => modalSizeVariants(theme)[val]),
+  ]);
+};
+
+export const modalHeaderStyles = (theme: EvokeTheme) =>
   css({
     padding: theme.spacing.medium,
+    paddingBottom: theme.spacing.none,
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
     borderStartEndRadius: `${theme.borderRadius.medium}`,
     borderStartStartRadius: `${theme.borderRadius.medium}`,
-
-    [`@media (max-width: ${theme.breakpoints.md})`]: {
-      padding: theme.spacing.small,
-    },
   });
 
-export const modalContentStyles = (theme: CustomTheme, size: Size) =>
+export const modalContentStyles = (theme: EvokeTheme) =>
   css({
     padding: theme.spacing.medium,
     overflowY: "auto",
-    maxHeight: size === "full" ? "100%" : `calc(100vh - ${theme.spacing.xxlarge})`,
-    [`@media (max-width: ${theme.breakpoints.md})`]: {
-      padding: theme.spacing.small,
-    },
+    // maxHeight: size === "full" ? "100%" : `calc(100vh - ${theme.spacing.xxlarge})`, // TODO: fix this
   });
 
-export const modalFooterStyles = (theme: CustomTheme) =>
+export const modalFooterStyles = (theme: EvokeTheme) =>
   css({
     padding: theme.spacing.medium,
+    paddingTop: theme.spacing.none,
     borderEndStartRadius: `${theme.borderRadius.medium}`,
     borderEndEndRadius: `${theme.borderRadius.medium}`,
   });
